@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="contactaradmin.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Atención al cliente | uMakeIT!</title>
+</head>
+<body>
+    <header>
+        <p style='text-align: left !important;'>uMakeIT!</p>
+        <select name="John Appleseed" onchange="location = this.value;">
+            <option selected disabled>John Appleseed</option>
+            <option value="Perfil.html">Editar perfil</option>
+            <option value="historialpedidos.html"><a href="historialpedidos.html">Historial de pedidos</a></option>
+            <option value="verificarestado.html"><a href="verificarestado.html">Estado de pedido</a></option>
+            <option disabled value="contactaradmin.html"><a href="contactaradmin.html">Atencion al cliente</a></option>
+            <option value="hola">Salir</option>
+        </select>
+    </header>
+    <div id="contenedor">
+        
+        <div id="cuadroregistro">
+            <form>
+                Asunto: <br>
+                <input class= "input" type="text" name="asunto" value="Mi pedido nunca llegó"><br>
+                Número de pedido: <br>
+                <input type="text" name="num-pedido" value="487593798"><br>
+                Mensaje: <br>
+                <textarea style=' width:90%; height:250px;'>Muy buenas tardes. Hace unas horas hice un pedido de un choripan de 200g con queso cheddar en pan bimbo. Luego de esperar casi una hora a que llegue mi pedido, decidí verificar el estado en su sistema, y me dice que se encuentra ya enviado, a pesar de que todavía no ha llegado. Espero me puedan resolver mi problema. Muchas gracias</textarea><br>
+                <button type="button" value="Enviar">Enviar</button>
+            </form>
+
+            
+        </div>
+    </div>
+    <footer>
+        <p>uMakeIT!tm - Copyright 2018 - 2018</p>
+    </footer>
+</body>
+</html>

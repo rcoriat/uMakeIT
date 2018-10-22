@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>uMakeIT! - Menu Principal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="menuadmin.css" />
+    <script src="main.js"></script>
+</head>
+<body>
+    <header>
+        <p style='text-align: left !important;'>uMakeIT!</p>
+        <select name="John Appleseed" onchange="location = this.value;">
+            <option selected disabled>John Appleseed</option>
+            <option value="Pedidos.html"><a href="Pedidos.html">Ver pedidos</a></option>
+            <option value="a">Salir</option>
+        </select>
+    </header>
+    <div id="contenido">
+        <div class="foto">
+            <div class="Disponible">
+                <p style='font-size: 20px; color: white; display: inline-block;'>Disponible: </p>
+                <input type="checkbox" style='display: inline-block;'>
+            </div>
+            <img src="burger.JPG">
+        </div>
+        <div class="foto">
+            <div class="Disponible">
+                <p style='font-size: 20px; color: white; display: inline-block;'>Disponible: </p>
+                <input type="checkbox" style='display: inline-block;'>
+            </div>
+            <img src="choripan2.jpeg">
+            
+        </div>
+        <div class="foto">
+            <div class="Disponible">
+                <p style='font-size: 20px; color: white; display: inline-block;'>Disponible: </p>
+                <input type="checkbox" style='display: inline-block;'>
+            </div>
+            <img src="sandwich.JPG">
+        </div>
+
+    </div>
+    <div id="cont-ingredientes">
+        <p>Pan</p>
+        <li><input type="checkbox" style="margin-right: 2em; vertical-align: middle;">Bimbo</li>
+        <li><input type="checkbox" style="margin-right: 2em; vertical-align: middle;">Integral</li>
+        <p>Carne</p>
+        <li><input type="checkbox" style="margin-right: 2em; vertical-align: middle;">200gr</li>
+        <li><input type="checkbox" style="margin-right: 2em; vertical-align: middle;">300gr</li>
+        <p>Queso</p>
+        <li><input type="checkbox" style="margin-right: 2em; vertical-align: middle;">Cheddar</li>
+        <li><input type="checkbox" style="margin-right: 2em; vertical-align: middle;">Gorgonzola</li>
+    </div>
+    <button type="button" style='display: block; margin: 20px auto; font-size: 30px;'>Actualizar disponibilidad</button>
+    
+    <footer>
+        <p>uMakeIT!tm - Copyright 2018 - 2018</p>
+    </footer>
+</body>
+</html>

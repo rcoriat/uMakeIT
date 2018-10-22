@@ -1,0 +1,74 @@
+*{
+    padding: 0;
+    margin: 0;
+
+}
+
+body{
+    background: url(impossiburger.png);
+    background-image: url(impossiburger.png);
+    background-position: fixed;
+    background-repeat:no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: auto;
+}
+
+header{
+    height: 100px;
+    width: 100%;
+    background-color: white;
+    text-align: center;
+    
+}
+
+header p{
+    display: inline-block;
+    font-size: 50px;
+    width: 49%;
+    margin-top: 20px;
+}
+
+header select{
+    font-size: 50px;
+
+}
+
+#contenido{
+    display: block;
+    margin-top: 100px;
+    text-align: center;
+
+}
+
+.foto{
+    display: inline-block;
+}
+
+.foto img{
+    display: block;
+    margin-right: 20px;
+    height: 300px;
+    width: 300px;
+    border-radius: 25px;
+}
+
+.foto img:hover{
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+button:hover{
+    cursor: pointer;
+    background-color: blue;
+}
+
+footer{
+    background-color: white;
+    height: 50px;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding-top: 20px;
+    text-align: center;
+}

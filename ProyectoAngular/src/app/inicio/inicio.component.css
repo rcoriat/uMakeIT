@@ -1,0 +1,52 @@
+#fondo{
+    background-color: white;
+    width: 100%;
+}
+.logo{
+    display: block;
+    margin: 1% auto 0 auto;
+    width: 14%;
+    min-width: 145px;
+}
+
+#slider{
+    display: block;
+    width: 55%;
+    margin: 0 auto;
+    box-shadow: 9px 3px 24px -13px rgba(28,28,28,0.51);
+    border-radius: 10px;
+    min-width: 320px;
+}
+
+#slider img{
+    border-radius: 10px;
+}
+
+.flex-container {
+    padding: 0;
+    margin: 0.5%;
+    display: flex;
+    justify-content: center;
+}
+
+a{
+    display:flex;    
+    margin: 1%;
+    text-decoration: none !important;
+}
+
+@media only screen and (max-width: 768px){
+
+    #slider{
+        display: block; 
+        width: 100%;
+        margin: 0 auto;
+        box-shadow: 9px 3px 24px -13px rgba(28,28,28,0.51);
+
+    }
+
+    #slider img{
+        border-radius: 0px;
+    }
+
+}

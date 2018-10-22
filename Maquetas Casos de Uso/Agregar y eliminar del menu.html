@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>uMakeIT! - Menu Principal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="Agregar y eliminar del menu.css" />
+    <script src="main.js"></script>
+</head>
+<body>
+    <header>
+        <p style='text-align: left !important;'>uMakeIT!</p>
+        <select name="John Appleseed" onchange="location = this.value;">
+            <option selected disabled>John Appleseed</option>
+            <option value="Ver pedidos"><a href="Pedidos.html">Ver pedidos</a></option>
+            <option disabled value="Ver menu">Ver/Editar menú</option>
+        </select>
+    </header>
+    <div id="contenido">
+        <div class="foto">
+            <div class="Disponible">
+                <p style='font-size: 20px; color: white; display: inline-block;'>Disponible: </p>
+                <input type="checkbox" checked style='display: inline-block;'>
+            </div>
+            <img src="burger.JPG">
+        </div>
+        <div class="foto">
+            <div class="Disponible">
+                <p style='font-size: 20px; color: white; display: inline-block;'>Disponible: </p>
+                <input type="checkbox" checked style='display: inline-block;'>
+            </div>
+            <img src="choripan2.jpeg">
+            
+        </div>
+        <div class="foto">
+            <div class="Disponible">
+                <p style='font-size: 20px; color: white; display: inline-block;'>Disponible: </p>
+                <input type="checkbox" checked style='display: inline-block;'>
+            </div>
+            <img src="sandwich.JPG">
+        </div>
+
+    </div>
+    <div class="agregarquitar">
+        <p>Pan</p>
+        <li><input type="checkbox" checked style="margin-right: 2em; vertical-align: middle;">Bimbo</li>
+        <li><input type="checkbox" checked style="margin-right: 2em; vertical-align: middle;">Integral</li>
+        <p>Carne</p>
+        <li><input type="checkbox" checked style="margin-right: 2em; vertical-align: middle;">200gr</li>
+        <li><input type="checkbox" checked style="margin-right: 2em; vertical-align: middle;">300gr</li>
+        <p>Queso</p>
+        <li><input type="checkbox" checked style="margin-right: 2em; vertical-align: middle;">Cheddar</li>
+        <li><input type="checkbox" checked style="margin-right: 2em; vertical-align: middle;">Gorgonzola</li>
+    </div>
+    <div class="agregarquitar">
+        <p style="margin-bottom: 20px;">Agregar plato principal al menú</p>
+        <form>
+            <label>Nombre del plato:</label>
+            <input type="text" id="nombreplato" name="nombre">
+            <br>
+            <label>Imagen:</label>
+            <button type="button">Subir imagen</button>
+            <br>
+            <label>Descripción</label>
+            <input type="text" id="descripcionplato" name="descripcion">
+            <br>
+            <label>Precio:</label>
+            <input type="text" id="precioplato" name="precio">
+            <br>
+            <label>¿Es personalizable?</label>
+            <input type="checkbox" checked style="margin-right: 2em; vertical-align: middle;">
+            <br>
+            <select style='margin-left: 20px;'name="Ingrediente">
+                <option selected disabled>Elegir ingrediente</option>
+                <option>Queso</option>
+                <option value="Editar perfil">Pan</option>
+                <option value="Editar perfil">Carne</option>
+            </select>
+            <br>            
+            <label>¿Disponible?</label>
+            <input type="checkbox" unchecked style="margin-right: 2em; vertical-align: middle;">
+            <br><br>
+            <button type="button" style='display: block; font-size: 20px;'>Agregar</button>
+        </form>
+    </div>
+
+    <div class="agregarquitar">
+            <p style="margin-bottom: 20px;">Eliminar plato(s) del menú</p>
+            <form>
+                <input type="checkbox" unchecked style="margin-right: 2em; vertical-align: middle;">
+                <label>Hamburguesas</label>
+                <br>
+                <input type="checkbox" unchecked style="margin-right: 2em; vertical-align: middle;">
+                <label>Choripán</label>
+                <br>         
+                <input type="checkbox" unchecked style="margin-right: 2em; vertical-align: middle;">
+                <label>Sandwiches</label>
+                <br><br>
+                <button type="button" style='display: block; font-size: 20px;'>Eliminar</button>
+            </form>
+        </div>
+
+    <button type="button" style='display: block; margin: 20px auto; font-size: 30px;'>Actualizar disponibilidad</button>
+    
+    <footer>
+        <p>uMakeIT!™ - Copyright 2018 - 2018</p>
+    </footer>
+</body>
+</html>

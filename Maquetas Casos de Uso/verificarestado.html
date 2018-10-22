@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>uMakeIT! - Historial de pedidos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="verificarestado.css" />
+    <script src="main.js"></script>
+</head>
+<body>
+    <header>
+        <p style='text-align: left !important;'>uMakeIT!</p>
+        <select name="John Appleseed" onchange="location = this.value;">
+                <option selected disabled>John Appleseed</option>
+                <option value="Perfil.html">Editar perfil</option>
+                <option value="historialpedidos.html"><a href="historialpedidos.html">Historial de pedidos</a></option>
+                <option disabled value="verificarestado.html"><a href="verificarestado.html">Estado de pedido</a></option>
+                <option value="contactaradmin.html"><a href="contactaradmin.html">Atencion al cliente</a></option>
+                <option value="contactaradmin.html">Salir</option>
+            </select>
+    </header>
+    <div id="Buscador" style='text-align: center; margin-top: 40px;'>
+        <p style='color: white; display: inline-block; font-size: 50px;'>Introduzca el número del pedido:</p>
+        <br>
+        <input style='display: inline-block; font-size: 30px; text-align: center; margin-top: 30px;' type="text" value="487593798">
+        <br>
+        <button type="button" style='font-size: 20px; margin-top: 30px;'>Buscar</button>
+    </div>
+    <div id="contenido">
+        <div id="cuadroregistro">
+            <div style='display: inline-block; width: 49%'>
+                <li style='list-style: none;'>Pedido #487593798</li>
+                <p>Fecha: 22/10/2030</p>
+            </div>
+            <p>Choripan Bimbo 200gr con queso Cheddar </p>
+            <input disabled style='display: inline-block; font-size: 30px; text-align: center; margin-top: 20px;' type="text" value="Enviado" >
+        </div>
+        
+    </div>
+    <footer>
+        <p>uMakeIT!tm - Copyright 2018 - 2018</p>
+    </footer>
+</body>
+</html>

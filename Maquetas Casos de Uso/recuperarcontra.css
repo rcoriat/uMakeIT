@@ -1,0 +1,48 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+
+body{
+    background-image: url(impossiburger.png);
+    background-position: fixed;
+    background-repeat:no-repeat;
+    background-size: cover;
+    width: 100%; 
+    height: auto;
+}
+
+#contenedor{
+    text-align: center;
+    width: 40%;
+    border: 2px solid white;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%,-50%);        
+}
+
+#cuadrologin p{
+    display: inline-block; 
+    width: 49%;
+    font-size: 20px; 
+    padding: 10px 0;
+    
+}
+
+#cuadrologin p:hover{
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#cuadroregistro{
+    background-color: white;
+}
+
+#cuadroregistro input{
+    background:  lightgray;
+    
+}

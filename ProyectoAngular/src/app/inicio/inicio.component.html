@@ -1,0 +1,21 @@
+<div id="fondo">
+  <img class="logo" src="../../assets/logo.png">
+
+  <carousel id="slider">
+    <slide>
+      <img src="../../assets/prueba1.jpg" alt="first slide" style="width: 100%;">
+    </slide>
+    <slide>
+      <img src="../../assets/prueba2.jpg" alt="second slide" style="width: 100%;">
+    </slide>
+    <slide>
+      <img src="../../assets/prueba3.jpg" alt="third slide" style="width: 100%;">
+    </slide>
+  </carousel>
+
+  <div class="flex-container center">
+    <a [routerLink]="['/login']"><button type="button" class="flex-item btn btn-danger">Iniciar sesión</button></a>
+    <a [routerLink]="['/registro']"><button type="button" class="flex-item btn btn-danger">Registrarse</button></a>
+  </div>
+  
+</div>
