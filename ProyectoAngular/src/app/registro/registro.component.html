@@ -7,15 +7,15 @@
         <label class="selectores">Registrarse</label>
       <form>
         <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="inputNombre">Nombre</label>
-              <input type="text" class="form-control" id="inputNombre" placeholder="Ingrese su nombre" required> 
-            </div>
+          <div class="form-group col-md-6">
+            <label for="inputNombre">Nombre</label>
+            <input type="text" class="form-control" id="inputNombre" placeholder="Ingrese su nombre" required> 
+          </div>
 
-            <div class="form-group col-md-6">
-              <label for="inputApellido">Apellido</label>
-              <input type="text" class="form-control" id="inputApellido" placeholder="Ingrese su apellido" required>
-            </div>
+          <div class="form-group col-md-6">
+            <label for="inputApellido">Apellido</label>
+            <input type="text" class="form-control" id="inputApellido" placeholder="Ingrese su apellido" required>
+          </div>
         </div>
         <div class="form-group">
           <label for="inputSexo">Sexo</label>
@@ -25,7 +25,7 @@
             <option>Masculino</option>
             <option>Otro</option>
           </select>
-          </div>
+        </div>
           <div class="form-group">
             <label for="inputEdad">Edad</label>
             <input type="text" class="form-control" id="inputEdad" placeholder="Ingrese su edad" required>
@@ -41,7 +41,7 @@
             </div>
             <div class="form-group col-md-6">
               <label for="inputContra">Confirmar</label>
-              <input type="password" class="form-control" id="inputContra" placeholder="Confirme su contraseña" required>
+              <input type="password" class="form-control" id="inputConfirm" placeholder="Confirme su contraseña" required>
             </div>
           </div>
         <div class="form-group">
@@ -50,9 +50,12 @@
             <textarea class="form-control" id="inputDireccion" rows="3" required></textarea>
           </div>
         </div>
-        <button type="reset" class="btn btn-warning" style="margin-right: 10px;">Limpiar</button>
-        <button type="submit" class="btn btn-danger">Ingresar</button>
+        <div style="text-align: right;">
+          <button type="reset" class="btn btn-warning" style="display: inline-block; margin-right: 10px;">Limpiar</button>
+          <button type="submit" class="btn btn-danger" style="display: inline-block; margin-right: 0;">Ingresar</button>
+        </div>
       </form>
     </div>
-  
+    <a [routerLink]="['/inicio']"><button type="submit" class="btn btn-dark" style="display: block; margin: 0 auto;">Regresar</button></a>
+    
   </div>
