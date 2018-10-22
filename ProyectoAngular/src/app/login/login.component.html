@@ -1,3 +1,24 @@
-<p>
-  login works!
-</p>
+<div id="fondo">
+
+  <img class="logo" src="../../assets/logo.png">
+
+  <div id="contenedorlog">
+    <label class="selectores">Iniciar Sesión</label>
+    <a [routerLink]="['/registro']"><label class="selectores" style="border-bottom: 4px solid #000000; border-left: 4px solid #000000; border-radius: 0 0 0 5px;">Registrarse</label></a>
+    <form>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Correo</label>
+          <input type="email" class="form-control" id="inputEmail1" placeholder="Ingrese su correo">
+        </div>
+        <div class="form-group">
+          <label for="inputContra">Contraseña</label>
+          <input type="password" class="form-control" id="inputContra" placeholder="Ingrese su contraseña"  style="margin-bottom: 2%;">
+          <a [routerLink]="['/olvido']"><label>¿Olvidó su contraseña?</label></a>
+        </div>
+        <div style="text-align: right">
+          <button type="submit" class="btn btn-danger" style="display: inline-block;">Ingresar</button>
+        </div>
+    </form>
+  </div>
+
+</div>

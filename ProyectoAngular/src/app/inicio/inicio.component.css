@@ -49,4 +49,20 @@ a{
         border-radius: 0px;
     }
 
+    .flex-container {
+        padding: 0;
+        margin: 0;
+    }
+
+    a{
+        display: block;
+        width: 100%;   
+        margin: 1% 0;
+        text-decoration: none !important;
+    }
+
+    a button{
+        width: 100%
+    }
+
 }

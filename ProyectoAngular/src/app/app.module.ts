@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { RegistroComponent } from './registro/registro.component';
+import { OlvidoComponent } from './olvido/olvido.component';
 
 
 const routes: Routes = [
   { path:'', redirectTo:'inicio', pathMatch:'full'},
   { path: 'inicio', component: InicioComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'registro', component: RegistroComponent }
+  { path: 'registro', component: RegistroComponent },
+  { path: 'olvido', component: OlvidoComponent },
 
 ]
 
@@ -23,7 +25,8 @@ const routes: Routes = [
     AppComponent,
     LoginComponent,
     InicioComponent,
-    RegistroComponent
+    RegistroComponent,
+    OlvidoComponent
   ],
   imports: [
     BrowserModule,
