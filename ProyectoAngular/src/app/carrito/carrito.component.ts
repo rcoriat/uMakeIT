@@ -12,4 +12,16 @@ export class CarritoComponent implements OnInit {
   ngOnInit() {
   }
 
+  private array: Array<any> = [];
+  private newAttribute: any = {};
+
+    agregarColumna() {
+        this.array.push(this.newAttribute)
+        this.newAttribute = {};
+    }
+
+    eliminarColumna(index) {
+        this.fieldArray.splice(index, 1);
+    }
+
 }

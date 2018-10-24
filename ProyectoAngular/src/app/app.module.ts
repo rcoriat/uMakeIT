@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { CarouselModule, BsDropdownModule, ModalModule} from 'ngx-bootstrap';
+import { CarouselModule, BsDropdownModule, ModalModule, AccordionModule, PaginationModule } from 'ngx-bootstrap';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -27,6 +27,8 @@ const routes: Routes = [
   { path: 'menu', component: MenuComponent },
   { path: 'contacto', component: ContactaradminComponent },
   { path: 'editar-perfil', component: EditarperfilComponent },
+  { path: 'carrito', component: CarritoComponent },
+  { path: 'historial', component: HistorialComponent }
 ]
 
 @NgModule({
@@ -49,7 +51,9 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     CarouselModule.forRoot(),
     BsDropdownModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    AccordionModule.forRoot(),
+    PaginationModule.forRoot()
     
   ],
   providers: [],

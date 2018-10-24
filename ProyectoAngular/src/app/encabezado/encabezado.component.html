@@ -10,9 +10,9 @@
         </button>
         <ul id="dropdown-split" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-split">
           <li role="menuitem"><a class="dropdown-item" [routerLink]="['/editar-perfil']" >Editar Perfil</a></li>
-          <li role="menuitem"><a class="dropdown-item" [routerLink]="['/']" >Ver Carrito</a></li>
+          <li role="menuitem"><a class="dropdown-item" [routerLink]="['/carrito']" >Ver Carrito</a></li>
           <li role="menuitem"><a class="dropdown-item" href="#">Estado de Pedidos</a></li>
-          <li role="menuitem"><a class="dropdown-item" href="#">Historial de Pedidos</a></li>
+          <li role="menuitem"><a class="dropdown-item" [routerLink]="['/historial']">Historial de Pedidos</a></li>
           <li role="menuitem"><a class="dropdown-item" [routerLink]="['/contacto']">Atención al Cliente</a></li>
           <li class="divider dropdown-divider"></li>
           <li role="menuitem"><a class="dropdown-item" [routerLink]="['/inicio']">Cerrar Sesión</a>
