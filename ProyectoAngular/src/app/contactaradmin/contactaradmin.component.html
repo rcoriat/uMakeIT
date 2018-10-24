@@ -1,0 +1,28 @@
+<app-encabezado></app-encabezado>
+<div id="contenido">
+    <div id="contactoadmin">
+      <form>
+        <div class="form-group">
+            <label for="inputNombre">Asunto</label>
+            <input type="text" class="form-control" id="inputAsunto" placeholder="Motivo del contacto" required> 
+
+        </div>
+          <div class="form-group">
+            <label for="inputEdad">Número de Pedido</label>
+            <input type="text" class="form-control" id="inputNumPedido" placeholder="Ingrese el numero de pedido" required>
+          </div>    
+          
+        <div class="form-group">
+          <div class="form-group">
+            <label for="inputDireccion">Mensaje</label>
+            <textarea class="form-control" id="inputMensaje" rows="4" required></textarea>
+          </div>
+        </div>
+        <div style="text-align: right;">
+          <button type="reset" class="btn btn-warning" style="display: inline-block; margin-right: 10px;">Limpiar</button>
+          <button type="submit" class="btn btn-danger" style="display: inline-block; margin-right: 0;">Enviar</button>
+        </div>
+      </form>
+    </div>
+</div>
+<app-piedepagina></app-piedepagina>

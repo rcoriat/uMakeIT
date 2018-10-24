@@ -4,13 +4,13 @@
 }
 
 #pie { 
-    position:absolute;
+    position:relative;
     bottom:0;
     width:100% !important;
     
     display:flex;
     flex-direction:row;
-    background-color:white;
+    background-color: yellow;
     
 }
 

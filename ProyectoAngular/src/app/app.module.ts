@@ -12,6 +12,7 @@ import { OlvidoComponent } from './olvido/olvido.component';
 import { MenuComponent } from './menu/menu.component';
 import { EncabezadoComponent } from './encabezado/encabezado.component';
 import { PiedepaginaComponent } from './piedepagina/piedepagina.component';
+import { ContactaradminComponent } from './contactaradmin/contactaradmin.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'registro', component: RegistroComponent },
   { path: 'olvido', component: OlvidoComponent },
   { path: 'menu', component: MenuComponent },
+  { path: 'contacto', component: ContactaradminComponent },
 
 ]
 
@@ -33,7 +35,8 @@ const routes: Routes = [
     OlvidoComponent,
     MenuComponent,
     EncabezadoComponent,
-    PiedepaginaComponent
+    PiedepaginaComponent,
+    ContactaradminComponent
   ],
   imports: [
     BrowserModule,

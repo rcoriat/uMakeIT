@@ -1,3 +1,18 @@
-<p>
-  olvido works!
-</p>
+<app-encabezado></app-encabezado>
+  <div id="contenedorlog">
+    <label class="selectores">Olvidé mi contraseña</label>
+    <a [routerLink]="['/registro']"><label class="selectores" style="border-bottom: 4px solid #000000; border-left: 4px solid #000000; border-radius: 0 0 0 5px;">Registrarse</label></a>
+    <form>
+        <div class="form-group">
+          <h5 style="margin-bottom: 8%;">Ingrese el correo asociado a su cuenta y le enviaremos su contraseña.</h5>
+          <label for="exampleInputEmail1">Correo</label>
+          <input type="email" class="form-control" id="inputEmail1" placeholder="Ingrese su correo">
+        </div>
+        <div style="text-align: right">
+          <a [routerLink]="['/menu']"><button type="submit" class="btn btn-danger" style="display: inline-block;">Enviar contraseña a mi correo</button></a>
+        </div>
+    </form>
+  </div>
+  <a [routerLink]="['/inicio']"><button type="submit" class="btn btn-dark" style="display: block; margin: 0 auto;">Regresar</button></a>
+
+<app-piedepagina></app-piedepagina>

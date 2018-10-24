@@ -1,8 +1,5 @@
 import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
 
-import { EncabezadoComponent } from '../encabezado/encabezado.component';
-import { PiedepaginaComponent } from '../piedepagina/piedepagina.component';
-
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -16,7 +13,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(){
-    this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = 'black';
+    this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = 'whitesmoke';
   }
 
 }
