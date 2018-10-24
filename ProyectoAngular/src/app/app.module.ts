@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { CarouselModule, BsDropdownModule } from 'ngx-bootstrap';
+import { CarouselModule, BsDropdownModule, ModalModule} from 'ngx-bootstrap';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -42,7 +42,9 @@ const routes: Routes = [
     BrowserModule,
     RouterModule.forRoot(routes),
     CarouselModule.forRoot(),
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    ModalModule.forRoot()
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
