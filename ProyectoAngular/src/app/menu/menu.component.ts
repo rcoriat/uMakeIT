@@ -1,4 +1,8 @@
-import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, TemplateRef } from '@angular/core';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+
+
 
 @Component({
   selector: 'app-menu',
@@ -7,13 +11,18 @@ import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
 })
 export class MenuComponent implements OnInit, AfterViewInit {
 
-  constructor(private elementRef: ElementRef) { }
+  modalRef: BsModalRef;
 
-  ngOnInit() {
-  }
+  constructor(private elementRef: ElementRef, private modalService:BsModalService) { }
+
+  ngOnInit() { }
 
   ngAfterViewInit(){
     this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = 'whitesmoke';
+  }
+
+  openModal(verplato: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(verplato);
   }
 
 }

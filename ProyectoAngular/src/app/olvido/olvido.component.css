@@ -43,7 +43,3 @@ a label:hover{
 a{
     text-decoration: none !important;
 }
-
-.modal-dialog{
-    width: 70% !important;
-}

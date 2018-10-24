@@ -1,28 +1,73 @@
 <app-encabezado></app-encabezado>
+
 <div id="menuprincipal">
-    <div class="headerplato">
-        <p>Entradas</p>
-    </div>
-    <div class="contenedorplato">
-        <div class="plato"><img src="../../assets/prueba4.jpg"></div>
-        <div class="plato"><img src="../../assets/prueba4.jpg"></div>
-        <div class="plato"><img src="../../assets/prueba4.jpg"></div>
-    </div>
-    <div class="headerplato">
-        <p>Platos principales</p>
-    </div>
-    <div class="contenedorplato">
-        <div class="plato"><img src="../../assets/prueba4.jpg"></div>
-        <div class="plato"><img src="../../assets/prueba4.jpg"></div>
-        <div class="plato"><img src="../../assets/prueba4.jpg"></div>
-    </div>
-    <div class="headerplato">
-            <p>Postres</p>
-        </div>
-        <div class="contenedorplato">
-            <div class="plato"><img src="../../assets/prueba4.jpg"></div>
-            <div class="plato"><img src="../../assets/prueba4.jpg"></div>
-            <div class="plato"><img src="../../assets/prueba4.jpg"></div>
-        </div>
+  <div class="headerplato">
+    <p>Entradas</p>
+  </div>
+  <div class="contenedorplato">
+    <div class="plato"><a (click)="verPlato.show()"><img src="../../assets/prueba4.jpg"></a></div>
+    <div class="plato"><img src="../../assets/prueba4.jpg"></div>
+    <div class="plato"><img src="../../assets/prueba4.jpg"></div>
+  </div>
+  <div class="headerplato">
+    <p>Platos principales</p>
+  </div>
+  <div class="contenedorplato">
+    <div class="plato"><img src="../../assets/prueba4.jpg"></div>
+    <div class="plato"><img src="../../assets/prueba4.jpg"></div>
+    <div class="plato"><img src="../../assets/prueba4.jpg"></div>
+  </div>
+  <div class="headerplato">
+    <p>Postres</p>
+  </div>
+  <div class="contenedorplato">
+    <div class="plato"><img src="../../assets/prueba4.jpg"></div>
+    <div class="plato"><img src="../../assets/prueba4.jpg"></div>
+    <div class="plato"><img src="../../assets/prueba4.jpg"></div>
+  </div>
 </div>
+
+ <!-- Modal de ver plato al hacer click en la imagen -->
+<div bsModal #verPlato="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Entradas</h4>
+        <button type="button" class="close pull-right" (click)="verPlato.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row align-items-start">
+          <div class="col">
+            <div class="foto">
+              <img src="../../assets/prueba4.jpg">
+            </div>
+          </div>
+          <div class="col">
+            <div class="descripcion">
+                <h5 style="display:inline-block; margin-right: 2%;">Nombre:</h5>
+                <label>Wicked Symphony</label>
+                <h5>Descripción:</h5>
+                <label style="text-align:justify"> Despite his busy lifestyle and another two world tours TOBIAS SAMMET 
+                    spent the few free weeks in 2008 and 2009 in the studio to work together with 
+                    producer Sascha Paeth on new AVANTASIA-material which is now in the form of the 
+                    albums ”The Wicked Symphony” and ”Angel Of Babylon” just before its release (April 3rd). 
+                </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+
+        <button type="submit" class="btn btn-danger" style="display:inline-block; text-align: right;"><i class="material-icons"
+            style="vertical-align: middle; margin-right: 2%">shopping_cart</i>
+          Agregar al carrito
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <app-piedepagina></app-piedepagina>

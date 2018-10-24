@@ -1,0 +1,21 @@
+#fondo{
+    background-color: white;
+    width: 100%;
+    padding-bottom: 2%;
+}
+
+#contenedor-perfil{
+    width:45%;
+    border: 4px solid #000000;
+    border-radius: 30px 30px 30px 30px;
+    display: block;
+    margin: 2% auto;
+    padding: 2% 0;
+}
+
+form{
+    padding-top: 1%;
+    width: 80%;
+    display:block;
+    margin: 0 auto;
+}

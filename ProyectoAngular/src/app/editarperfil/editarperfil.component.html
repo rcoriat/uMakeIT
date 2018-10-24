@@ -1,0 +1,70 @@
+<app-encabezado></app-encabezado>
+
+<div id="fondo">
+
+    <div id="contenedor-perfil">
+      <form>
+        <h3>Editar Perfil</h3>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputNombre">Nombre</label>
+            <input type="text" class="form-control" id="inputNombre" placeholder="John" required> 
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="inputApellido">Apellido</label>
+            <input type="text" class="form-control" id="inputApellido" placeholder="Appleseed" required>
+          </div>
+          <div class="form-group col-md-4">
+              <label for="inputSexo">Sexo</label>
+              <select class="form-control" id="inputSexo" required>
+                <option>Femenino</option>
+                <option selected>Masculino</option>
+                <option>Otro</option>
+              </select>
+            </div>
+            <div class="form-group col-md-2">
+              <label for="inputEdad">Edad</label>
+              <input type="text" class="form-control" id="inputEdad" placeholder="21" required>
+            </div> 
+            <div class="form-group col-md-6">
+              <label for="inputUsuario">Usuario</label>
+              <input type="text" class="form-control" id="inputUsuario" placeholder="macintosh120" required>
+            </div>  
+        </div>
+         
+          
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputContra">Nueva contraseña</label>
+              <input type="password" class="form-control" id="inputContra" placeholder="*******" required>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputContra">Confirmar</label>
+              <input type="password" class="form-control" id="inputConfirm" placeholder="*******" required>
+            </div>
+          </div>
+        <div class="form-group">
+          <div class="form-group">
+            <label for="inputDireccion">Dirección</label>
+            <textarea class="form-control" id="inputDireccion" rows="3" placeholder="La segunda estrella a la izquierda, y hacia la derecha." required></textarea>
+          </div>
+        </div>
+        <div style="text-align: center;">
+          <button type="submit" class="btn btn-danger" style="display: inline-block; margin-right: 0;">Actualizar</button>
+        </div>
+      </form>
+    </div>
+    <a [routerLink]="['/inicio']"><button type="submit" class="btn btn-dark" style="display: block; margin: 0 auto;">Regresar</button></a>
+    
+  </div>
+
+
+
+
+
+
+<app-piedepagina></app-piedepagina>
+
+
+
