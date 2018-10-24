@@ -14,6 +14,8 @@ import { EncabezadoComponent } from './encabezado/encabezado.component';
 import { PiedepaginaComponent } from './piedepagina/piedepagina.component';
 import { ContactaradminComponent } from './contactaradmin/contactaradmin.component';
 import { EditarperfilComponent } from './editarperfil/editarperfil.component';
+import { HistorialComponent } from './historial/historial.component';
+import { CarritoComponent } from './carrito/carrito.component';
 
 
 const routes: Routes = [
@@ -24,7 +26,7 @@ const routes: Routes = [
   { path: 'olvido', component: OlvidoComponent },
   { path: 'menu', component: MenuComponent },
   { path: 'contacto', component: ContactaradminComponent },
-  { path: 'editar-perfil', component: EditarperfilComponent }
+  { path: 'editar-perfil', component: EditarperfilComponent },
 ]
 
 @NgModule({
@@ -38,7 +40,9 @@ const routes: Routes = [
     EncabezadoComponent,
     PiedepaginaComponent,
     ContactaradminComponent,
-    EditarperfilComponent
+    EditarperfilComponent,
+    HistorialComponent,
+    CarritoComponent
   ],
   imports: [
     BrowserModule,

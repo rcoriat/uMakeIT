@@ -6,24 +6,24 @@
   </div>
   <div class="contenedorplato">
     <div class="plato"><a (click)="verPlato.show()"><img src="../../assets/prueba4.jpg"></a></div>
-    <div class="plato"><img src="../../assets/prueba4.jpg"></div>
-    <div class="plato"><img src="../../assets/prueba4.jpg"></div>
+    <div class="plato"><a (click)="verPlato.show()"><img src="../../assets/prueba4.jpg"></a></div>
+    <div class="plato"><a (click)="verPlato.show()"><img src="../../assets/prueba4.jpg"></a></div>
   </div>
   <div class="headerplato">
     <p>Platos principales</p>
   </div>
   <div class="contenedorplato">
-    <div class="plato"><img src="../../assets/prueba4.jpg"></div>
-    <div class="plato"><img src="../../assets/prueba4.jpg"></div>
-    <div class="plato"><img src="../../assets/prueba4.jpg"></div>
+    <div class="plato"><a (click)="verPlato.show()"><img src="../../assets/prueba4.jpg"></a></div>
+    <div class="plato"><a (click)="verPlato.show()"><img src="../../assets/prueba4.jpg"></a></div>
+    <div class="plato"><a (click)="verPlato.show()"><img src="../../assets/prueba4.jpg"></a></div>
   </div>
   <div class="headerplato">
     <p>Postres</p>
   </div>
   <div class="contenedorplato">
-    <div class="plato"><img src="../../assets/prueba4.jpg"></div>
-    <div class="plato"><img src="../../assets/prueba4.jpg"></div>
-    <div class="plato"><img src="../../assets/prueba4.jpg"></div>
+    <div class="plato"><a (click)="verPlato.show()"><img src="../../assets/prueba4.jpg"></a></div>
+    <div class="plato"><a (click)="verPlato.show()"><img src="../../assets/prueba4.jpg"></a></div>
+    <div class="plato"><a (click)="verPlato.show()"><img src="../../assets/prueba4.jpg"></a></div>
   </div>
 </div>
 
@@ -60,9 +60,10 @@
       </div>
 
       <div class="modal-footer">
-
-        <button type="submit" class="btn btn-danger" style="display:inline-block; text-align: right;"><i class="material-icons"
-            style="vertical-align: middle; margin-right: 2%">shopping_cart</i>
+        <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-right: auto; color:white;" (click)="verPlato.hide()">
+          Cerrar
+        </button>
+        <button type="submit" class="btn btn-danger" ><i class="material-icons"  style="vertical-align: middle; margin-right: 2%; margin-left: auto;">shopping_cart</i>
           Agregar al carrito
         </button>
       </div>

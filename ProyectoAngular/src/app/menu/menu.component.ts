@@ -14,6 +14,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
   modalRef: BsModalRef;
 
   constructor(private elementRef: ElementRef, private modalService:BsModalService) { }
+  
 
   ngOnInit() { }
 
