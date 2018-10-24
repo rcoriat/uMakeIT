@@ -13,15 +13,15 @@ export class CarritoComponent implements OnInit {
   }
 
   private array: Array<any> = [];
-  private newAttribute: any = {};
+  private nuevo: any = {};
 
-    agregarColumna() {
-        this.array.push(this.newAttribute)
-        this.newAttribute = {};
+    agregarFila() {
+        this.array.push(this.nuevo)
+
     }
 
-    eliminarColumna(index) {
-        this.fieldArray.splice(index, 1);
+    eliminarFila(index) {
+        this.array.splice(index, 1);
     }
 
 }

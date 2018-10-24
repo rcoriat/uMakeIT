@@ -1,69 +1,195 @@
 <app-encabezado></app-encabezado>
 
 <div class="contenido">
-  <table class="table table-hover">
-    <thead class="thead-danger">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Plato
+  <h3 style="margin-bottom:3%;">Carrito</h3>
+  <div class="tablas">
+    <div id="tablaitems">
+      <table class="table table-hover">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Plato</th>
+            <th scope="col">Extras</th>
+            <th scope="col">Precio (Bs.S)</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">cake</i></td>
+            <td>Tres Leches</td>
+            <td>N/A</td>
+            <td>300</td>
+            <td><button type="button" class="close" (click)="eliminarFilas(i)" aria-label="Close"><i class="material-icons"
+                  style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">local_dining</i></td>
+            <td>Tequeños</td>
+            <td>Frito</td>
+            <td>Bs.S 200</td>
+            <td><button type="button" class="close" (click)="eliminarFilas(i)" aria-label="Close"><i class="material-icons"
+                  style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">fastfood</i></td>
+            <td>Hamburguesa</td>
+            <td>Queso Cheddar, Tocineta, Jalapeño</td>
+            <td>Bs.S 550</td>
+            <td><button type="button" class="close" (click)="eliminarFilas(i)" aria-label="Close"><i class="material-icons"
+                  style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
+          </tr>
+          <tr>
+            <th scope="row">4</th>
+            <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">cake</i></td>
+            <td>Quesillo</td>
+            <td>N/A</td>
+            <td>Bs.S 250</td>
+            <td><button type="button" class="close" (click)="eliminarFilas(i)" aria-label="Close"><i class="material-icons"
+                  style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
+          </tr>
+          <tr>
+            <th scope="row">5</th>
+            <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">fastfood</i></td>
+            <td>Sandwich</td>
+            <td>Pan con parmesano y orégano</td>
+            <td>Bs.S 600</td>
+            <td><button type="button" class="close" (click)="eliminarFilas(i)" aria-label="Close"><i class="material-icons"
+                  style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
+          </tr>
+          <tr>
+            <th scope="row">6</th>
+            <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">fastfood</i></td>
+            <td>Perro caliente</td>
+            <td>Estilo Choripán, salsa pesto, queso gratinado</td>
+            <td>Bs.S 400</td>
+            <td><button type="button" class="close" (click)="eliminarFilas(i)" aria-label="Close"><i class="material-icons"
+                  style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
+          </tr>
+          <tr>
+            <th scope="row">7</th>
+            <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">local_dining</i></td>
+            <td>Patacones</td>
+            <td>Queso llanero, salsas</td>
+            <td>Bs.S 200</td>
+            <td><button type="button" class="close" (click)="eliminarFilas(i)" aria-label="Close"><i class="material-icons"
+                  style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
+          </tr>
 
-        </th>
-        <th scope="col">Extras</th>
-        <th scope="col">Precio</th>
-        <th scope="col"></th>
+        </tbody>
+      </table>
+    </div>
+
+
+    <div id="tablatotal">
+      <table class="table table-striped table-dark" style="margin-bottom: 0px;">
+        <tbody>
+          <tr>
+            <td style="font-weight:bold;">Subtotal</td>
+            <td>Bs.S 2700</td>
+          </tr>
+          <tr>
+            <td style="font-weight:bold;">IVA</td>
+            <td>Bs.S 432</td>
+          </tr>
+          <tr>
+            <td style="font-weight:bold;">Total</td>
+            <td>Bs.S 3132</td>
+          </tr>
+        </tbody>
+      </table>
+      <img src="../../assets/botonPayPal.png">
+
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+  <!--REVISAR <div class="botonPayPal">
+
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+
+    <div id="paypal-button-container"></div>
+
+    <script>
+      // Render the PayPal button
+
+      paypal.Button.render({
+
+        // Set your environment
+
+        env: 'sandbox', // sandbox | production
+
+        // Specify the style of the button
+
+        style: {
+          label: 'checkout',
+          size: 'small', // small | medium | large | responsive
+          shape: 'pill', // pill | rect
+          color: 'gold' // gold | blue | silver | black
+        },
+
+        // PayPal Client IDs - replace with your own
+        // Create a PayPal app: https://developer.paypal.com/developer/applications/create
+
+        client: {
+          sandbox: 'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R',
+          production: '<insert production client id>'
+        },
+
+        payment: function (data, actions) {
+          return actions.payment.create({
+            payment: {
+              transactions: [{
+                amount: {
+                  total: '0.01',
+                  currency: 'USD'
+                }
+              }]
+            }
+          });
+        },
+
+        onAuthorize: function (data, actions) {
+          return actions.payment.execute().then(function () {
+            window.alert('Payment Complete!');
+          });
+        }
+
+      }, '#paypal-button-container');
+
+    </script>
+
+  </div> -->
+
+
+  <!-- <table class="table table-striped table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Subtotal</th>
+        <th scope="col">IVA</th>
+        <th scope="col">Total</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
+        <td>Bs.S 2700</td>
+        <td>Bs.S 432</td>
+        <td style="font-weight:bold">Bs.S 3132</td>
       </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td colspan="2">Larry the Bird</td>
-        <td>@twitter</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-
     </tbody>
-  </table>
+  </table> -->
+
+
 
 
 </div>
