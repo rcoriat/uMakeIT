@@ -6,8 +6,8 @@
 }
 
 accordion{
-    margin: 3% auto;
-    width: 90%
+    margin: 3% 0;
+    width: 100%
 }
 
 accordion-group:hover{

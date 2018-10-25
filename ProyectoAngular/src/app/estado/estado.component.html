@@ -1,0 +1,65 @@
+<app-encabezado></app-encabezado>
+<div id="contenido">
+  <div id="contenedor">
+    <h3>Estado de Pedido</h3>
+    <div style="text-align: center; margin-top: 5%">
+      <h4>Ingrese el número de pedido que desea revisar:</h4>
+      <div style="display: flex; flex-direction: row; margin-top: 5%">
+        <div style="width: 70%;">
+          <input type="text" class="form-control" style="display: inline-block; width: 75%;" id="inputIDPedido"
+            required>
+        </div>
+        <div style="width: 30%; padding-right: 5%;">
+          <button type="submit" class="btn btn-danger" (click)="busqueda.show()" style="display: inline-block;"><i
+              class="material-icons" style="vertical-align: middle; margin-right: 2%; margin-left: auto;">search</i>
+            Revisar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a [routerLink]="['/menu']"><button type="submit" class="btn btn-dark" style="display: block; margin: 0 auto 2% auto;">Regresar</button></a>
+</div>
+
+
+<div bsModal #busqueda="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Pedido Ubicado</h4>
+        <button type="button" class="close pull-right" (click)="busqueda.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row align-items-start">
+          <div class="col">
+            <div class="descripcion">
+              <h5 style="display:inline-block; margin-right: 2%;">Estado:</h5>
+              <h5 style="font-weight:light; display:inline-block;">Ve bajando</h5>
+            </div>
+            <div id="imagenEstado">
+              <img src="../../assets/delivery2.jpg" alt="estado pedido">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-right: auto; color:white;"
+          (click)="busqueda.hide()">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<app-piedepagina></app-piedepagina>

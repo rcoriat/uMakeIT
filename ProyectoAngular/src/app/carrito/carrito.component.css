@@ -1,31 +1,43 @@
 .contenido {
   width: 70%;
-  margin: 0 auto;
-  margin-top: 2%;
+  margin: 2% auto;
 }
 
 #tablas{
-  width:
+  width: 100%;
 }
 
-table{
-  display: table-cell;
-
+#tablaitems{
+  width: 60%;
+  display: inline-block;
 }
 
 #tablatotal {
+  margin-left: 5%;
   width: 30%;
-  /* margin-top:1%;
-  margin-right: 0;
-  margin-left: auto;  */
+  display: inline-block;
   text-align: right;
-  padding-bottom: 2%;
+  vertical-align: top;
 }
 
 #tablatotal img {
   width: 100%;
 }
 
+#tablatotal img:hover {
+  opacity: 0.98;
+  cursor: pointer;
+  
+}
+
+#thapaypal{
+  background-color: black;
+  border-radius: 8px 8px 8px 8px;
+}
+
+#tablaitems table td, #tablaitems table th,   #tablaitems table tr td,  #tablaitems table tr th {
+  vertical-align: middle !important;
+} 
 
 
 

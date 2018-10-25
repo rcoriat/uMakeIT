@@ -4,16 +4,13 @@
   </div>
   <div id="hder">
     <div class="btn-group" dropdown>
-        <button id="botonname" type="button" class="btn btn-danger" [routerLink]="['/editar-perfil']">John Appleseed</button>
+        <button id="botonname" type="button" class="btn btn-danger" [routerLink]="['/editar-perfil']">Administrador</button>
         <button id="button-split" type="button" dropdownToggle class="btn btn-danger dropdown-toggle dropdown-toggle-split" aria-controls="dropdown-split">
 
         </button>
         <ul id="dropdown-split" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-split">
-          <li role="menuitem"><a class="dropdown-item" [routerLink]="['/editar-perfil']" >Editar Perfil</a></li>
-          <li role="menuitem"><a class="dropdown-item" [routerLink]="['/carrito']" >Ver Carrito</a></li>
-          <li role="menuitem"><a class="dropdown-item" [routerLink]="['/estado']">Estado de Pedidos</a></li>
-          <li role="menuitem"><a class="dropdown-item" [routerLink]="['/historial']">Historial de Pedidos</a></li>
-          <li role="menuitem"><a class="dropdown-item" [routerLink]="['/contacto']">Atención al Cliente</a></li>
+          <li role="menuitem"><a class="dropdown-item" [routerLink]="['/editar-perfil']">Agregar al menu</a></li>
+          <li role="menuitem"><a class="dropdown-item" [routerLink]="['/carrito']">Pedidos pendientes</a></li>
           <li class="divider dropdown-divider"></li>
           <li role="menuitem"><a class="dropdown-item" [routerLink]="['/inicio']">Cerrar Sesión</a>
           </li>

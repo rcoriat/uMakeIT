@@ -16,6 +16,11 @@ import { ContactaradminComponent } from './contactaradmin/contactaradmin.compone
 import { EditarperfilComponent } from './editarperfil/editarperfil.component';
 import { HistorialComponent } from './historial/historial.component';
 import { CarritoComponent } from './carrito/carrito.component';
+import { EstadoComponent } from './estado/estado.component';
+import { EncabezadoadminComponent } from './encabezadoadmin/encabezadoadmin.component';
+import { MenuadminComponent } from './menuadmin/menuadmin.component';
+import { PendientesComponent } from './pendientes/pendientes.component';
+
 
 
 const routes: Routes = [
@@ -28,7 +33,10 @@ const routes: Routes = [
   { path: 'contacto', component: ContactaradminComponent },
   { path: 'editar-perfil', component: EditarperfilComponent },
   { path: 'carrito', component: CarritoComponent },
-  { path: 'historial', component: HistorialComponent }
+  { path: 'historial', component: HistorialComponent },
+  { path: 'estado', component: EstadoComponent },
+  { path: 'admin', component: MenuadminComponent },
+  { path: 'pendientes', component: PendientesComponent }
 ]
 
 @NgModule({
@@ -44,16 +52,19 @@ const routes: Routes = [
     ContactaradminComponent,
     EditarperfilComponent,
     HistorialComponent,
-    CarritoComponent
+    CarritoComponent,
+    EstadoComponent,
+    EncabezadoadminComponent,
+    MenuadminComponent,
+    PendientesComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
     CarouselModule.forRoot(),
     BsDropdownModule.forRoot(),
-    ModalModule.forRoot(),
-    AccordionModule.forRoot(),
-    PaginationModule.forRoot()
+    ModalModule.forRoot(),AccordionModule.forRoot(),
+    PaginationModule.forRoot(),
     
   ],
   providers: [],

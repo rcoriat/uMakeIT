@@ -1,0 +1,19 @@
+#contenedor{
+    width:45%;
+    border: 4px solid #000000;
+    border-radius: 30px 30px 30px 30px;
+    display: block;
+    margin: 2% auto;
+    padding: 2%;
+}
+
+#imagenEstado{
+    display: block;
+    margin:0 auto;
+    width:40%;
+}
+
+#imagenEstado img{
+    width:100%;
+}
+
