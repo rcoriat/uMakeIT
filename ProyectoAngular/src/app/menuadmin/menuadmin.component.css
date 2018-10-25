@@ -19,9 +19,29 @@
   width: 20%;
 }
 
-
-
-
 #tablaitems img {
   width: 60%;
+}
+
+accordion, #botonpers{
+  margin: 3% auto;
+  width: 100%
+}
+
+accordion-group:hover{
+  cursor: pointer;
+}
+
+.foto{
+  width:60%;
+  margin: 0 auto;
+}
+.foto img{
+  width:100%;
+}
+
+#alerta{
+  display: block;
+  margin:0 auto;
+  width:40%;
 }

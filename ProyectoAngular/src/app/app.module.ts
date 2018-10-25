@@ -37,7 +37,7 @@ const routes: Routes = [
   { path: 'historial', component: HistorialComponent },
   { path: 'estado', component: EstadoComponent },
   { path: 'admin', component: MenuadminComponent },
-  { path: 'pendientes', component: PendientesComponent }
+  { path: 'pendientes', component: PendientesComponent },
 ]
 
 @NgModule({
