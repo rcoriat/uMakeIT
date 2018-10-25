@@ -1,0 +1,27 @@
+.contenido {
+  width: 90%;
+  margin: 2% auto;
+}
+
+#tablaitems {
+  width: 100%;
+}
+
+
+#tablaitems table td,
+#tablaitems table th,
+#tablaitems table tr td,
+#tablaitems table tr th {
+  vertical-align: middle !important;
+}
+
+.colimg {
+  width: 20%;
+}
+
+
+
+
+#tablaitems img {
+  width: 60%;
+}

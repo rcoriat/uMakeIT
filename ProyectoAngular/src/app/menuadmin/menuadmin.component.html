@@ -1,109 +1,127 @@
 <app-encabezadoadmin></app-encabezadoadmin>
 <div class="contenido">
   <h3 style="margin-bottom:3%;">Carrito</h3>
-  <div class="tablas">
-    <div id="tablaitems">
-      <table class="table table-hover">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Tipo</th>
-            <th scope="col">Plato</th>
-            <th scope="col">Extras</th>
-            <th scope="col">Precio (Bs.S)</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">cake</i></td>
-            <td>Tres Leches</td>
-            <td>N/A</td>
-            <td>300</td>
-            <td><button type="button" class="close" (click)="eliminarFilas(i)" aria-label="Close"><i class="material-icons"
-                  style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">local_dining</i></td>
-            <td>Tequeños</td>
-            <td>Frito</td>
-            <td>200</td>
-            <td><button type="button" class="close" (click)="eliminarFilas(i)" aria-label="Close"><i class="material-icons"
-                  style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">fastfood</i></td>
-            <td>Hamburguesa</td>
-            <td>Queso Cheddar, Tocineta, Jalapeño</td>
-            <td>550</td>
-            <td><button type="button" class="close" (click)="eliminarFilas(i)" aria-label="Close"><i class="material-icons"
-                  style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
-          </tr>
-          <tr>
-            <th scope="row">4</th>
-            <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">cake</i></td>
-            <td>Quesillo</td>
-            <td>N/A</td>
-            <td>250</td>
-            <td><button type="button" class="close" (click)="eliminarFilas(i)" aria-label="Close"><i class="material-icons"
-                  style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
-          </tr>
-          <tr>
-            <th scope="row">5</th>
-            <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">fastfood</i></td>
-            <td>Sandwich</td>
-            <td>Pan con parmesano y orégano</td>
-            <td>600</td>
-            <td><button type="button" class="close" (click)="eliminarFilas(i)" aria-label="Close"><i class="material-icons"
-                  style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
-          </tr>
-          <tr>
-            <th scope="row">6</th>
-            <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">fastfood</i></td>
-            <td>Perro caliente</td>
-            <td>Estilo Choripán, salsa pesto, queso gratinado</td>
-            <td>400</td>
-            <td><button type="button" class="close" (click)="eliminarFilas(i)" aria-label="Close"><i class="material-icons"
-                  style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
-          </tr>
-          <tr>
-            <th scope="row">7</th>
-            <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">local_dining</i></td>
-            <td>Patacones</td>
-            <td>Queso llanero, salsas</td>
-            <td>200</td>
-            <td><button type="button" class="close" (click)="eliminarFilas(i)" aria-label="Close"><i class="material-icons"
-                  style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
-          </tr>
+  <div id="tablaitems">
+    <table class="table table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#<i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">arrow_drop_down</i></th>
+          <th scope="col">Imagen</th>
+          <th scope="col">Tipo<i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">arrow_drop_down</i></th>
+          <th scope="col">Plato<i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">arrow_drop_down</i></th>
+          <th scope="col">Extras<i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">arrow_drop_down</i></th>
+          <th scope="col">Precio (Bs.S)<i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">arrow_drop_down</i></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <th class="colimg"><img src="../../assets/iconoscomida/tequeños.png" alt="tequeños"></th>
+          <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">local_dining</i></td>
+          <td>Tequeños</td>
+          <td>Frito</td>
+          <td>200</td>
+          <td><button type="button" class="close"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">edit</i></button></td>
+          <td><button type="button" class="close" (click)="eliminarFilas(i)" aria-label="Close"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
+        </tr>
 
-        </tbody>
-      </table>
-    </div>
+        <tr>
+          <th scope="row">2</th>
+          <th class="colimg2"><img src="../../assets/iconoscomida/platanos.png" alt="patacones"></th>
+          <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">local_dining</i></td>
+          <td>Patacones</td>
+          <td>Frito</td>
+          <td>200</td>
+          <td><button type="button" class="close"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">edit</i></button></td>
+          <td><button type="button" class="close" (click)="eliminarFilas(i)" aria-label="Close"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
+        </tr>
+
+        <tr>
+          <th scope="row">3</th>
+          <th class="colimg2"><img src="../../assets/iconoscomida/empanada.png" alt="empanaditas"></th>
+          <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">local_dining</i></td>
+          <td>Empanaditas</td>
+          <td>Frito</td>
+          <td>200</td>
+          <td><button type="button" class="close"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">edit</i></button></td>
+          <td><button type="button" class="close" (click)="eliminarFilas(i)" aria-label="Close"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
+        </tr>
+
+        <tr>
+          <th scope="row">4</th>
+          <th class="colimg2"><img src="../../assets/iconoscomida/hamburguesa.png" alt="hamburguesa"></th>
+          <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">fastfood</i></td>
+          <td>Hamburguesa</td>
+          <td>Queso Cheddar, Tocineta, Jalapeño</td>
+          <td>550</td>
+          <td><button type="button" class="close"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">edit</i></button></td>
+          <td><button type="button" class="close" (click)="eliminarFilas(i)" aria-label="Close"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
+        </tr>
+
+        <tr>
+          <th scope="row">5</th>
+          <th class="colimg2"><img src="../../assets/iconoscomida/perro.png" alt="perro"></th>
+          <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">fastfood</i></td>
+          <td>Perro Caliente</td>
+          <td>Queso Cheddar, Tocineta, Jalapeño</td>
+          <td>550</td>
+          <td><button type="button" class="close"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">edit</i></button></td>
+          <td><button type="button" class="close" (click)="eliminarFilas(i)" aria-label="Close"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
+        </tr>
+
+        <tr>
+          <th scope="row">6</th>
+          <th class="colimg2"><img src="../../assets/iconoscomida/sandwich.png" alt="sandwich"></th>
+          <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">fastfood</i></td>
+          <td>Sandwich</td>
+          <td>Queso Cheddar, Tocineta, Jalapeño</td>
+          <td>550</td>
+          <td><button type="button" class="close"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">edit</i></button></td>
+          <td><button type="button" class="close" (click)="eliminarFilas(i)" aria-label="Close"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
+        </tr>
+
+        <tr>
+          <th scope="row">7</th>
+          <th class="colimg2"><img src="../../assets/iconoscomida/flan.png" alt="quesillo"></th>
+          <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">cake</i></td>
+          <td>Quesillo</td>
+          <td>N/A</td>
+          <td>300</td>
+          <td><button type="button" class="close"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">edit</i></button></td>
+          <td><button type="button" class="close" (click)="eliminarFilas(i)" aria-label="Close"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
+        </tr>
+
+        <tr>
+          <th scope="row">8</th>
+          <th class="colimg2"><img src="../../assets/iconoscomida/profiterol.png" alt="profiterol"></th>
+          <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">cake</i></td>
+          <td>Profiterol</td>
+          <td>N/A</td>
+          <td>300</td>
+          <td><button type="button" class="close"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">edit</i></button></td>
+          <td><button type="button" class="close" (click)="eliminarFilas(i)" aria-label="Close"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
+        </tr>
+
+        <tr>
+          <th scope="row">9</th>
+          <th class="colimg2"><img src="../../assets/iconoscomida/tresleches.png" alt="tresleches"></th>
+          <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">cake</i></td>
+          <td>Tres Leches</td>
+          <td>N/A</td>
+          <td>300</td>
+          <td><button type="button" class="close"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">edit</i></button></td>
+          <td><button type="button" class="close" (click)="eliminarFilas(i)" aria-label="Close"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
+        </tr>
 
 
-    <div id="tablatotal">
-      <table class="table table-striped table-dark" style="margin-bottom: 0px;">
-        <tbody>
-          <tr>
-            <td style="font-weight:bold;">Subtotal</td>
-            <td>Bs.S 2700</td>
-          </tr>
-          <tr>
-            <td style="font-weight:bold;">IVA</td>
-            <td>Bs.S 432</td>
-          </tr>
-          <tr>
-            <td style="font-weight:bold;">Total</td>
-            <td>Bs.S 3132</td>
-          </tr>
-        </tbody>
-      </table>
-      <div id="thapaypal"><img src="../../assets/botonPayPal.png"></div>
-    </div>
+      </tbody>
+    </table>
   </div>
 
+
 </div>
+
+
 <app-piedepagina></app-piedepagina>
