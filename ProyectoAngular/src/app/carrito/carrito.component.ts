@@ -12,16 +12,4 @@ export class CarritoComponent implements OnInit {
   ngOnInit() {
   }
 
-  private array: Array<any> = [];
-  private nuevo: any = {};
-
-    agregarFila() {
-        this.array.push(this.nuevo)
-
-    }
-
-    eliminarFila(index) {
-        this.array.splice(index, 1);
-    }
-
 }
