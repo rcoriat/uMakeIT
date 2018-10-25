@@ -23,6 +23,7 @@ import { PendientesComponent } from './pendientes/pendientes.component';
 
 
 
+
 const routes: Routes = [
   { path:'', redirectTo:'inicio', pathMatch:'full'},
   { path: 'inicio', component: InicioComponent },

@@ -43,3 +43,34 @@ accordion-group:hover{
     margin: 5% auto;
     font-size: 1vw;
 }
+.select button{
+    width: 90%;
+    display:block;
+    margin-right: 0;
+    margin-left: auto;
+}
+select{
+    display: block;
+    margin-right:0;
+    margin-left: auto;
+    width: 90%;
+    cursor: pointer;
+    padding: 10px 15px;
+    outline: 0;
+    border: 0;
+    border-radius: 0;
+    background: lightgrey;
+    color: black;
+    appearance: none;
+    font-weight: bold;
+}
+
+select::-ms-expand{
+    display: none;
+}
+
+
+select:disabled{
+    opacity: 0.5;
+    pointer-events: none;
+}
