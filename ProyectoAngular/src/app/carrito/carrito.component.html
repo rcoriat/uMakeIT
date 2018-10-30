@@ -22,7 +22,7 @@
             <td>Tres Leches</td>
             <td>N/A</td>
             <td>300</td>
-            <td><button type="button" class="close" aria-label="Close"><i class="material-icons"
+            <td><button type="button" class="close" aria-label="Close" (click)="eliminarPlato.show()"><i class="material-icons"
                   style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
           </tr>
           <tr>
@@ -31,7 +31,7 @@
             <td>Tequeños</td>
             <td>Frito</td>
             <td>200</td>
-            <td><button type="button" class="close" aria-label="Close"><i class="material-icons"
+            <td><button type="button" class="close" aria-label="Close" (click)="eliminarPlato.show()"><i class="material-icons"
                   style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
           </tr>
           <tr>
@@ -40,7 +40,7 @@
             <td>Hamburguesa</td>
             <td>Queso Cheddar, Tocineta, Jalapeño</td>
             <td>550</td>
-            <td><button type="button" class="close" aria-label="Close"><i class="material-icons"
+            <td><button type="button" class="close" aria-label="Close" (click)="eliminarPlato.show()"><i class="material-icons"
                   style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
           </tr>
           <tr>
@@ -49,7 +49,7 @@
             <td>Quesillo</td>
             <td>N/A</td>
             <td>250</td>
-            <td><button type="button" class="close" aria-label="Close"><i class="material-icons"
+            <td><button type="button" class="close" aria-label="Close" (click)="eliminarPlato.show()"><i class="material-icons"
                   style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
           </tr>
           <tr>
@@ -58,7 +58,7 @@
             <td>Sandwich</td>
             <td>Pan con parmesano y orégano</td>
             <td>600</td>
-            <td><button type="button" class="close" aria-label="Close"><i class="material-icons"
+            <td><button type="button" class="close" aria-label="Close" (click)="eliminarPlato.show()"><i class="material-icons"
                   style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
           </tr>
           <tr>
@@ -67,7 +67,7 @@
             <td>Perro caliente</td>
             <td>Estilo Choripán, salsa pesto, queso gratinado</td>
             <td>400</td>
-            <td><button type="button" class="close" aria-label="Close"><i class="material-icons"
+            <td><button type="button" class="close" aria-label="Close" (click)="eliminarPlato.show()"><i class="material-icons"
                   style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
           </tr>
           <tr>
@@ -76,7 +76,7 @@
             <td>Patacones</td>
             <td>Queso llanero, salsas</td>
             <td>200</td>
-            <td><button type="button" class="close" aria-label="Close"><i class="material-icons"
+            <td><button type="button" class="close" aria-label="Close" (click)="eliminarPlato.show()"><i class="material-icons"
                   style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
           </tr>
 
@@ -105,10 +105,81 @@
       <div id="thapaypal"><img src="../../assets/botonPayPal.png"></div>
     </div>
   </div>
+  
+  <a [routerLink]="['/menu']"><button type="submit" class="btn btn-dark" style="display: block; margin-left:0; margin-right: auto;">Regresar</button></a>
 
+</div>
+  <!-- Modal eliminar del carrito -->
+  <div bsModal #eliminarPlato="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+    <div class="modal-dialog" style="width: 70%;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="dialog-sizes-name1" class="modal-title pull-left">Eliminar Plato del Carrito</h4>
+          <button type="button" class="close pull-right" (click)="eliminarPlato.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row align-items-start">
+            <div class="col">
+              <div class="descripcion">
+                <h5 style="display:inline-block; margin-right: 2%;">¿Desea eliminar?</h5>
+              </div>
+              <div id="alerta">
+                <i class="material-icons md-48">alert</i>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-right: auto; color:white;"
+            (click)="eliminarPlato.hide()">
+            Cancelar
+          </button>
+          <a [routerLink]="['/carrito']"><button type="submit" class="btn btn-danger" (click)="confirmacion.show(); eliminarPlato.hide();"><i class="material-icons" style="vertical-align: middle; margin-right: 2%; margin-left: auto;">check</i>
+              Confirmar
+            </button></a>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <!-- Modal confirmar cambios -->
+<div bsModal #confirmacion="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Confirmación</h4>
+        <button type="button" class="close pull-right" (click)="confirmacion.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row align-items-start">
+          <div class="col">
+            <div class="descripcion">
+              <h5 style="display:inline-block; margin-right: 2%;">¿Desea realizar los cambios?</h5>
+            </div>
+            <div id="alerta">
+              <i class="material-icons md-48">alert</i>
+            </div>
+          </div>
+        </div>
+      </div>
 
-
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-right: auto; color:white;"
+          (click)="confirmacion.hide()">
+          Cancelar
+        </button>
+        <button type="submit" class="btn btn-danger" (click)="confirmacion.hide(); eliminarPlato.hide();"><i class="material-icons" style="vertical-align: middle; margin-right: 2%; margin-left: auto;">check</i>
+            Confirmar
+          </button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
@@ -190,7 +261,7 @@
 
 
 
-</div>
+
 
 
 
