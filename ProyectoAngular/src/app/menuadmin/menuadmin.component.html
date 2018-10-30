@@ -154,17 +154,19 @@
         <div class="row align-items-start">
           <div class="col">
             <div class="foto">
-              <img src="../../assets/iconoscomida/hamburguesa.png">
+              <img style="margin-top: 25%; margin-bottom: 25%;" src="../../assets/iconoscomida/hamburguesa.png">
+              <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="customFile">
+                  <label class="custom-file-label" for="customFile">Subir imagen</label>
+              </div>
             </div>
           </div>
           <div class="col">
             <div class="descripcion">
-              <h5 style="display:inline-block; margin-right: 2%;">Nombre</h5>
-              <label>Hamburguesa</label>
-              <h5>Descripción</h5>
-              <label style="text-align:justify"> Nuestra deliciosa hamburguesa con carne, queso fundido,
-                vegetales frescos y pan producido por uMakeIT!.
-              </label>
+              <h5 for="nombre">Nombre:</h5>
+              <input type="text" class="form-control" id="nombre">
+              <h5 for="desc">Descripción:</h5>
+              <textarea type="text" class="form-control" rows="4" id="desc"></textarea>
               <button type="submit" id="botonpers" class="btn btn-danger" (click)="isFirstDisabled = !isFirstDisabled">
                 Personalizable
               </button>
@@ -237,8 +239,7 @@
                   <label for="inputNombre">Nombre</label>
                   <input type="text" class="form-control" id="inputNombre" placeholder="Hamburguesa"> 
                   <label for="inputDescripcion">Descripción</label>
-                  <textarea type="text" class="form-control" id="inputDescripcion" placeholder="Nuestra deliciosa hamburguesa con carne, queso fundido,
-                  vegetales frescos y pan producido por uMakeIT!."></textarea> 
+                  <textarea type="text" class="form-control" id="inputDescripcion">Nuestra deliciosa hamburguesa con carne, queso fundido, vegetales frescos y pan producido por uMakeIT!.</textarea> 
                   <label for="inputPrecio">Precio(Bs.S)</label>
                   <input type="text" class="form-control" id="inputPrecio" placeholder="300"> 
                   <button type="submit" id="botonpers" class="btn btn-danger" (click)="isFirstDisabled = !isFirstDisabled">
