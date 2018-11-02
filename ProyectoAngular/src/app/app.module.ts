@@ -6,6 +6,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
+import { FormsModule } from '@angular/forms';
 
 import { CarouselModule, BsDropdownModule, ModalModule, AccordionModule, PaginationModule } from 'ngx-bootstrap';
 
@@ -25,6 +26,8 @@ import { EstadoComponent } from './estado/estado.component';
 import { EncabezadoadminComponent } from './encabezadoadmin/encabezadoadmin.component';
 import { MenuadminComponent } from './menuadmin/menuadmin.component';
 import { PendientesComponent } from './pendientes/pendientes.component';
+
+import { FireService } from './services/fire.service';
 
 const routes: Routes = [
   { path: '', redirectTo:'inicio', pathMatch:'full'},
@@ -72,10 +75,12 @@ const routes: Routes = [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    AngularFireStorageModule 
-    
+    AngularFireStorageModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [
+    FireService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

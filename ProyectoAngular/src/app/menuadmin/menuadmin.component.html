@@ -18,118 +18,16 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <th class="colimg"><img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/entradas%2Ftequenos.png?alt=media&token=91a5d723-c2ba-4f81-afe8-c713688e703b" alt="tequeños"></th>
+        <tr *ngFor='let plato of platos; index as i'>
+          <th scope="row">{{ i+1 }}</th>
+          <th class="colimg"><img src="{{ plato.imagen }}" alt="imagendelplato"></th>
           <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">local_dining</i></td>
-          <td>Tequeños</td>
-          <td>Frito</td>
-          <td><div class="checkbox"><input type="checkbox" value=""></div></td>
-          <td>200</td>
-          <td><button type="button" class="close" (click)="editarPlato.show()"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">edit</i></button></td>
-          <td><button type="button" class="close" (click)="eliminarPlato.show()" aria-label="Close"><i class="material-icons"
-                style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
-        </tr>
-
-        <tr>
-          <th scope="row">2</th>
-          <th class="colimg2"><img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/entradas%2Fplatanos.png?alt=media&token=1ee76219-b959-4792-a75f-63a53be1f95b" alt="patacones"></th>
-          <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">local_dining</i></td>
-          <td>Patacones</td>
-          <td>Frito</td>
-          <td><div class="checkbox"><input type="checkbox" value=""></div></td>
-          <td>200</td>
-          <td><button type="button" class="close" (click)="editarPlato.show()"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">edit</i></button></td>
-          <td><button type="button" class="close" (click)="eliminarPlato.show()" aria-label="Close"><i class="material-icons"
-                style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
-        </tr>
-
-        <tr>
-          <th scope="row">3</th>
-          <th class="colimg2"><img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/entradas%2Fempanada.png?alt=media&token=af0d8079-d9b4-481f-9eab-3f2e33459285" alt="empanaditas"></th>
-          <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">local_dining</i></td>
-          <td>Empanaditas</td>
-          <td>Frito</td>
-          <td><div class="checkbox"><input type="checkbox" value=""></div></td>
-          <td>200</td>
-          <td><button type="button" class="close" (click)="editarPlato.show()"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">edit</i></button></td>
-          <td><button type="button" class="close" (click)="eliminarPlato.show()" aria-label="Close"><i class="material-icons"
-                style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
-        </tr>
-
-        <tr>
-          <th scope="row">4</th>
-          <th class="colimg2"><img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/principales%2Fhamburguesa.png?alt=media&token=73b80165-3cfb-4aef-8646-b07ad460de74" alt="hamburguesa"></th>
-          <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">fastfood</i></td>
-          <td>Hamburguesa</td>
-          <td>Queso Cheddar, Tocineta, Jalapeño</td>
-          <td><div class="checkbox"><input type="checkbox" value=""></div></td>
-          <td>550</td>
-          <td><button type="button" class="close" (click)="editarPlato.show()"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">edit</i></button></td>
-          <td><button type="button" class="close" (click)="eliminarPlato.show()" aria-label="Close"><i class="material-icons"
-                style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
-        </tr>
-
-        <tr>
-          <th scope="row">5</th>
-          <th class="colimg2"><img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/principales%2Fhotdog2.png?alt=media&token=5c03a15b-6deb-4df2-8015-c0e30a3e8833" alt="perro"></th>
-          <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">fastfood</i></td>
-          <td>Perro Caliente</td>
-          <td>Queso Cheddar, Tocineta, Jalapeño</td>
-          <td><div class="checkbox"><input type="checkbox" value=""></div></td>
-          <td>550</td>
-          <td><button type="button" class="close" (click)="editarPlato.show()"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">edit</i></button></td>
-          <td><button type="button" class="close" (click)="eliminarPlato.show()" aria-label="Close"><i class="material-icons"
-                style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
-        </tr>
-
-        <tr>
-          <th scope="row">6</th>
-          <th class="colimg2"><img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/principales%2Fsandwich.png?alt=media&token=6051da5e-e5f6-42a9-b9be-23044da75521" alt="sandwich"></th>
-          <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">fastfood</i></td>
-          <td>Sandwich</td>
-          <td>Queso Cheddar, Tocineta, Jalapeño</td>
-          <td><div class="checkbox"><input type="checkbox" value=""></div></td>
-          <td>550</td>
-          <td><button type="button" class="close" (click)="editarPlato.show()"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">edit</i></button></td>
-          <td><button type="button" class="close" (click)="eliminarPlato.show()" aria-label="Close"><i class="material-icons"
-                style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
-        </tr>
-
-        <tr>
-          <th scope="row">7</th>
-          <th class="colimg2"><img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/postres%2Fflan.png?alt=media&token=7572b8dc-ec5f-4502-89a3-c99d875afaed" alt="quesillo"></th>
-          <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">cake</i></td>
-          <td>Quesillo</td>
-          <td>N/A</td>
-          <td><div class="checkbox"><input type="checkbox" value=""></div></td>
-          <td>300</td>
-          <td><button type="button" class="close" (click)="editarPlato.show()"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">edit</i></button></td>
-          <td><button type="button" class="close" (click)="eliminarPlato.show()" aria-label="Close"><i class="material-icons"
-                style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
-        </tr>
-
-        <tr>
-          <th scope="row">8</th>
-          <th class="colimg2"><img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/postres%2Fprofiterol.png?alt=media&token=79ad6100-a14c-409b-bd36-9d62f9dd6038" alt="profiterol"></th>
-          <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">cake</i></td>
-          <td>Profiterol</td>
-          <td>N/A</td>
-          <td><div class="checkbox"><input type="checkbox" value=""></div></td>
-          <td>300</td>
-          <td><button type="button" class="close" (click)="editarPlato.show()"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">edit</i></button></td>
-          <td><button type="button" class="close" (click)="eliminarPlato.show()" aria-label="Close"><i class="material-icons"
-                style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
-        </tr>
-
-        <tr>
-          <th scope="row">9</th>
-          <th class="colimg2"><img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/postres%2Ftresleches.png?alt=media&token=356dcf2f-cb69-4f1a-ae93-a5bd61efff52" alt="tresleches"></th>
-          <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">cake</i></td>
-          <td>Tres Leches</td>
-          <td>N/A</td>
-          <td><div class="checkbox"><input type="checkbox" value=""></div></td>
-          <td>300</td>
+          <td>{{ plato.nombre }}</td>
+          <td>{{ plato.personalizable }}</td>
+          <td>
+            <div class="checkbox"><input type="checkbox" value=""></div>
+          </td>
+          <td>{{ plato.precio }}</td>
           <td><button type="button" class="close" (click)="editarPlato.show()"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">edit</i></button></td>
           <td><button type="button" class="close" (click)="eliminarPlato.show()" aria-label="Close"><i class="material-icons"
                 style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
@@ -138,7 +36,6 @@
     </table>
   </div>
 </div>
-
 
 <!-- Modal agregar -->
 <div bsModal #agregarPlato="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
@@ -156,17 +53,22 @@
             <div class="foto">
               <img style="margin-top: 25%; margin-bottom: 25%;" src="../../assets/iconoscomida/hamburguesa.png">
               <div class="custom-file">
-                  <input type="file" class="custom-file-input" id="customFile">
-                  <label class="custom-file-label" for="customFile">Subir imagen</label>
+                <input type="file" class="custom-file-input" id="customFile">
+                <label class="custom-file-label" for="customFile">Subir imagen</label>
               </div>
             </div>
           </div>
           <div class="col">
-            <div class="descripcion">
-              <h5 for="nombre">Nombre:</h5>
-              <input type="text" class="form-control" id="nombre">
-              <h5 for="desc">Descripción:</h5>
-              <textarea type="text" class="form-control" rows="4" id="desc"></textarea>
+            <form class="descripcion" (ngSubmit)="addPlato()">
+              <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese el nombre del plato" [(ngModel)]="nplato.nombre">
+              </div>
+              <div class="form-group">
+                <label for="descripcion">Descripción</label>
+                <textarea rows="4" class="form-control" id="descripcion" placeholder="Ingrese la descripción del plato" name="descripcion" [(ngModel)]="nplato.descripcion"></textarea>
+              </div>
+
               <button type="submit" id="botonpers" class="btn btn-danger" (click)="isFirstDisabled = !isFirstDisabled">
                 Personalizable
               </button>
@@ -193,11 +95,15 @@
                 </accordion-group>
               </accordion>
               <br>
-            </div>
 
-            <div class="precio bg-dark text-white" style="margin-top: 3%; margin-bottom: 0; height: 100%; text-align: center;">
-              <h5 style="display: inline-block; margin-bottom: 0; vertical-align: middle;">Bs.S 300</h5>
-            </div>
+              <div class="precio bg-dark text-white" style="margin-top: 3%; margin-bottom: 0; height: 100%; text-align: center;">
+                <input type="text" class="form-control" name="precio" placeholder="3000" style="display: inline-block; margin-bottom: 0; vertical-align: middle;" [(ngModel)]="nplato.precio">
+              </div>
+
+              <a [routerLink]="['/admin']"><button type="submit" class="btn btn-danger"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">add</i>
+                  Agregar plato
+                </button></a>
+            </form>
           </div>
         </div>
       </div>
@@ -207,9 +113,7 @@
           (click)="agregarPlato.hide()">
           Cerrar
         </button>
-        <a [routerLink]="['/admin']"><button type="submit" class="btn btn-danger"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">add</i>
-            Agregar plato
-          </button></a>
+
       </div>
     </div>
   </div>
@@ -219,73 +123,73 @@
 <!-- Modal editar -->
 
 <div bsModal #editarPlato="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 id="dialog-sizes-name1" class="modal-title pull-left">Editar Plato</h4>
-          <button type="button" class="close pull-right" (click)="editarPlato.hide()" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="row align-items-start">
-            <div class="col">
-              <div class="foto">
-                <img src="../../assets/iconoscomida/hamburguesa.png">
-              </div>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Editar Plato</h4>
+        <button type="button" class="close pull-right" (click)="editarPlato.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row align-items-start">
+          <div class="col">
+            <div class="foto">
+              <img src="../../assets/iconoscomida/hamburguesa.png">
             </div>
-            <div class="col">
-              <div class="descripcion">
-                  <label for="inputNombre">Nombre</label>
-                  <input type="text" class="form-control" id="inputNombre" placeholder="Hamburguesa"> 
-                  <label for="inputDescripcion">Descripción</label>
-                  <textarea type="text" class="form-control" id="inputDescripcion">Nuestra deliciosa hamburguesa con carne, queso fundido, vegetales frescos y pan producido por uMakeIT!.</textarea> 
-                  <label for="inputPrecio">Precio(Bs.S)</label>
-                  <input type="text" class="form-control" id="inputPrecio" placeholder="300"> 
-                  <button type="submit" id="botonpers" class="btn btn-danger" (click)="isFirstDisabled = !isFirstDisabled">
-                      Personalizable
-                    </button>
-                <accordion>
-                  <accordion-group [isDisabled]="isFirstDisabled">
-                    <button class="btn btn-link btn-block clearfix" accordion-heading>
-                      <div style="display: inline-block; width: 45%; text-align: left; padding-left: 3%">Agregar</div>
-                      <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
-                    </button>
-                    <div class="descripcion">
-                      <h5>Extras:</h5>
-                        <label><input type="checkbox">Pan integral </label>
-                        <label><input type="checkbox">Pan c/ parmesano y orégano </label>
-                        <label><input type="checkbox">Queso Brie </label>
-                        <label><input type="checkbox">Queso de Cabra </label>
-                        <label><input type="checkbox">Jalapeño </label>
-                        <label><input type="checkbox">Salsa BBQ </label>
-                        <label><input type="checkbox">Tocineta </label>
-                        <label><input type="checkbox">Cebolla caramelizada </label>
-                    </div>
-                  </accordion-group>
-                </accordion>
-                <br>
-              </div>
+          </div>
+          <div class="col">
+            <div class="descripcion">
+              <label for="inputNombre">Nombre</label>
+              <input type="text" class="form-control" id="inputNombre" placeholder="Hamburguesa">
+              <label for="inputDescripcion">Descripción</label>
+              <textarea type="text" class="form-control" id="inputDescripcion">Nuestra deliciosa hamburguesa con carne, queso fundido, vegetales frescos y pan producido por uMakeIT!.</textarea>
+              <label for="inputPrecio">Precio(Bs.S)</label>
+              <input type="text" class="form-control" id="inputPrecio" placeholder="300">
+              <button type="submit" id="botonpers" class="btn btn-danger" (click)="isFirstDisabled = !isFirstDisabled">
+                Personalizable
+              </button>
+              <accordion>
+                <accordion-group [isDisabled]="isFirstDisabled">
+                  <button class="btn btn-link btn-block clearfix" accordion-heading>
+                    <div style="display: inline-block; width: 45%; text-align: left; padding-left: 3%">Agregar</div>
+                    <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
+                  </button>
+                  <div class="descripcion">
+                    <h5>Extras:</h5>
+                    <label><input type="checkbox">Pan integral </label>
+                    <label><input type="checkbox">Pan c/ parmesano y orégano </label>
+                    <label><input type="checkbox">Queso Brie </label>
+                    <label><input type="checkbox">Queso de Cabra </label>
+                    <label><input type="checkbox">Jalapeño </label>
+                    <label><input type="checkbox">Salsa BBQ </label>
+                    <label><input type="checkbox">Tocineta </label>
+                    <label><input type="checkbox">Cebolla caramelizada </label>
+                  </div>
+                </accordion-group>
+              </accordion>
+              <br>
             </div>
           </div>
         </div>
-  
-        <div class="modal-footer">
-          <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-right: auto; color:white;"
-            (click)="editarPlato.hide()">
-            Cerrar
-          </button>
-          <a [routerLink]="['/admin']"><button type="submit" class="btn btn-danger" (click)="confirmacion.show()"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">add</i>
-              Actualizar
-            </button></a>
-        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-right: auto; color:white;"
+          (click)="editarPlato.hide()">
+          Cerrar
+        </button>
+        <a [routerLink]="['/admin']"><button type="submit" class="btn btn-danger" (click)="confirmacion.show()"><i
+              class="material-icons" style="vertical-align: middle; position: relative; text-align: center">add</i>
+            Actualizar
+          </button></a>
       </div>
     </div>
   </div>
-   
+</div>
 
 
-  <!-- Modal eliminar cambios -->
+<!-- Modal eliminar cambios -->
 <div bsModal #eliminarPlato="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
   <div class="modal-dialog" style="width:70%;">
     <div class="modal-content">
@@ -313,14 +217,15 @@
           (click)="eliminarPlato.hide()">
           Cancelar
         </button>
-        <a [routerLink]="['/admin']"><button type="submit" class="btn btn-danger" (click)="confirmacion.show(); eliminarPlato.hide();"><i class="material-icons" style="vertical-align: middle; margin-right: 2%; margin-left: auto;">check</i>
+        <a [routerLink]="['/admin']"><button type="submit" class="btn btn-danger" (click)="confirmacion.show(); eliminarPlato.hide();"><i
+              class="material-icons" style="vertical-align: middle; margin-right: 2%; margin-left: auto;">check</i>
             Confirmar
           </button></a>
       </div>
     </div>
   </div>
 </div>
-  
+
 
 <!-- Modal confirmar cambios -->
 <div bsModal #confirmacion="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
@@ -350,9 +255,10 @@
           (click)="confirmacion.hide();">
           Cancelar
         </button>
-        <button type="submit" class="btn btn-danger" (click)="confirmacion.hide(); eliminarPlato.hide(); editarPlato.hide();"><i class="material-icons" style="vertical-align: middle; margin-right: 2%; margin-left: auto;">check</i>
-            Confirmar
-          </button>
+        <button type="submit" class="btn btn-danger" (click)="confirmacion.hide(); eliminarPlato.hide(); editarPlato.hide();"><i
+            class="material-icons" style="vertical-align: middle; margin-right: 2%; margin-left: auto;">check</i>
+          Confirmar
+        </button>
       </div>
     </div>
   </div>
