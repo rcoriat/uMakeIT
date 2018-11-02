@@ -13,8 +13,14 @@
     </slide>
   </carousel>
 
+  <ul>
+    <li class="text" *ngFor="let p of prueba | async">
+      {{ p.nombre }}
+    </li>
+  </ul>
+
   <div class="flex-container center">
-    <a [routerLink]="['/login']"><button type="button" class="flex-item btn btn-danger">Iniciar sesión</button></a>
+    <a [routerLink]="['/login']"><button type="button" class="flex-item btn btn-danger" click="crearPlato()">Iniciar sesión</button></a>
     <a [routerLink]="['/registro']"><button type="button" class="flex-item btn btn-danger">Registrarse</button></a>
   </div>
   

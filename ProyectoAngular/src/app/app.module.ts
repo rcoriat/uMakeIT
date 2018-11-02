@@ -1,6 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { environment } from '../environments/environment';
 
 import { CarouselModule, BsDropdownModule, ModalModule, AccordionModule, PaginationModule } from 'ngx-bootstrap';
 
@@ -21,11 +26,8 @@ import { EncabezadoadminComponent } from './encabezadoadmin/encabezadoadmin.comp
 import { MenuadminComponent } from './menuadmin/menuadmin.component';
 import { PendientesComponent } from './pendientes/pendientes.component';
 
-
-
-
 const routes: Routes = [
-  { path:'', redirectTo:'inicio', pathMatch:'full'},
+  { path: '', redirectTo:'inicio', pathMatch:'full'},
   { path: 'inicio', component: InicioComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registro', component: RegistroComponent },
@@ -58,6 +60,7 @@ const routes: Routes = [
     EncabezadoadminComponent,
     MenuadminComponent,
     PendientesComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -66,6 +69,10 @@ const routes: Routes = [
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),AccordionModule.forRoot(),
     PaginationModule.forRoot(),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireStorageModule 
     
   ],
   providers: [],
