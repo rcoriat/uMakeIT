@@ -1,6 +1,6 @@
 <app-encabezadoadmin></app-encabezadoadmin>
 <div class="contenido">
-  <button class="btn btn-warning" (click)="agregarPlato.show()" style="display:block; margin-right:0; margin-left:auto"><i
+  <button class="btn btn-warning" (click)="agregarPlato.show()" (click)="limpiarNPlato()" style="display:block; margin-right:0; margin-left:auto"><i
       class="material-icons" style="vertical-align: middle; position: relative; text-align: center">add</i></button>
   <div id="tablaitems">
     <table class="table table-hover">
@@ -69,12 +69,12 @@
                 <textarea rows="4" class="form-control" id="descripcion" placeholder="Ingrese la descripción del plato" name="descripcion" [(ngModel)]="nplato.descripcion"></textarea>
               </div>
 
-              <button type="submit" id="botonpers" class="btn btn-danger" (click)="isFirstDisabled = !isFirstDisabled">
+              <button type="button" id="botonpers" class="btn btn-danger" (click)="isFirstDisabled = !isFirstDisabled">
                 Personalizable
               </button>
               <accordion>
                 <accordion-group [isDisabled]="isFirstDisabled">
-                  <button class="btn btn-link btn-block clearfix" accordion-heading>
+                  <button type="button" class="btn btn-link btn-block clearfix" accordion-heading>
                     <img src="../../assets/prueba4.jpg" style="display: inline-block; width: 5%; border-radius: 100%">
                     <div style="display: inline-block; width: 45%; text-align: left; padding-left: 3%">Agregar</div>
                     <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
@@ -100,9 +100,10 @@
                 <input type="text" class="form-control" name="precio" placeholder="3000" style="display: inline-block; margin-bottom: 0; vertical-align: middle;" [(ngModel)]="nplato.precio">
               </div>
 
-              <a [routerLink]="['/admin']"><button type="submit" class="btn btn-danger"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">add</i>
+              <button (click)="agregarPlato.hide()" type="submit" class="btn btn-danger"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">add</i>
                   Agregar plato
-                </button></a>
+                </button>
+                
             </form>
           </div>
         </div>

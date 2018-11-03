@@ -16,9 +16,9 @@ export class MenuadminComponent implements OnInit {
   platos = [];
   nplato = {} as Plato;
 
-  constructor(public platoService: FireService){ }
+  constructor(public platoService: FireService) { }
 
- ngOnInit(){
+ ngOnInit() {
     this.platoService.getPlatos().subscribe(platos => {
       this.platos = platos;
       console.log(this.platos);
@@ -26,9 +26,21 @@ export class MenuadminComponent implements OnInit {
 
  }
 
- addPlato(){
-  console.log(this.nplato);
-  
+ addPlato() {
+  // console.log(this.nplato);
+  this.platoService.agregarPlato(this.nplato);
+}
+
+limpiarNPlato() {
+  this.nplato.cantidad = null;
+  this.nplato.descripcion = null;
+  this.nplato.disponibilidad = null;
+  this.nplato.id = null;
+  this.nplato.imagen = null;
+  this.nplato.nombre = null;
+  this.nplato.personalizable = null;
+  this.nplato.precio = null;
+  this.nplato.tipo = null;
 }
 
 }
