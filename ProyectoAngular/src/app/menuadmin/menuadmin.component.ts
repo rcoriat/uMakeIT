@@ -45,7 +45,6 @@ export class MenuadminComponent implements OnInit {
     });
   }*/
 
-  
 
   upload(event) {
     const file = event.target.files[0];
