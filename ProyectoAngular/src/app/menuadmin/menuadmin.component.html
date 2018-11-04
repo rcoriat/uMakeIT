@@ -51,10 +51,12 @@
         <div class="row align-items-start">
           <div class="col">
             <div class="foto">
-              <img style="margin-top: 25%; margin-bottom: 25%;" src="../../assets/iconoscomida/hamburguesa.png">
+              <img style="margin-top: 25%; margin-bottom: 25%;" src="{{imagenURL | async}}" *ngIf="uploaded">
+              <img style="margin-top: 25%; margin-bottom: 25%;" src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85" *ngIf="!uploaded">
               <div class="custom-file">
-                <input type="file" class="custom-file-input" id="customFile">
-                <label class="custom-file-label" for="customFile">Subir imagen</label>
+                <input type="file" class="custom-file-input" id="file" (change)="upload($event)" accept=".png">
+                <div>{{ porcentajeUpload | async }}</div>
+                <label class="custom-file-label" for="file">Subir imagen</label>
               </div>
             </div>
           </div>
@@ -62,11 +64,13 @@
             <form class="descripcion" (ngSubmit)="addPlato()">
               <div class="form-group">
                 <label for="nombre">Nombre</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese el nombre del plato" [(ngModel)]="nplato.nombre">
+                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese el nombre del plato"
+                  [(ngModel)]="nplato.nombre">
               </div>
               <div class="form-group">
                 <label for="descripcion">Descripción</label>
-                <textarea rows="4" class="form-control" id="descripcion" placeholder="Ingrese la descripción del plato" name="descripcion" [(ngModel)]="nplato.descripcion"></textarea>
+                <textarea rows="4" class="form-control" id="descripcion" placeholder="Ingrese la descripción del plato"
+                  name="descripcion" [(ngModel)]="nplato.descripcion"></textarea>
               </div>
 
               <button type="button" id="botonpers" class="btn btn-danger" (click)="isFirstDisabled = !isFirstDisabled">
@@ -94,16 +98,15 @@
                   </div>
                 </accordion-group>
               </accordion>
-              <br>
-
-              <div class="precio bg-dark text-white" style="margin-top: 3%; margin-bottom: 0; height: 100%; text-align: center;">
-                <input type="text" class="form-control" name="precio" placeholder="3000" style="display: inline-block; margin-bottom: 0; vertical-align: middle;" [(ngModel)]="nplato.precio">
+              <div class="form-group">
+                <label for="precio">Precio</label>
+                <input type="number" class="form-control bg-dark text-white" name="precio" placeholder="Ingrese el precio en Bs.S" style="display: inline-block; margin-bottom: 2%; vertical-align: middle;" [(ngModel)]="nplato.precio">
               </div>
-
+              
               <button (click)="agregarPlato.hide()" type="submit" class="btn btn-danger"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">add</i>
-                  Agregar plato
-                </button>
-                
+                Agregar plato
+              </button>
+
             </form>
           </div>
         </div>
