@@ -14,7 +14,7 @@ export class MenuadminComponent implements OnInit {
 
   isFirstDisabled = false;
   porcentajeUpload: Observable<number>;
-  imagenURL: Observable<string>;
+  public imagenURL: Observable<any>;
   platos = [];
   nplato = {} as Plato;
   uploaded: boolean = false;
@@ -29,7 +29,22 @@ export class MenuadminComponent implements OnInit {
         this.platos = platos;
         console.log(this.platos);
       });
+/*
+      this.imagenURL.subscribe(params => {
+        this.nplato.imagen = JSON.parse(params);
+        console.log(this.nplato.imagen);
+      });*/
+
   }   
+  /*
+  onSubmit() {
+    this.imagenURL.subscribe(params => {
+      this.nplato.imagen = JSON.parse(params);
+      console.log(this.nplato.imagen);
+    });
+  }*/
+
+  
 
   upload(event) {
     const file = event.target.files[0];
@@ -45,13 +60,21 @@ export class MenuadminComponent implements OnInit {
         this.imagenURL = fileRef.getDownloadURL()
         )
      )
-    .subscribe()
+    .subscribe();
 
     this.uploaded = true;
   }
 
   addPlato() {
     // console.log(this.nplato);
+    //console.log(this.imagenURL);
+    // this.platoService.agregarPlato(this.nplato);
+    //this.nplato.imagen = this.imagenURL;
+    this.imagenURL.subscribe(params => {
+      this.nplato.imagen = params;
+      console.log(this.nplato.imagen);
+    });
+    console.log(this.nplato);
     this.platoService.agregarPlato(this.nplato);
   }
 

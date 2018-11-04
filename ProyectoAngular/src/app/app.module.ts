@@ -29,6 +29,8 @@ import { PendientesComponent } from './pendientes/pendientes.component';
 
 import { FireService } from './services/fire.service';
 
+import { CommonModule } from '@angular/common';
+
 const routes: Routes = [
   { path: '', redirectTo:'inicio', pathMatch:'full'},
   { path: 'inicio', component: InicioComponent },
