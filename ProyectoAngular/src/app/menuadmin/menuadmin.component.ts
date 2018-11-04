@@ -16,7 +16,7 @@ export class MenuadminComponent implements OnInit {
   porcentajeUpload: Observable<number>;
   public imagenURL: Observable<any>;
   platos = [];
-  nplato = {} as Plato;
+  public nplato = {} as Plato;
   uploaded: boolean = false;
 
   constructor(public platoService: FireService, private afStorage: AngularFireStorage) { 
@@ -29,6 +29,7 @@ export class MenuadminComponent implements OnInit {
         this.platos = platos;
         console.log(this.platos);
       });
+
 /*
       this.imagenURL.subscribe(params => {
         this.nplato.imagen = JSON.parse(params);
@@ -54,7 +55,7 @@ export class MenuadminComponent implements OnInit {
 
     // ver el porcentaje de subida
     this.porcentajeUpload = task.percentageChanges();
-    // mostrar cuando este disponible el url
+    
     task.snapshotChanges().pipe(
         finalize(() => 
         this.imagenURL = fileRef.getDownloadURL()
@@ -72,10 +73,9 @@ export class MenuadminComponent implements OnInit {
     //this.nplato.imagen = this.imagenURL;
     this.imagenURL.subscribe(params => {
       this.nplato.imagen = params;
-      console.log(this.nplato.imagen);
+      this.platoService.agregarPlato(this.nplato);
     });
-    console.log(this.nplato);
-    this.platoService.agregarPlato(this.nplato);
+
   }
 
   limpiarNPlato() {
