@@ -67,10 +67,7 @@ export class MenuadminComponent implements OnInit {
   }
 
   addPlato() {
-    // console.log(this.nplato);
-    //console.log(this.imagenURL);
-    // this.platoService.agregarPlato(this.nplato);
-    //this.nplato.imagen = this.imagenURL;
+
     this.imagenURL.subscribe(params => {
       this.nplato.imagen = params;
       this.platoService.agregarPlato(this.nplato);
