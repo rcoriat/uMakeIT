@@ -25,17 +25,22 @@ export class FireService {
     }));
   }
 
-  getPlatos(){
+  getPlatos() {
     return this.platos;
   }
 
-  borrarPlato(plato: Plato){
+  borrarPlato(plato: Plato) {
     this.platoDoc = this.db.doc(`platos/${plato.id}`);
     this.platoDoc.delete();
   }
 
   agregarPlato(plato: Plato){
     this.platosCollection.add(plato);
+  }
+
+  actualizarPlato(plato: Plato) {
+    this.platoDoc = this.db.doc(`platos/${plato.id}`);
+    this.platoDoc.update(plato);
   }
 
 }

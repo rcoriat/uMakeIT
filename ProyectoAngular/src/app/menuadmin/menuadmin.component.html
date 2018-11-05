@@ -28,7 +28,114 @@
             <div class="checkbox"><input type="checkbox" value=""></div>
           </td>
           <td>{{ plato.precio }}</td>
-          <td><button type="button" class="close" (click)="editarPlato.show()"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">edit</i></button></td>
+          <td><button type="button" class="close" (click)="editaPlato.show(); editarPlato($event, plato);"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">edit</i></button></td>
+          
+          <!-- Modal editar -->
+
+          <div bsModal #editaPlato="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+            <div *ngIf="eplato != null && eplato.id == plato.id">
+              <form class="modal-dialog modal-lg" (ngSubmit)="actualizarPlato()">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 id="dialog-sizes-name1" class="modal-title pull-left">Editar Plato</h4>
+                    <button type="button" class="close pull-right" (click)="editaPlato.hide()" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row align-items-start">
+                      <div class="col">
+                        <div class="foto">
+                          <img src="../../assets/iconoscomida/hamburguesa.png">
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="descripcion">
+                          <label for="inputNombre">Nombre</label>
+                          <input type="text" class="form-control" id="inputNombre" placeholder="Nombre" value="{{plato.nombre}}"  [(ngModel)]="eplato.nombre" name="ePlatoNombre">
+                          <label for="inputDescripcion">Descripción</label>
+                          <textarea type="text" class="form-control" id="inputDescripcion" value="{{plato.descripcio}}" [(ngModel)]="eplato.descripcion" name="ePlatoDescripcion"></textarea>
+                          <label for="inputPrecio">Precio(Bs.S)</label>
+                          <input type="text" class="form-control" id="inputPrecio" placeholder="Precio (Bs.S)" value="{{plato.precio}}" [(ngModel)]="eplato.precio" name="ePlatoPrecio">
+                          <button type="button" id="botonpers" class="btn btn-danger" (click)="isFirstDisabled = !isFirstDisabled">
+                            Personalizable
+                          </button>
+                          <accordion>
+                            <accordion-group [isDisabled]="isFirstDisabled">
+                              <button type="button" class="btn btn-link btn-block clearfix" accordion-heading>
+                                <div style="display: inline-block; width: 45%; text-align: left; padding-left: 3%">Agregar</div>
+                                <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
+                              </button>
+                              <div class="descripcion">
+                                <h5>Extras:</h5>
+                                <label><input type="checkbox">Pan integral </label>
+                                <label><input type="checkbox">Pan c/ parmesano y orégano </label>
+                                <label><input type="checkbox">Queso Brie </label>
+                                <label><input type="checkbox">Queso de Cabra </label>
+                                <label><input type="checkbox">Jalapeño </label>
+                                <label><input type="checkbox">Salsa BBQ </label>
+                                <label><input type="checkbox">Tocineta </label>
+                                <label><input type="checkbox">Cebolla caramelizada </label>
+                              </div>
+                            </accordion-group>
+                          </accordion>
+                          <br>
+                        </div>
+                      </div>
+                    </div>
+                  </div> 
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-right: auto; color:white;"
+                      (click)="editaPlato.hide()">
+                      Cerrar
+                    </button>
+                    <a [routerLink]="['/admin']"><button type="button" class="btn btn-danger" (click)="confirmacionEdicion.show()"><i
+                          class="material-icons" style="vertical-align: middle; position: relative; text-align: center">add</i>
+                        Actualizar
+                      </button></a>
+
+                                        <!-- Modal confirmar edicion -->
+                      <div bsModal #confirmacionEdicion="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+                        <div class="modal-dialog modal-sm">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h4 id="dialog-sizes-name1" class="modal-title pull-left">Confirmación</h4>
+                              <button type="button" class="close pull-right" (click)="confirmacionEdicion.hide()" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <div class="row align-items-start">
+                                <div class="col">
+                                  <div class="descripcion">
+                                    <h5 style="display:inline-block; margin-right: 2%;">¿Desea realizar los cambios?</h5>
+                                  </div>
+                                  <div id="alerta">
+                                    <i class="material-icons md-48">alert</i>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-right: auto; color:white;"
+                                (click)="confirmacionEdicion.hide();">
+                                Cancelar
+                              </button>
+                              <button type="submit" class="btn btn-danger" (click)="confirmacionEdicion.hide(); editaPlato.hide()"><i
+                                  class="material-icons" style="vertical-align: middle; margin-right: 2%; margin-left: auto;">check</i>
+                                Confirmar
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div> <!-- Fin Modal confirmar edicion -->
+
+                  </div>
+                </div>
+              </form>
+            </div>  
+          </div> <!-- Fin Modal editar --> 
           <td><button type="button" class="close" (click)="eliminarPlato.show()" aria-label="Close"><i class="material-icons"
                 style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
         </tr>
@@ -125,73 +232,9 @@
 </div>
 
 
-<!-- Modal editar -->
 
-<div bsModal #editarPlato="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Editar Plato</h4>
-        <button type="button" class="close pull-right" (click)="editarPlato.hide()" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row align-items-start">
-          <div class="col">
-            <div class="foto">
-              <img src="../../assets/iconoscomida/hamburguesa.png">
-            </div>
-          </div>
-          <div class="col">
-            <div class="descripcion">
-              <label for="inputNombre">Nombre</label>
-              <input type="text" class="form-control" id="inputNombre" placeholder="Hamburguesa">
-              <label for="inputDescripcion">Descripción</label>
-              <textarea type="text" class="form-control" id="inputDescripcion">Nuestra deliciosa hamburguesa con carne, queso fundido, vegetales frescos y pan producido por uMakeIT!.</textarea>
-              <label for="inputPrecio">Precio(Bs.S)</label>
-              <input type="text" class="form-control" id="inputPrecio" placeholder="300">
-              <button type="submit" id="botonpers" class="btn btn-danger" (click)="isFirstDisabled = !isFirstDisabled">
-                Personalizable
-              </button>
-              <accordion>
-                <accordion-group [isDisabled]="isFirstDisabled">
-                  <button class="btn btn-link btn-block clearfix" accordion-heading>
-                    <div style="display: inline-block; width: 45%; text-align: left; padding-left: 3%">Agregar</div>
-                    <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
-                  </button>
-                  <div class="descripcion">
-                    <h5>Extras:</h5>
-                    <label><input type="checkbox">Pan integral </label>
-                    <label><input type="checkbox">Pan c/ parmesano y orégano </label>
-                    <label><input type="checkbox">Queso Brie </label>
-                    <label><input type="checkbox">Queso de Cabra </label>
-                    <label><input type="checkbox">Jalapeño </label>
-                    <label><input type="checkbox">Salsa BBQ </label>
-                    <label><input type="checkbox">Tocineta </label>
-                    <label><input type="checkbox">Cebolla caramelizada </label>
-                  </div>
-                </accordion-group>
-              </accordion>
-              <br>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-right: auto; color:white;"
-          (click)="editarPlato.hide()">
-          Cerrar
-        </button>
-        <a [routerLink]="['/admin']"><button type="submit" class="btn btn-danger" (click)="confirmacion.show()"><i
-              class="material-icons" style="vertical-align: middle; position: relative; text-align: center">add</i>
-            Actualizar
-          </button></a>
-      </div>
-    </div>
-  </div>
-</div>
+      
 
 
 <!-- Modal eliminar cambios -->
@@ -229,7 +272,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> 
 
 
 <!-- Modal confirmar cambios -->
@@ -260,7 +303,7 @@
           (click)="confirmacion.hide();">
           Cancelar
         </button>
-        <button type="submit" class="btn btn-danger" (click)="confirmacion.hide(); eliminarPlato.hide(); editarPlato.hide();"><i
+        <button type="submit" class="btn btn-danger" (click)="confirmacion.hide(); eliminarPlato.hide(); editaPlato.hide();"><i
             class="material-icons" style="vertical-align: middle; margin-right: 2%; margin-left: auto;">check</i>
           Confirmar
         </button>

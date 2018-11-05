@@ -16,12 +16,12 @@ export class MenuadminComponent implements OnInit {
   porcentajeUpload: Observable<number>;
   public imagenURL: Observable<any>;
   platos = [];
-  public nplato = {} as Plato;
+  public nplato = {} as Plato; // nuevo plato
   uploaded: boolean = false;
+  public eplato: Plato; // plato de edicion
 
-  constructor(public platoService: FireService, private afStorage: AngularFireStorage) { 
+  constructor(public platoService: FireService, private afStorage: AngularFireStorage) {
     this.uploaded = false;
-  
   }
 
   ngOnInit() {
@@ -29,34 +29,18 @@ export class MenuadminComponent implements OnInit {
         this.platos = platos;
         console.log(this.platos);
       });
-
-/*
-      this.imagenURL.subscribe(params => {
-        this.nplato.imagen = JSON.parse(params);
-        console.log(this.nplato.imagen);
-      });*/
-
-  }   
-  /*
-  onSubmit() {
-    this.imagenURL.subscribe(params => {
-      this.nplato.imagen = JSON.parse(params);
-      console.log(this.nplato.imagen);
-    });
-  }*/
-
+  }
 
   upload(event) {
     const file = event.target.files[0];
-    const filePath = 'subidas-admin/'+ file.name ;
+    const filePath = 'subidas-admin/' + file.name ;
     const fileRef = this.afStorage.ref(filePath);
     const task = this.afStorage.upload(filePath, file);
 
     // ver el porcentaje de subida
     this.porcentajeUpload = task.percentageChanges();
-    
     task.snapshotChanges().pipe(
-        finalize(() => 
+        finalize(() =>
         this.imagenURL = fileRef.getDownloadURL()
         )
      )
@@ -72,6 +56,28 @@ export class MenuadminComponent implements OnInit {
       this.platoService.agregarPlato(this.nplato);
     });
 
+  }
+
+  editarPlato(evento, plato) {
+    this.eplato = plato;
+  }
+
+  actualizarPlato() {
+    console.log('eplato antes de imagenURL: ');
+    console.log(this.eplato);
+    if (this.imagenURL != null) {
+      this.imagenURL.subscribe(params => {
+      this.eplato.imagen = params;
+      //this.platoService.actualizarPlato(this.eplato);
+      console.log('eplato despues de imagenURL: ');
+      console.log(this.eplato);
+    });
+    } else {
+      this.platoService.actualizarPlato(this.eplato);
+      console.log('eplato despues de imagenURL: ');
+      console.log(this.eplato);
+    }
+    this.eplato = {} as Plato;
   }
 
   limpiarNPlato() {
