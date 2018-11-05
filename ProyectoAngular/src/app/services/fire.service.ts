@@ -34,7 +34,7 @@ export class FireService {
     this.platoDoc.delete();
   }
 
-  agregarPlato(plato: Plato){
+  agregarPlato(plato: Plato) {
     this.platosCollection.add(plato);
   }
 

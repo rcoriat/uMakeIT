@@ -18,7 +18,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor='let plato of platos; index as i'>
+        <tr #forLoop *ngFor='let plato of platos; index as i'>
           <th scope="row">{{ i+1 }}</th>
           <th class="colimg"><img src="{{ plato.imagen }}" alt="imagendelplato"></th>
           <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">local_dining</i></td>
@@ -33,7 +33,7 @@
 
           <!-- Modal editar -->
 
-          <div bsModal #editaPlato="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+          <div bsModal #editaPlato="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1" id="modalEditar" (onHidden)="reiniciarPlatos()">
             <div *ngIf="eplato != null && eplato.id == plato.id">
               <form class="modal-dialog modal-lg" (ngSubmit)="actualizarPlato()">
                 <div class="modal-content">
@@ -54,11 +54,11 @@
                         <div class="descripcion">
                           <div class="form-group">
                             <label for="inputNombre">Nombre</label>
-                            <input type="text" class="form-control" id="inputNombre" placeholder="Nombre" value="{{plato.nombre}}" [(ngModel)]="eplato.nombre" name="ePlatoNombre">
+                            <input type="text" class="form-control" id="inputNombre" placeholder="Nombre" value="eplato.nombre" [(ngModel)]="eplato.nombre" name="ePlatoNombre">
                           </div>
                           <div class="form-group">
                             <label for="inputDescripcion">Descripción</label>
-                            <textarea type="text" rows="4" class="form-control" id="inputDescripcion" value="{{plato.descripcio}}" [(ngModel)]="eplato.descripcion" name="ePlatoDescripcion"></textarea>
+                            <textarea type="text" rows="4" class="form-control" id="inputDescripcion" value="{{plato.descripcion}}" [(ngModel)]="eplato.descripcion" name="ePlatoDescripcion"></textarea>
                           </div>
                           <button type="button" id="botonpers" class="btn btn-danger" (click)="isFirstDisabled = !isFirstDisabled">
                             Personalizable
@@ -145,6 +145,7 @@
               </form>
             </div>
           </div> <!-- Fin Modal editar -->
+          
           <td><button type="button" class="close" (click)="eliminarPlato.show()" aria-label="Close"><i class="material-icons"
                 style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
           <!-- Modal eliminar plato -->
@@ -185,6 +186,7 @@
               </div>
             </div>
           </div> <!-- Final modal eliminar plato -->
+          
 
           <!-- Modal confirmacion eliminar -->
           <div bsModal #confirmacion="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">

@@ -3,7 +3,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { FireService } from '../services/fire.service';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Plato } from '../models/plato';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
 @Component({
@@ -21,17 +21,20 @@ export class MenuadminComponent implements OnInit {
   uploaded: boolean = false;
   public eplato: Plato; // plato de edicion
   modalRef: BsModalRef; //modal confirmar
+  platos2 = [];
+  public subscriptionplatos: Subscription;
 
   constructor(public platoService: FireService, private afStorage: AngularFireStorage) {
     this.uploaded = false;
   }
 
   ngOnInit() {
-      this.platoService.getPlatos().subscribe(platos => {
+      this.subscriptionplatos = this.platoService.getPlatos().subscribe(platos => {
         this.platos = platos;
         console.log(this.platos);
       });
   }
+
 
   upload(event) {
     const file = event.target.files[0];
@@ -106,6 +109,14 @@ export class MenuadminComponent implements OnInit {
     this.nplato.personalizable = null;
     this.nplato.precio = null;
     this.nplato.tipo = null;
+  }
+
+  reiniciarPlatos() {
+    this.subscriptionplatos.unsubscribe();
+    this.subscriptionplatos = this.platoService.getPlatos().subscribe(p => {
+      this.platos = p;
+    });
+
   }
 
 }
