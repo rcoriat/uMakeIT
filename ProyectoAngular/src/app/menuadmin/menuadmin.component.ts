@@ -20,7 +20,6 @@ export class MenuadminComponent implements OnInit {
   public nplato = {} as Plato; // nuevo plato
   uploaded: boolean = false;
   public eplato: Plato; // plato de edicion
-  modalRef: BsModalRef; //modal confirmar
 
   constructor(public platoService: FireService, private afStorage: AngularFireStorage) {
     this.uploaded = false;
@@ -34,6 +33,7 @@ export class MenuadminComponent implements OnInit {
   }
 
   upload(event) {
+    this.imagenURL = undefined;
     const file = event.target.files[0];
     const filePath = 'subidas-admin/' + file.name ;
     const fileRef = this.afStorage.ref(filePath);
@@ -49,6 +49,7 @@ export class MenuadminComponent implements OnInit {
     .subscribe();
 
     this.uploaded = true;
+    
   }
 
   addPlato() {
@@ -62,12 +63,12 @@ export class MenuadminComponent implements OnInit {
         this.platoService.agregarPlato(this.nplato);
       });
     }
+    this.uploaded = false;
+    this.imagenURL = undefined;
   }
 
   editarPlato(evento, plato) {
-
     this.eplato = plato;
-
   }
 
   borrarPlato(event, plato) {
@@ -77,20 +78,19 @@ export class MenuadminComponent implements OnInit {
 
 
   actualizarPlato() {
-    console.log('eplato antes de imagenURL: ');
-    console.log(this.eplato);
-    if (this.imagenURL != undefined) {
-      this.imagenURL.subscribe(params => {
-      this.eplato.imagen = params;
+
+
+    if(this.imagenURL == undefined){
       this.platoService.actualizarPlato(this.eplato);
-      console.log('eplato despues de imagenURL: ');
-      console.log(this.eplato);
-    });
-    } else {
-      this.platoService.actualizarPlato(this.eplato);
-      console.log('eplato despues de imagenURL: ');
-      console.log(this.eplato);
     }
+    else{
+      this.imagenURL.subscribe(params => {
+        this.eplato.imagen = params;
+        this.platoService.actualizarPlato(this.eplato);
+      });  
+    }
+   
+    this.imagenURL = undefined;
     this.eplato = {} as Plato;
   }
 

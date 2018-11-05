@@ -47,18 +47,27 @@
                     <div class="row align-items-start">
                       <div class="col">
                         <div class="foto">
-                          <img src="{{plato.imagen}}">
-                        </div>
+
+                            <img style="margin-top: 25%; margin-bottom: 25%;" src="{{imagenURL | async}}" *ngIf="uploaded">
+                            <img style="margin-top: 25%; margin-bottom: 25%;" src="{{plato.imagen}}"
+                              *ngIf="!uploaded">
+                            <div class="custom-file">
+                              <input type="file" class="custom-file-input" id="file" (change)="upload($event)" accept=".png">
+                              <div>{{ porcentajeUpload | async }}</div>
+                              <label class="custom-file-label" for="file">Subir imagen</label>
+                            </div>
+
                       </div>
+                    </div>
                       <div class="col">
                         <div class="descripcion">
                           <div class="form-group">
                             <label for="inputNombre">Nombre</label>
-                            <input type="text" class="form-control" id="inputNombre" placeholder="Nombre" value="{{plato.nombre}}" [(ngModel)]="eplato.nombre" name="ePlatoNombre">
+                            <input type="text" class="form-control" id="inputNombre" placeholder="Nombre" value="{{plato.nombre}}" [(ngModel)]="eplato.nombre" name="nombre">
                           </div>
                           <div class="form-group">
                             <label for="inputDescripcion">Descripción</label>
-                            <textarea type="text" rows="4" class="form-control" id="inputDescripcion" value="{{plato.descripcio}}" [(ngModel)]="eplato.descripcion" name="ePlatoDescripcion"></textarea>
+                            <textarea type="text" rows="4" class="form-control" id="inputDescripcion" value="{{plato.descripcion}}" [(ngModel)]="eplato.descripcion" name="descripcion"></textarea>
                           </div>
                           <button type="button" id="botonpers" class="btn btn-danger" (click)="isFirstDisabled = !isFirstDisabled">
                             Personalizable
@@ -83,9 +92,9 @@
                             </accordion-group>
                           </accordion>
                           <div class="form-group">
-                            <label for="inputPrecio">Precio(Bs.S)</label>
+                            <label for="inputPrecio">Precio (Bs.S)</label>
                             <input type="text" class="form-control bg-dark text-white" id="inputPrecio" style="display: inline-block; vertical-align: middle;"
-                              placeholder="Precio (Bs.S)" value="{{plato.precio}}" [(ngModel)]="eplato.precio" name="ePlatoPrecio">
+                              placeholder="Ingrese el precio en Bs.S" value="{{plato.precio}}" [(ngModel)]="eplato.precio" name="precio">
                           </div>
                         </div>
                       </div>
@@ -238,7 +247,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 id="dialog-sizes-name1" class="modal-title pull-left">Agregar al menú</h4>
-        <button type="button" class="close pull-right" (click)="agregarPlato.hide()" aria-label="Close">
+        <button type="button" class="close pull-right" (click)="agregarPlato.hide(); uploaded=false;" aria-label="Close" >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
