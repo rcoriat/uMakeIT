@@ -28,8 +28,9 @@
             <div class="checkbox"><input type="checkbox" value=""></div>
           </td>
           <td>{{ plato.precio }}</td>
-          <td><button type="button" class="close" (click)="editaPlato.show(); editarPlato($event, plato);"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">edit</i></button></td>
-          
+          <td><button type="button" class="close" (click)="editaPlato.show(); editarPlato($event, plato);"><i class="material-icons"
+                style="vertical-align: middle; position: relative; text-align: center">edit</i></button></td>
+
           <!-- Modal editar -->
 
           <div bsModal #editaPlato="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
@@ -46,17 +47,19 @@
                     <div class="row align-items-start">
                       <div class="col">
                         <div class="foto">
-                          <img src="../../assets/iconoscomida/hamburguesa.png">
+                          <img src="{{plato.imagen}}">
                         </div>
                       </div>
                       <div class="col">
                         <div class="descripcion">
-                          <label for="inputNombre">Nombre</label>
-                          <input type="text" class="form-control" id="inputNombre" placeholder="Nombre" value="{{plato.nombre}}"  [(ngModel)]="eplato.nombre" name="ePlatoNombre">
-                          <label for="inputDescripcion">Descripción</label>
-                          <textarea type="text" class="form-control" id="inputDescripcion" value="{{plato.descripcio}}" [(ngModel)]="eplato.descripcion" name="ePlatoDescripcion"></textarea>
-                          <label for="inputPrecio">Precio(Bs.S)</label>
-                          <input type="text" class="form-control" id="inputPrecio" placeholder="Precio (Bs.S)" value="{{plato.precio}}" [(ngModel)]="eplato.precio" name="ePlatoPrecio">
+                          <div class="form-group">
+                            <label for="inputNombre">Nombre</label>
+                            <input type="text" class="form-control" id="inputNombre" placeholder="Nombre" value="{{plato.nombre}}" [(ngModel)]="eplato.nombre" name="ePlatoNombre">
+                          </div>
+                          <div class="form-group">
+                            <label for="inputDescripcion">Descripción</label>
+                            <textarea type="text" rows="4" class="form-control" id="inputDescripcion" value="{{plato.descripcio}}" [(ngModel)]="eplato.descripcion" name="ePlatoDescripcion"></textarea>
+                          </div>
                           <button type="button" id="botonpers" class="btn btn-danger" (click)="isFirstDisabled = !isFirstDisabled">
                             Personalizable
                           </button>
@@ -79,65 +82,150 @@
                               </div>
                             </accordion-group>
                           </accordion>
-                          <br>
+                          <div class="form-group">
+                            <label for="inputPrecio">Precio(Bs.S)</label>
+                            <input type="text" class="form-control bg-dark text-white" id="inputPrecio" style="display: inline-block; vertical-align: middle;"
+                              placeholder="Precio (Bs.S)" value="{{plato.precio}}" [(ngModel)]="eplato.precio" name="ePlatoPrecio">
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div> 
+                  </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-right: auto; color:white;"
                       (click)="editaPlato.hide()">
                       Cerrar
                     </button>
-                    <a [routerLink]="['/admin']"><button type="button" class="btn btn-danger" (click)="confirmacionEdicion.show()"><i
-                          class="material-icons" style="vertical-align: middle; position: relative; text-align: center">add</i>
-                        Actualizar
-                      </button></a>
+                    <button type="button" class="btn btn-danger" (click)="confirmacionEdicion.show()"><i class="material-icons"
+                        style="vertical-align: middle; position: relative; text-align: center">add</i>
+                      Actualizar
+                    </button>
 
-                                        <!-- Modal confirmar edicion -->
-                      <div bsModal #confirmacionEdicion="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
-                        <div class="modal-dialog modal-sm">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h4 id="dialog-sizes-name1" class="modal-title pull-left">Confirmación</h4>
-                              <button type="button" class="close pull-right" (click)="confirmacionEdicion.hide()" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                            </div>
-                            <div class="modal-body">
-                              <div class="row align-items-start">
-                                <div class="col">
-                                  <div class="descripcion">
-                                    <h5 style="display:inline-block; margin-right: 2%;">¿Desea realizar los cambios?</h5>
-                                  </div>
-                                  <div id="alerta">
-                                    <i class="material-icons md-48">alert</i>
-                                  </div>
+                    <!-- Modal confirmar edicion -->
+                    <div bsModal #confirmacionEdicion="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+                      aria-labelledby="dialog-sizes-name1">
+                      <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 id="dialog-sizes-name1" class="modal-title pull-left">Confirmación</h4>
+                            <button type="button" class="close pull-right" (click)="confirmacionEdicion.hide()"
+                              aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="row align-items-start">
+                              <div class="col">
+                                <div class="descripcion">
+                                  <h5 style="display:inline-block; margin-right: 2%;">¿Desea realizar los cambios?</h5>
+                                </div>
+                                <div id="alerta">
+                                  <i class="material-icons md-48">alert</i>
                                 </div>
                               </div>
                             </div>
+                          </div>
 
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-right: auto; color:white;"
-                                (click)="confirmacionEdicion.hide();">
-                                Cancelar
-                              </button>
-                              <button type="submit" class="btn btn-danger" (click)="confirmacionEdicion.hide(); editaPlato.hide()"><i
-                                  class="material-icons" style="vertical-align: middle; margin-right: 2%; margin-left: auto;">check</i>
-                                Confirmar
-                              </button>
-                            </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-right: auto; color:white;"
+                              (click)="confirmacionEdicion.hide();">
+                              Cancelar
+                            </button>
+                            <button type="submit" class="btn btn-danger" (click)="confirmacionEdicion.hide(); editaPlato.hide()"><i
+                                class="material-icons" style="vertical-align: middle; margin-right: 2%; margin-left: auto;">check</i>
+                              Confirmar
+                            </button>
                           </div>
                         </div>
-                      </div> <!-- Fin Modal confirmar edicion -->
+                      </div>
+                    </div> <!-- Fin Modal confirmar edicion -->
 
                   </div>
                 </div>
               </form>
-            </div>  
-          </div> <!-- Fin Modal editar --> 
+            </div>
+          </div> <!-- Fin Modal editar -->
           <td><button type="button" class="close" (click)="eliminarPlato.show()" aria-label="Close"><i class="material-icons"
                 style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
+          <!-- Modal eliminar plato -->
+          <div bsModal #eliminarPlato="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+            <div class="modal-dialog" style="width:70%;">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 id="dialog-sizes-name1" class="modal-title pull-left">Eliminar Plato</h4>
+                  <button type="button" class="close pull-right" (click)="eliminarPlato.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="row align-items-start">
+                    <div class="col">
+                      <div class="descripcion">
+                        <h5 style="display:inline-block; margin-right: 2%;">¿Desea eliminar el plato:
+                          {{plato.nombre}}?</h5>
+                      </div>
+                      <div id="alerta">
+                        <i class="material-icons md-48">alert</i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-right: auto; color:white;"
+                    (click)="eliminarPlato.hide()">
+                    Cancelar
+                  </button>
+                  <button type="button" class="btn btn-danger" (click)="confirmacion.show(); eliminarPlato.hide();"><i
+                      class="material-icons" style="vertical-align: middle; margin-right: 2%; margin-left: auto;">check</i>
+                    Confirmar
+                  </button>
+
+                </div>
+              </div>
+            </div>
+          </div> <!-- Final modal eliminar plato -->
+
+          <!-- Modal confirmacion eliminar -->
+          <div bsModal #confirmacion="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+            <div class="modal-dialog modal-sm">
+
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 id="dialog-sizes-name1" class="modal-title pull-left">Confirmación</h4>
+                  <button type="button" class="close pull-right" (click)="confirmacion.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="row align-items-start">
+                    <div class="col">
+                      <div class="descripcion">
+                        <h5 style="display:inline-block; margin-right: 2%;">¿Desea realizar los cambios?</h5>
+                      </div>
+                      <div id="alerta">
+                        <i class="material-icons md-48">alert</i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="modal-footer">
+
+                  <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-right: auto; color:white;"
+                    (click)="confirmacion.hide();">
+                    Cancelar
+                  </button>
+                  <button type="submit" class="btn btn-danger" (click)="confirmacion.hide(); eliminarPlato.hide(); borrarPlato($event, plato)"><i
+                      class="material-icons" style="vertical-align: middle; margin-right: 2%; margin-left: auto;">check</i>
+                    Confirmar
+                  </button>
+
+                </div>
+              </div>
+
+            </div>
+          </div><!-- Final modal confirmacion eliminar -->
         </tr>
       </tbody>
     </table>
@@ -159,7 +247,8 @@
           <div class="col">
             <div class="foto">
               <img style="margin-top: 25%; margin-bottom: 25%;" src="{{imagenURL | async}}" *ngIf="uploaded">
-              <img style="margin-top: 25%; margin-bottom: 25%;" src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85" *ngIf="!uploaded">
+              <img style="margin-top: 25%; margin-bottom: 25%;" src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85"
+                *ngIf="!uploaded">
               <div class="custom-file">
                 <input type="file" class="custom-file-input" id="file" (change)="upload($event)" accept=".png">
                 <div>{{ porcentajeUpload | async }}</div>
@@ -168,8 +257,7 @@
             </div>
           </div>
           <div class="col">
-            <form class="descripcion" (ngSubmit)="addPlato()">
-               
+              <div class="descripcion">
               <div class="form-group">
                 <label for="nombre">Nombre</label>
                 <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese el nombre del plato"
@@ -208,109 +296,35 @@
               </accordion>
               <div class="form-group">
                 <label for="precio">Precio</label>
-                <input type="number" class="form-control bg-dark text-white" name="precio" placeholder="Ingrese el precio en Bs.S" style="display: inline-block; margin-bottom: 2%; vertical-align: middle;" [(ngModel)]="nplato.precio">
+                <input type="number" class="form-control bg-dark text-white" name="precio" placeholder="Ingrese el precio en Bs.S"
+                  style="display: inline-block; margin-bottom: 2%; vertical-align: middle;" [(ngModel)]="nplato.precio">
               </div>
-              
-              <button (click)="agregarPlato.hide()" type="submit" class="btn btn-danger"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">add</i>
-                Agregar plato
-              </button>
 
-            </form>
+            
+            </div>
+           
           </div>
         </div>
       </div>
-
+      <form (ngSubmit)="addPlato()" >
       <div class="modal-footer">
-        <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-right: auto; color:white;"
+
+        <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-left: 0; margin-right:auto; color:white;"
           (click)="agregarPlato.hide()">
           Cerrar
         </button>
 
+        <button (click)="agregarPlato.hide()" type="submit" class="btn btn-danger"><i class="material-icons"
+          style="vertical-align: middle; position:relative; margin-left: auto; margin-right:0; text-align: center">add</i>
+        Agregar plato
+      </button>
+    
       </div>
+    </form>
     </div>
   </div>
 </div>
 
-
-
-
-      
-
-
-<!-- Modal eliminar cambios -->
-<div bsModal #eliminarPlato="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
-  <div class="modal-dialog" style="width:70%;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Eliminar Plato</h4>
-        <button type="button" class="close pull-right" (click)="eliminarPlato.hide()" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row align-items-start">
-          <div class="col">
-            <div class="descripcion">
-              <h5 style="display:inline-block; margin-right: 2%;">¿Desea eliminar la Hamburguesa?</h5>
-            </div>
-            <div id="alerta">
-              <i class="material-icons md-48">alert</i>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-right: auto; color:white;"
-          (click)="eliminarPlato.hide()">
-          Cancelar
-        </button>
-        <a [routerLink]="['/admin']"><button type="submit" class="btn btn-danger" (click)="confirmacion.show(); eliminarPlato.hide();"><i
-              class="material-icons" style="vertical-align: middle; margin-right: 2%; margin-left: auto;">check</i>
-            Confirmar
-          </button></a>
-      </div>
-    </div>
-  </div>
-</div> 
-
-
-<!-- Modal confirmar cambios -->
-<div bsModal #confirmacion="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Confirmación</h4>
-        <button type="button" class="close pull-right" (click)="confirmacion.hide()" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row align-items-start">
-          <div class="col">
-            <div class="descripcion">
-              <h5 style="display:inline-block; margin-right: 2%;">¿Desea realizar los cambios?</h5>
-            </div>
-            <div id="alerta">
-              <i class="material-icons md-48">alert</i>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-right: auto; color:white;"
-          (click)="confirmacion.hide();">
-          Cancelar
-        </button>
-        <button type="submit" class="btn btn-danger" (click)="confirmacion.hide(); eliminarPlato.hide(); editaPlato.hide();"><i
-            class="material-icons" style="vertical-align: middle; margin-right: 2%; margin-left: auto;">check</i>
-          Confirmar
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
 
 
 
