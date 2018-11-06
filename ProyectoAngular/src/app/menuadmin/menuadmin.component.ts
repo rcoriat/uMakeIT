@@ -11,18 +11,21 @@ import { finalize } from 'rxjs/operators';
   templateUrl: './menuadmin.component.html',
   styleUrls: ['./menuadmin.component.css']
 })
+
 export class MenuadminComponent implements OnInit {
 
   isFirstDisabled = false;
   porcentajeUpload: Observable<number>;
-  public imagenURL: Observable<any>;
+  public imagenURL: Observable<any>; 
   platos = [];
+
   public nplato = {} as Plato; // nuevo plato
   uploaded: boolean = false;
   public eplato: Plato; // plato de edicion
   modalRef: BsModalRef; //modal confirmar
   platos2 = [];
   public subscriptionplatos: Subscription;
+  public subscriptionimgURL: Subscription;
 
   constructor(public platoService: FireService, private afStorage: AngularFireStorage) {
     this.uploaded = false;
@@ -33,11 +36,11 @@ export class MenuadminComponent implements OnInit {
         this.platos = platos;
         console.log(this.platos);
       });
+      //this.subscriptionimgURL = this.imagenURL.subscribe();
   }
 
 
   upload(event) {
-    this.imagenURL = undefined;
     const file = event.target.files[0];
     const filePath = 'subidas-admin/' + file.name ;
     const fileRef = this.afStorage.ref(filePath);
@@ -62,13 +65,13 @@ export class MenuadminComponent implements OnInit {
       this.platoService.agregarPlato(this.nplato);
     }
     else{
-      this.imagenURL.subscribe(params => {
+      this.subscriptionimgURL.unsubscribe();      
+      this.subscriptionimgURL = this.imagenURL.subscribe(params => {
         this.nplato.imagen = params;
         this.platoService.agregarPlato(this.nplato);
       });
     }
     this.uploaded = false;
-    this.imagenURL = undefined;
   }
 
   editarPlato(evento, plato) {
@@ -80,25 +83,20 @@ export class MenuadminComponent implements OnInit {
   }
 
 
-
   actualizarPlato() {
-
-
     if(this.imagenURL == undefined){
       this.platoService.actualizarPlato(this.eplato);
     }
     else{
-      this.imagenURL.subscribe(params => {
+      //this.subscriptionimgURL.unsubscribe();
+      this.subscriptionimgURL=this.imagenURL.subscribe(params => {
         this.eplato.imagen = params;
         this.platoService.actualizarPlato(this.eplato);
       });  
+
     }
-   
-    this.imagenURL = undefined;
-    this.eplato = {} as Plato;
+    this.uploaded = false;  
   }
-
-
 
   limpiarNPlato() {
     this.nplato.cantidad = null;
@@ -117,8 +115,12 @@ export class MenuadminComponent implements OnInit {
     this.subscriptionplatos = this.platoService.getPlatos().subscribe(p => {
       this.platos = p;
     });
+    this.eplato = {} as Plato;
 
+    this.imagenURL = undefined;
+    this.uploaded = false;
   }
+  
 
 }
 

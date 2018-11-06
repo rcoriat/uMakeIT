@@ -33,7 +33,7 @@
 
           <!-- Modal editar -->
 
-          <div bsModal #editaPlato="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1" id="modalEditar" (onHidden)="reiniciarPlatos()">
+          <div bsModal #editaPlato="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1" id="modalEditar" (onHidden)="reiniciarPlatos(); uploaded = false;">
             <div *ngIf="eplato != null && eplato.id == plato.id">
               <form class="modal-dialog modal-lg" (ngSubmit)="actualizarPlato()">
                 <div class="modal-content">
@@ -49,8 +49,7 @@
                         <div class="foto">
 
                             <img style="margin-top: 25%; margin-bottom: 25%;" src="{{imagenURL | async}}" *ngIf="uploaded">
-                            <img style="margin-top: 25%; margin-bottom: 25%;" src="{{plato.imagen}}"
-                              *ngIf="!uploaded">
+                            <img style="margin-top: 25%; margin-bottom: 25%;" src="{{plato.imagen}}" *ngIf="!uploaded">
                             <div class="custom-file">
                               <input type="file" class="custom-file-input" id="file" (change)="upload($event)" accept=".png">
                               <div>{{ porcentajeUpload | async }}</div>
@@ -69,6 +68,16 @@
                             <label for="inputDescripcion">Descripción</label>
                             <textarea type="text" rows="4" class="form-control" id="inputDescripcion" value="{{plato.descripcion}}" [(ngModel)]="eplato.descripcion" name="descripcion"></textarea>
                           </div>
+
+                          <div class="form-group">
+                            <label for="inputGroupSelect03">Tipo</label>
+                            <select class="custom-select" id="inputGroupSelect03" name="tipo" [(ngModel)]="eplato.tipo">
+                              <option value="Entrada" [selected]="eplato.tipo == 'Entrada'">Entrada</option>
+                              <option value="Principal" [selected]="eplato.tipo == 'Principal'">Principal</option>
+                              <option value="Postre" [selected]="eplato.tipo == 'Postre'">Postre</option>
+                            </select>
+                          </div>
+
                           <button type="button" id="botonpers" class="btn btn-danger" (click)="isFirstDisabled = !isFirstDisabled">
                             Personalizable
                           </button>
@@ -269,51 +278,57 @@
           </div>
           <div class="col">
               <div class="descripcion">
-              <div class="form-group">
-                <label for="nombre">Nombre</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese el nombre del plato"
-                  [(ngModel)]="nplato.nombre">
-              </div>
-              <div class="form-group">
-                <label for="descripcion">Descripción</label>
-                <textarea rows="4" class="form-control" id="descripcion" placeholder="Ingrese la descripción del plato"
-                  name="descripcion" [(ngModel)]="nplato.descripcion"></textarea>
-              </div>
+                <div class="form-group">
+                  <label for="nombre">Nombre</label>
+                  <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese el nombre del plato"
+                    [(ngModel)]="nplato.nombre">
+                </div>
+                <div class="form-group">
+                  <label for="descripcion">Descripción</label>
+                  <textarea rows="4" class="form-control" id="descripcion" placeholder="Ingrese la descripción del plato"
+                    name="descripcion" [(ngModel)]="nplato.descripcion"></textarea>
+                </div>
 
-              <button type="button" id="botonpers" class="btn btn-danger" (click)="isFirstDisabled = !isFirstDisabled">
-                Personalizable
-              </button>
-              <accordion>
-                <accordion-group [isDisabled]="isFirstDisabled">
-                  <button type="button" class="btn btn-link btn-block clearfix" accordion-heading>
-                    <img src="../../assets/prueba4.jpg" style="display: inline-block; width: 5%; border-radius: 100%">
-                    <div style="display: inline-block; width: 45%; text-align: left; padding-left: 3%">Agregar</div>
-                    <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
-                  </button>
-                  <div class="descripcion">
-                    <h5>Extras:</h5>
-                    <ul>
-                      <li>Pan integral</li>
-                      <li>Pan c/ parmesano y orégano</li>
-                      <li>Queso Brie</li>
-                      <li>Queso de Cabra</li>
-                      <li>Jalapeño</li>
-                      <li>Salsa BBQ</li>
-                      <li>Tocineta</li>
-                      <li>Cebolla caramelizada</li>
-                    </ul>
-                  </div>
-                </accordion-group>
-              </accordion>
-              <div class="form-group">
-                <label for="precio">Precio</label>
-                <input type="number" class="form-control bg-dark text-white" name="precio" placeholder="Ingrese el precio en Bs.S"
-                  style="display: inline-block; margin-bottom: 2%; vertical-align: middle;" [(ngModel)]="nplato.precio">
-              </div>
+                <div class="form-group">
+                  <label for="inputGroupSelect02">Tipo</label>
+                  <select class="custom-select" id="inputGroupSelect02" name="tipo" [(ngModel)]="nplato.tipo" required>
+                    <option value="Entrada" [selected]="true">Entrada</option>
+                    <option value="Principal" [selected]="false">Principal</option>
+                    <option value="Postre" [selected]="false">Postre</option>
+                  </select>
+                </div>
 
-            
+                <button type="button" id="botonpers" class="btn btn-danger" (click)="isFirstDisabled = !isFirstDisabled">
+                  Personalizable
+                </button>
+                <accordion>
+                  <accordion-group [isDisabled]="isFirstDisabled">
+                    <button type="button" class="btn btn-link btn-block clearfix" accordion-heading>
+                      <img src="../../assets/prueba4.jpg" style="display: inline-block; width: 5%; border-radius: 100%">
+                      <div style="display: inline-block; width: 45%; text-align: left; padding-left: 3%">Agregar</div>
+                      <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
+                    </button>
+                    <div class="descripcion">
+                      <h5>Extras:</h5>
+                      <ul>
+                        <li>Pan integral</li>
+                        <li>Pan c/ parmesano y orégano</li>
+                        <li>Queso Brie</li>
+                        <li>Queso de Cabra</li>
+                        <li>Jalapeño</li>
+                        <li>Salsa BBQ</li>
+                        <li>Tocineta</li>
+                        <li>Cebolla caramelizada</li>
+                      </ul>
+                    </div>
+                  </accordion-group>
+                </accordion>
+                <div class="form-group">
+                  <label for="precio">Precio</label>
+                  <input type="number" class="form-control bg-dark text-white" name="precio" placeholder="Ingrese el precio en Bs.S"
+                    style="display: inline-block; margin-bottom: 2%; vertical-align: middle;" [(ngModel)]="nplato.precio">
+                </div>
             </div>
-           
           </div>
         </div>
       </div>
