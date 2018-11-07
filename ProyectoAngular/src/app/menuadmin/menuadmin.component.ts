@@ -59,7 +59,8 @@ export class MenuadminComponent implements OnInit {
     
   }
 
-  addPlato() {
+  addPlato(hola:Boolean) {
+    console.log(hola);
     if(this.imagenURL == undefined){
       this.nplato.imagen = "https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85";
       this.platoService.agregarPlato(this.nplato);
@@ -86,12 +87,14 @@ export class MenuadminComponent implements OnInit {
   actualizarPlato() {
     if(this.imagenURL == undefined){
       this.platoService.actualizarPlato(this.eplato);
+      this.eplato = {} as Plato;
     }
     else{
       //this.subscriptionimgURL.unsubscribe();
       this.subscriptionimgURL=this.imagenURL.subscribe(params => {
         this.eplato.imagen = params;
         this.platoService.actualizarPlato(this.eplato);
+        this.eplato = {} as Plato;
       });  
 
     }
@@ -115,12 +118,12 @@ export class MenuadminComponent implements OnInit {
     this.subscriptionplatos = this.platoService.getPlatos().subscribe(p => {
       this.platos = p;
     });
-    this.eplato = {} as Plato;
+    
 
     this.imagenURL = undefined;
     this.uploaded = false;
   }
-  
 
+  
 }
 
