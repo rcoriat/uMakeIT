@@ -28,8 +28,16 @@ export class FireService {
       });
     }));
     this.extrasCollection = this.db.collection('extras');
+    this.extras = this.extrasCollection.snapshotChanges().pipe(map(actions => {
+      return actions.map(a => {
+        const data = a.payload.doc.data() as Extra;
+        data.id = a.payload.doc.id;
+        return data;
+      });
+    }));
   }
 
+  // Metodos platos
   getPlatos() {
     return this.platos;
   }
@@ -47,5 +55,26 @@ export class FireService {
     this.platoDoc = this.db.doc(`platos/${plato.id}`);
     this.platoDoc.update(plato);
   }
+
+  // Metodos extras
+  getExtras() {
+    return this.extras;
+  }
+
+  borrarExtra(extra: Extra) {
+    this.extraDoc = this.db.doc(`extras/${extra.id}`);
+    this.extraDoc.delete();
+  }
+
+  agregarExtra(extra: Extra) {
+    this.extrasCollection.add(extra);
+  }
+
+  actualizarExtra(extra: Extra) {
+    this.extraDoc = this.db.doc(`extras/${extra.id}`);
+    this.extraDoc.update(extra);
+  }
+
+
 
 }
