@@ -290,7 +290,7 @@
                   <input type="text" class="form-control" id="nombre" name="nombre" #nombre="ngModel" [ngClass]="{ 'is-invalid': formagregar.submitted && nombre.invalid }" placeholder="Ingrese el nombre del plato"
                     [(ngModel)]="nplato.nombre" required>
                     <div *ngIf="formagregar.submitted" class="invalid-feedback">
-                        <div *ngIf="nombre.errors.required">Ingrese el nombre del plato</div>
+                        <div *ngIf="nombre.errors != null && nombre.errors.required">Ingrese el nombre del plato</div>
                     </div>
 
                 </div>
@@ -354,7 +354,7 @@
             Cerrar
           </button>
 
-          <button (click)="formagregar.valid && agregarPlato.hide()" type="submit" class="btn btn-danger"><i class="material-icons" style="vertical-align: middle; position:relative; margin-left: auto; margin-right:0; text-align: center">add</i>
+          <button (click)="((formagregar.valid && agregarPlato.hide()) && !(formagregar.valid && agregarPlato.show())) || !((formagregar.valid && agregarPlato.hide()) && (formagregar.valid && agregarPlato.show()))" type="submit" class="btn btn-danger"><i class="material-icons" style="vertical-align: middle; position:relative; margin-left: auto; margin-right:0; text-align: center">add</i>
             Agregar plato
           </button>
 

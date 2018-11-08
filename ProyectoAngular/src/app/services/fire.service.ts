@@ -3,6 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Plato } from '../models/plato';
+import { Extra } from '../models/extra';
 
 
 @Injectable({
@@ -13,6 +14,9 @@ export class FireService {
   platosCollection: AngularFirestoreCollection<Plato>;
   platos: Observable<Plato[]>;
   platoDoc: AngularFirestoreDocument<Plato>;
+  extrasCollection: AngularFirestoreCollection<Extra>;
+  extras: Observable<Extra[]>;
+  extraDoc: AngularFirestoreDocument<Extra>;
 
   constructor(public db: AngularFirestore) {
     this.platosCollection = this.db.collection('platos');
@@ -23,6 +27,7 @@ export class FireService {
         return data;
       });
     }));
+    this.extrasCollection = this.db.collection('extras');
   }
 
   getPlatos() {
