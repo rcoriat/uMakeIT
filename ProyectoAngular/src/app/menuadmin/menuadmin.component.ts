@@ -6,6 +6,7 @@ import { Plato } from '../models/plato';
 import { Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import { Extra } from '../models/extra';
 
 @Component({
   selector: 'app-menuadmin',
@@ -18,15 +19,26 @@ export class MenuadminComponent implements OnInit {
   isFirstDisabled = false;
   porcentajeUpload: Observable<number>;
   public imagenURL: Observable<any>;
-  platos = [];
 
-  public nplato = {} as Plato; // nuevo plato
-  uploaded: boolean;
+  platos = [];
+  extras = [];
+
+  public nplato = {} as Plato; // 
+  nuevo plato
   public eplato: Plato; // plato de edicion
   modalAgregar: BsModalRef; // modal confirmar
-  platos2 = [];
+  uploaded: boolean;
+
   public subscriptionplatos: Subscription;
   public subscriptionimgURL: Subscription;
+  public subscriptionextras: Subscription;
+
+  public nextra = {} as Extra; // nuevo extra
+  public eextra: Extra; // extra de edicion
+
+  public incluido = []; // json bs-sortable de extras incluidos
+  public noIncluido = []; // json bs-sortable de extras no incluidos
+
 
   constructor(public platoService: FireService, private afStorage: AngularFireStorage, private modalService: BsModalService) {
     this.uploaded = false;
@@ -38,6 +50,14 @@ export class MenuadminComponent implements OnInit {
         console.log(this.platos);
       });
       // this.subscriptionimgURL = this.imagenURL.subscribe();
+      this.subscriptionextras = this.platoService.getExtras().subscribe(extras => {
+        this.extras = extras;
+        for (let i = 0; i < this.extras.length; i++) {
+          this.noIncluido[i] = this.extras[i].nombre;
+          console.log(this.noIncluido[i]);
+        }
+      });
+
   }
 
 
@@ -60,7 +80,7 @@ export class MenuadminComponent implements OnInit {
   }
 
   addPlato() {
-    if (this.imagenURL == undefined){
+    if (this.imagenURL == undefined) {
       this.nplato.imagen = "https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85";
       this.platoService.agregarPlato(this.nplato);
     } else {
@@ -83,11 +103,11 @@ export class MenuadminComponent implements OnInit {
 
 
   actualizarPlato() {
-    if(this.imagenURL == undefined){
+    if (this.imagenURL == undefined) {
       this.platoService.actualizarPlato(this.eplato);
       this.eplato = {} as Plato;
     }
-    else{
+    else {
       //this.subscriptionimgURL.unsubscribe();
       this.subscriptionimgURL=this.imagenURL.subscribe(params => {
         this.eplato.imagen = params;
@@ -97,6 +117,24 @@ export class MenuadminComponent implements OnInit {
 
     }
     this.uploaded = false;
+  }
+
+  toggleDisponibilidadPlato(evento, plato) {
+    this.eplato = plato;
+    if (this.eplato.disponibilidad != null) {
+      this.eplato.disponibilidad = !this.eplato.disponibilidad;
+    } else {
+      this.eplato.disponibilidad = true;
+    }
+    this.actualizarPlato();
+  }
+
+  togglePersonalizableNPlato(evento) {
+    if (this.nplato.personalizable != null) {
+      this.nplato.personalizable = !this.nplato.personalizable;
+    } else {
+      this.nplato.personalizable = true;
+    }
   }
 
   limpiarNPlato() {
@@ -126,6 +164,74 @@ export class MenuadminComponent implements OnInit {
   //   this.modalAgregar = this.modalService.show(agregarPlato);
   // }
 
+  addExtra() {
+    if (this.imagenURL == undefined) {
+      this.nextra.imagen = "https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85";
+      this.platoService.agregarExtra(this.nextra);
+    } else {
+      // this.subscriptionimgURL.unsubscribe(); a veces no funciona. Por qué? Who knows?
+      this.subscriptionimgURL = this.imagenURL.subscribe(params => {
+        this.nextra.imagen = params;
+        this.platoService.agregarExtra(this.nextra);
+      });
+    }
+    this.uploaded = false;
+  }
+
+  editarExtra(evento, extra) {
+    this.eextra = extra;
+  }
+
+  borrarExtra(event, extra) {
+    this.platoService.borrarExtra(extra);
+  }
+
+  actualizarExtra() {
+    if (this.imagenURL == undefined) {
+      this.platoService.actualizarExtra(this.eextra);
+      this.eextra = {} as Extra;
+    } else {
+      //this.subscriptionimgURL.unsubscribe();
+      this.subscriptionimgURL = this.imagenURL.subscribe(params => {
+        this.eextra.imagen = params;
+        this.platoService.actualizarExtra(this.eextra);
+        this.eextra = {} as Plato;
+      });
+
+    }
+    this.uploaded = false;
+  }
+
+  toggleDisponibilidadExtra(evento, extra) {
+    this.eextra = extra;
+    if (this.eextra.disponible != null) {
+      this.eextra.disponible = !this.eextra.disponible;
+    } else {
+      this.eextra.disponible = true;
+    }
+    this.actualizarExtra();
+  }
+
+  limpiarNExtra() {
+    this.nextra.disponible = null;
+    this.nextra.id = null;
+    this.nextra.imagen = null;
+    this.nextra.nombre = null;
+    this.nextra.precio = null;
+  }
+
+  reiniciarExtras() {
+    this.subscriptionextras.unsubscribe();
+    this.subscriptionextras = this.platoService.getExtras().subscribe(e => {
+      this.extras = e;
+    });
+    this.imagenURL = undefined;
+    this.uploaded = false;
+  }
+
+  hazConsoleLog(x) {
+    console.log(x);
+  }
 
 }
 

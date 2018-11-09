@@ -7,8 +7,12 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import { FormsModule } from '@angular/forms';
+import { SortableModule } from 'ngx-bootstrap/sortable';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 import { CarouselModule, BsDropdownModule, ModalModule, AccordionModule, PaginationModule } from 'ngx-bootstrap';
+
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -65,20 +69,23 @@ const routes: Routes = [
     EncabezadoadminComponent,
     MenuadminComponent,
     PendientesComponent,
-    
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
     CarouselModule.forRoot(),
     BsDropdownModule.forRoot(),
-    ModalModule.forRoot(),AccordionModule.forRoot(),
+    ModalModule.forRoot(), AccordionModule.forRoot(),
     PaginationModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
-    FormsModule
+    TabsModule.forRoot(),
+    FormsModule,
+    SortableModule.forRoot(),
+    TooltipModule.forRoot(),
+    
   ],
   providers: [
     FireService

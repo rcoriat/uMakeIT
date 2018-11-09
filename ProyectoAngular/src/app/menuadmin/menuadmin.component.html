@@ -1,371 +1,675 @@
 <app-encabezadoadmin></app-encabezadoadmin>
-<div class="contenido">
-  <button class="btn btn-warning" (click)="agregarPlato.show()" (click)="limpiarNPlato()" style="display:block; margin-right:0; margin-left:auto"><i
-      class="material-icons" style="vertical-align: middle; position: relative; text-align: center">add</i></button>
-  <div id="tablaitems">
-    <table class="table table-hover">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">#<i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">arrow_drop_down</i></th>
-          <th scope="col">Imagen</th>
-          <th scope="col">Tipo<i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">arrow_drop_down</i></th>
-          <th scope="col">Plato<i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">arrow_drop_down</i></th>
-          <th scope="col">Extras<i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">arrow_drop_down</i></th>
-          <th scope="col">Disponible<i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">arrow_drop_down</i></th>
-          <th scope="col">Precio (Bs.S)<i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">arrow_drop_down</i></th>
-          <th scope="col"></th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr #forLoop *ngFor='let plato of platos; index as i'>
-          <th scope="row">{{ i+1 }}</th>
-          <th class="colimg"><img src="{{ plato.imagen }}" alt="imagendelplato"></th>
-          <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">local_dining</i></td>
-          <td>{{ plato.nombre }}</td>
-          <td>{{ plato.personalizable }}</td>
-          <td>
-            <div class="checkbox"><input type="checkbox" value=""></div>
-          </td>
-          <td>{{ plato.precio }}</td>
-          <td><button type="button" class="close" (click)="editaPlato.show(); editarPlato($event, plato);"><i class="material-icons"
-                style="vertical-align: middle; position: relative; text-align: center">edit</i></button></td>
+<tabset>
+  <!-- Tab Platos -->
+  <tab heading="Platos">
+    <div class="contenido">
+      <button class="btn btn-warning" (click)="agregarPlato.show()" (click)="limpiarNPlato()" style="display:block; margin-right:0; margin-left:auto"><i
+          class="material-icons" style="vertical-align: middle; position: relative; text-align: center">add</i></button>
+      <div id="tablaitems">
+        <table class="table table-hover">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">#<i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">arrow_drop_down</i></th>
+              <th scope="col">Imagen</th>
+              <th scope="col">Tipo<i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">arrow_drop_down</i></th>
+              <th scope="col">Plato<i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">arrow_drop_down</i></th>
+              <th scope="col">Extras<i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">arrow_drop_down</i></th>
+              <th scope="col">Disponible<i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">arrow_drop_down</i></th>
+              <th scope="col">Precio (Bs.S)<i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">arrow_drop_down</i></th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr #forLoop *ngFor='let plato of platos; index as i' [style.background-color]="plato.disponibilidad ? '#7cd3ff' : '#f9b575'">
+              
+              <th scope="row">{{ i+1 }}</th>
+              <th class="colimg"><img src="{{ plato.imagen }}" alt="imagendelplato"></th>
+              <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">local_dining</i></td>
+              <td>{{ plato.nombre }}</td>
+              <td>{{ plato.personalizable }}</td>
+              <td><div class="checkbox"><input type="checkbox" value="" [checked]="plato.disponibilidad" (click)="toggleDisponibilidadPlato($event, plato)"></div></td>
+              <td>{{ plato.precio }}</td>
+              <td><button type="button" class="close" (click)="editaPlato.show(); editarPlato($event, plato);"><i class="material-icons"
+                    style="vertical-align: middle; position: relative; text-align: center">edit</i></button></td>
 
-          <!-- Modal editar -->
+              <!-- Modal editar -->
 
-          <div bsModal #editaPlato="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1"
-            id="modalEditar" (onHidden)="reiniciarPlatos(); uploaded = false;">
-            <div *ngIf="eplato != null && eplato.id == plato.id">
-              <form class="modal-dialog modal-lg" (ngSubmit)="actualizarPlato()">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h4 id="dialog-sizes-name1" class="modal-title pull-left">Editar Plato</h4>
-                    <button type="button" class="close pull-right" (click)="editaPlato.hide()" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="row align-items-start">
-                      <div class="col">
-                        <div class="foto">
-
-                          <img style="margin-top: 25%; margin-bottom: 25%;" src="{{imagenURL | async}}" *ngIf="uploaded">
-                          <img style="margin-top: 25%; margin-bottom: 25%;" src="{{plato.imagen}}" *ngIf="!uploaded">
-                          <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="file" (change)="upload($event)" accept=".png">
-                            <div>{{ porcentajeUpload | async }}</div>
-                            <label class="custom-file-label" for="file">Subir imagen</label>
-                          </div>
-
-                        </div>
+              <div bsModal #editaPlato="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1"
+                id="modalEditar" (onHidden)="reiniciarPlatos(); uploaded = false;">
+                <div *ngIf="eplato != null && eplato.id == plato.id">
+                  <form class="modal-dialog modal-lg" (ngSubmit)="actualizarPlato()">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Editar Plato</h4>
+                        <button type="button" class="close pull-right" (click)="editaPlato.hide()" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
                       </div>
-                      <div class="col">
-                        <div class="descripcion">
-                          <div class="form-group">
-                            <label for="inputNombre">Nombre</label>
-                            <input type="text" class="form-control" id="inputNombre" placeholder="Nombre" value="{{plato.nombre}}"
-                              [(ngModel)]="eplato.nombre" name="nombre">
-                          </div>
-                          <div class="form-group">
-                            <label for="inputDescripcion">Descripción</label>
-                            <textarea type="text" rows="4" class="form-control" id="inputDescripcion" value="{{plato.descripcion}}"
-                              [(ngModel)]="eplato.descripcion" name="descripcion"></textarea>
-                          </div>
+                      <div class="modal-body">
+                        <div class="row align-items-start">
+                          <div class="col">
+                            <div class="foto">
 
-                          <div class="form-group">
-                            <label for="inputGroupSelect03">Tipo</label>
-                            <select class="custom-select" id="inputGroupSelect03" name="tipo" [(ngModel)]="eplato.tipo">
-                              <option value="Entrada" [selected]="eplato.tipo == 'Entrada'">Entrada</option>
-                              <option value="Principal" [selected]="eplato.tipo == 'Principal'">Principal</option>
-                              <option value="Postre" [selected]="eplato.tipo == 'Postre'">Postre</option>
-                            </select>
-                          </div>
-
-                          <button type="button" id="botonpers" class="btn btn-danger" (click)="isFirstDisabled = !isFirstDisabled">
-                            Personalizable
-                          </button>
-                          <accordion>
-                            <accordion-group [isDisabled]="isFirstDisabled">
-                              <button type="button" class="btn btn-link btn-block clearfix" accordion-heading>
-                                <div style="display: inline-block; width: 45%; text-align: left; padding-left: 3%">Agregar</div>
-                                <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
-                              </button>
-                              <div class="descripcion">
-                                <h5>Extras:</h5>
-                                <label><input type="checkbox">Pan integral </label>
-                                <label><input type="checkbox">Pan c/ parmesano y orégano </label>
-                                <label><input type="checkbox">Queso Brie </label>
-                                <label><input type="checkbox">Queso de Cabra </label>
-                                <label><input type="checkbox">Jalapeño </label>
-                                <label><input type="checkbox">Salsa BBQ </label>
-                                <label><input type="checkbox">Tocineta </label>
-                                <label><input type="checkbox">Cebolla caramelizada </label>
+                              <img style="margin-top: 25%; margin-bottom: 25%;" src="{{imagenURL | async}}" *ngIf="uploaded">
+                              <img style="margin-top: 25%; margin-bottom: 25%;" src="{{plato.imagen}}" *ngIf="!uploaded">
+                              <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="file" (change)="upload($event)" accept=".png">
+                                <div>{{ porcentajeUpload | async }}</div>
+                                <label class="custom-file-label" for="file">Subir imagen</label>
                               </div>
-                            </accordion-group>
-                          </accordion>
-                          <div class="form-group">
-                            <label for="inputPrecio">Precio (Bs.S)</label>
-                            <input type="text" class="form-control bg-dark text-white" id="inputPrecio" style="display: inline-block; vertical-align: middle;"
-                              placeholder="Ingrese el precio en Bs.S" value="{{plato.precio}}" [(ngModel)]="eplato.precio"
-                              name="precio">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-right: auto; color:white;"
-                      (click)="editaPlato.hide()">
-                      Cerrar
-                    </button>
-                    <button type="button" class="btn btn-danger" (click)="confirmacionEdicion.show()"><i class="material-icons"
-                        style="vertical-align: middle; position: relative; text-align: center">add</i>
-                      Actualizar
-                    </button>
 
-                    <!-- Modal confirmar edicion -->
-                    <div bsModal #confirmacionEdicion="bs-modal" class="modal fade" tabindex="-1" role="dialog"
-                      aria-labelledby="dialog-sizes-name1">
-                      <div class="modal-dialog modal-sm">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h4 id="dialog-sizes-name1" class="modal-title pull-left">Confirmación</h4>
-                            <button type="button" class="close pull-right" (click)="confirmacionEdicion.hide()"
-                              aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
+                            </div>
                           </div>
-                          <div class="modal-body">
-                            <div class="row align-items-start">
-                              <div class="col">
-                                <div class="descripcion">
-                                  <h5 style="display:inline-block; margin-right: 2%;">¿Desea realizar los cambios?</h5>
-                                </div>
-                                <div id="alerta">
-                                  <i class="material-icons md-48">alert</i>
-                                </div>
+                          <div class="col">
+                            <div class="descripcion">
+                              <div class="form-group">
+                                <label for="inputNombre">Nombre</label>
+                                <input type="text" class="form-control" id="inputNombre" placeholder="Nombre" value="{{plato.nombre}}"
+                                  [(ngModel)]="eplato.nombre" name="nombre">
+                              </div>
+                              <div class="form-group">
+                                <label for="inputDescripcion">Descripción</label>
+                                <textarea type="text" rows="4" class="form-control" id="inputDescripcion" value="{{plato.descripcion}}"
+                                  [(ngModel)]="eplato.descripcion" name="descripcion"></textarea>
+                              </div>
+
+                              <div class="form-group">
+                                <label for="inputGroupSelect03">Tipo</label>
+                                <select class="custom-select" id="inputGroupSelect03" name="tipo" [(ngModel)]="eplato.tipo">
+                                  <option value="Entrada" [selected]="eplato.tipo == 'Entrada'">Entrada</option>
+                                  <option value="Principal" [selected]="eplato.tipo == 'Principal'">Principal</option>
+                                  <option value="Postre" [selected]="eplato.tipo == 'Postre'">Postre</option>
+                                </select>
+                              </div>
+
+                              <button type="button" id="botonpers" class="btn btn-danger" (click)="isFirstDisabled = !isFirstDisabled">
+                                Personalizable
+                              </button>
+                              <accordion>
+                                <accordion-group [isDisabled]="isFirstDisabled">
+                                  <button type="button" class="btn btn-link btn-block clearfix" accordion-heading>
+                                    <div style="display: inline-block; width: 45%; text-align: left; padding-left: 3%">Agregar</div>
+                                    <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
+                                  </button>
+                                  <div class="descripcion">
+                                    <h5>Extras:</h5>
+                                    <label><input type="checkbox">Pan integral </label>
+                                    <label><input type="checkbox">Pan c/ parmesano y orégano </label>
+                                    <label><input type="checkbox">Queso Brie </label>
+                                    <label><input type="checkbox">Queso de Cabra </label>
+                                    <label><input type="checkbox">Jalapeño </label>
+                                    <label><input type="checkbox">Salsa BBQ </label>
+                                    <label><input type="checkbox">Tocineta </label>
+                                    <label><input type="checkbox">Cebolla caramelizada </label>
+                                  </div>
+                                </accordion-group>
+                              </accordion>
+                              <div class="form-group">
+                                <label for="inputPrecio">Precio (Bs.S)</label>
+                                <input type="text" class="form-control bg-dark text-white" id="inputPrecio" style="display: inline-block; vertical-align: middle;"
+                                  placeholder="Ingrese el precio en Bs.S" value="{{plato.precio}}" [(ngModel)]="eplato.precio"
+                                  name="precio">
                               </div>
                             </div>
                           </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-right: auto; color:white;"
+                          (click)="editaPlato.hide()">
+                          Cerrar
+                        </button>
+                        <button type="button" class="btn btn-danger" (click)="confirmacionEdicion.show()"><i class="material-icons"
+                            style="vertical-align: middle; position: relative; text-align: center">add</i>
+                          Actualizar
+                        </button>
 
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-right: auto; color:white;"
-                              (click)="confirmacionEdicion.hide();">
-                              Cancelar
-                            </button>
-                            <button type="submit" class="btn btn-danger" (click)="confirmacionEdicion.hide(); editaPlato.hide()"><i
-                                class="material-icons" style="vertical-align: middle; margin-right: 2%; margin-left: auto;">check</i>
-                              Confirmar
-                            </button>
+                        <!-- Modal confirmar edicion -->
+                        <div bsModal #confirmacionEdicion="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+                          aria-labelledby="dialog-sizes-name1">
+                          <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h4 id="dialog-sizes-name1" class="modal-title pull-left">Confirmación</h4>
+                                <button type="button" class="close pull-right" (click)="confirmacionEdicion.hide()"
+                                  aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <div class="row align-items-start">
+                                  <div class="col">
+                                    <div class="descripcion">
+                                      <h5 style="display:inline-block; margin-right: 2%;">¿Desea realizar los cambios?</h5>
+                                    </div>
+                                    <div id="alerta">
+                                      <i class="material-icons md-48">alert</i>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-right: auto; color:white;"
+                                  (click)="confirmacionEdicion.hide();">
+                                  Cancelar
+                                </button>
+                                <button type="submit" class="btn btn-danger" (click)="confirmacionEdicion.hide(); editaPlato.hide()"><i
+                                    class="material-icons" style="vertical-align: middle; margin-right: 2%; margin-left: auto;">check</i>
+                                  Confirmar
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div> <!-- Fin Modal confirmar edicion -->
+
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div> <!-- Fin Modal editar -->
+
+              <td><button type="button" class="close" (click)="eliminarPlato.show()" aria-label="Close"><i class="material-icons"
+                    style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
+              <!-- Modal eliminar plato -->
+              <div bsModal #eliminarPlato="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+                <div class="modal-dialog" style="width:70%;">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 id="dialog-sizes-name1" class="modal-title pull-left">Eliminar Plato</h4>
+                      <button type="button" class="close pull-right" (click)="eliminarPlato.hide()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="row align-items-start">
+                        <div class="col">
+                          <div class="descripcion">
+                            <h5 style="display:inline-block; margin-right: 2%;">¿Desea eliminar el plato:
+                              {{plato.nombre}}?</h5>
+                          </div>
+                          <div id="alerta">
+                            <i class="material-icons md-48">alert</i>
                           </div>
                         </div>
                       </div>
-                    </div> <!-- Fin Modal confirmar edicion -->
+                    </div>
 
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div> <!-- Fin Modal editar -->
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-right: auto; color:white;"
+                        (click)="eliminarPlato.hide()">
+                        Cancelar
+                      </button>
+                      <button type="button" class="btn btn-danger" (click)="confirmacion.show(); eliminarPlato.hide();"><i
+                          class="material-icons" style="vertical-align: middle; margin-right: 2%; margin-left: auto;">check</i>
+                        Confirmar
+                      </button>
 
-          <td><button type="button" class="close" (click)="eliminarPlato.show()" aria-label="Close"><i class="material-icons"
-                style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
-          <!-- Modal eliminar plato -->
-          <div bsModal #eliminarPlato="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
-            <div class="modal-dialog" style="width:70%;">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h4 id="dialog-sizes-name1" class="modal-title pull-left">Eliminar Plato</h4>
-                  <button type="button" class="close pull-right" (click)="eliminarPlato.hide()" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <div class="row align-items-start">
-                    <div class="col">
-                      <div class="descripcion">
-                        <h5 style="display:inline-block; margin-right: 2%;">¿Desea eliminar el plato:
-                          {{plato.nombre}}?</h5>
-                      </div>
-                      <div id="alerta">
-                        <i class="material-icons md-48">alert</i>
-                      </div>
                     </div>
                   </div>
                 </div>
-
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-right: auto; color:white;"
-                    (click)="eliminarPlato.hide()">
-                    Cancelar
-                  </button>
-                  <button type="button" class="btn btn-danger" (click)="confirmacion.show(); eliminarPlato.hide();"><i
-                      class="material-icons" style="vertical-align: middle; margin-right: 2%; margin-left: auto;">check</i>
-                    Confirmar
-                  </button>
-
-                </div>
-              </div>
-            </div>
-          </div> <!-- Final modal eliminar plato -->
+              </div> <!-- Final modal eliminar plato -->
 
 
-          <!-- Modal confirmacion eliminar -->
-          <div bsModal #confirmacion="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
-            <div class="modal-dialog modal-sm">
+              <!-- Modal confirmacion eliminar -->
+              <div bsModal #confirmacion="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+                <div class="modal-dialog modal-sm">
 
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h4 id="dialog-sizes-name1" class="modal-title pull-left">Confirmación</h4>
-                  <button type="button" class="close pull-right" (click)="confirmacion.hide()" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <div class="row align-items-start">
-                    <div class="col">
-                      <div class="descripcion">
-                        <h5 style="display:inline-block; margin-right: 2%;">¿Desea realizar los cambios?</h5>
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 id="dialog-sizes-name1" class="modal-title pull-left">Confirmación</h4>
+                      <button type="button" class="close pull-right" (click)="confirmacion.hide()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="row align-items-start">
+                        <div class="col">
+                          <div class="descripcion">
+                            <h5 style="display:inline-block; margin-right: 2%;">¿Desea realizar los cambios?</h5>
+                          </div>
+                          <div id="alerta">
+                            <i class="material-icons md-48">alert</i>
+                          </div>
+                        </div>
                       </div>
-                      <div id="alerta">
-                        <i class="material-icons md-48">alert</i>
-                      </div>
+                    </div>
+
+                    <div class="modal-footer">
+
+                      <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-right: auto; color:white;"
+                        (click)="confirmacion.hide();">
+                        Cancelar
+                      </button>
+                      <button type="submit" class="btn btn-danger" (click)="confirmacion.hide(); eliminarPlato.hide(); borrarPlato($event, plato)"><i
+                          class="material-icons" style="vertical-align: middle; margin-right: 2%; margin-left: auto;">check</i>
+                        Confirmar
+                      </button>
+
                     </div>
                   </div>
-                </div>
-
-                <div class="modal-footer">
-
-                  <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-right: auto; color:white;"
-                    (click)="confirmacion.hide();">
-                    Cancelar
-                  </button>
-                  <button type="submit" class="btn btn-danger" (click)="confirmacion.hide(); eliminarPlato.hide(); borrarPlato($event, plato)"><i
-                      class="material-icons" style="vertical-align: middle; margin-right: 2%; margin-left: auto;">check</i>
-                    Confirmar
-                  </button>
 
                 </div>
-              </div>
-
-            </div>
-          </div><!-- Final modal confirmacion eliminar -->
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<!-- Modal agregar -->
-<div bsModal #agregarPlato="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1"
-  (onHidden)="uploaded=false;">
-  <div class="modal-dialog modal-lg">
-    <form name="agregar" (ngSubmit)="formagregar.valid && addPlato();" #formagregar="ngForm" novalidate>
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 id="dialog-sizes-name1" class="modal-title pull-left">Agregar al menú</h4>
-          <button type="button" class="close pull-right" (click)="agregarPlato.hide();" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="row align-items-start">
-            <div class="col">
-              <div class="foto">
-                <img style="margin-top: 25%; margin-bottom: 25%;" src="{{imagenURL | async}}" *ngIf="uploaded">
-                <img style="margin-top: 25%; margin-bottom: 25%;" src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85"
-                  *ngIf="!uploaded">
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" id="file" (change)="upload($event)" accept=".png" lang="es">
-                  <div>{{ porcentajeUpload | async }}</div>
-                  <label class="custom-file-label" for="file">Subir imagen</label>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="descripcion">
-
-                <div class="form-group">
-                  <label for="nombre">Nombre</label>
-                  <input type="text" class="form-control" id="nombre" name="nombre" #nombre="ngModel" [ngClass]="{ 'is-invalid': formagregar.submitted && nombre.invalid }" placeholder="Ingrese el nombre del plato"
-                    [(ngModel)]="nplato.nombre" required>
-                    <div *ngIf="formagregar.submitted" class="invalid-feedback">
-                        <div *ngIf="nombre.errors != null && nombre.errors.required">Ingrese el nombre del plato</div>
-                    </div>
-
-                </div>
-                <div class="form-group">
-                  <label for="descripcion">Descripción</label>
-                  <textarea rows="4" class="form-control" id="descripcion" placeholder="Ingrese la descripción del plato"
-                    name="descripcion" [(ngModel)]="nplato.descripcion" required></textarea>
-                </div>
-
-                <div class="form-group">
-                  <label for="inputGroupSelect02">Tipo</label>
-                  <select class="custom-select" id="inputGroupSelect02" name="tipo" [(ngModel)]="nplato.tipo"
-                    (required)="true">
-                    <option></option>
-                    <option value="Entrada" [selected]="true">Entrada</option>
-                    <option value="Principal" [selected]="false">Principal</option>
-                    <option value="Postre" [selected]="false">Postre</option>
-                  </select>
-                </div>
-
-                <button type="button" id="botonpers" class="btn btn-danger" (click)="isFirstDisabled = !isFirstDisabled">
-                  Personalizable
-                </button>
-                <accordion>
-                  <accordion-group [isDisabled]="isFirstDisabled">
-                    <button type="button" class="btn btn-link btn-block clearfix" accordion-heading>
-                      <img src="../../assets/prueba4.jpg" style="display: inline-block; width: 5%; border-radius: 100%">
-                      <div style="display: inline-block; width: 45%; text-align: left; padding-left: 3%">Agregar</div>
-                      <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
-                    </button>
-                    <div class="descripcion">
-                      <h5>Extras:</h5>
-                      <ul>
-                        <li>Pan integral</li>
-                        <li>Pan c/ parmesano y orégano</li>
-                        <li>Queso Brie</li>
-                        <li>Queso de Cabra</li>
-                        <li>Jalapeño</li>
-                        <li>Salsa BBQ</li>
-                        <li>Tocineta</li>
-                        <li>Cebolla caramelizada</li>
-                      </ul>
-                    </div>
-                  </accordion-group>
-                </accordion>
-                <div class="form-group">
-                  <label for="precio">Precio</label>
-                  <input type="number" class="form-control bg-dark text-white" name="precio" placeholder="Ingrese el precio en Bs.S"
-                    style="display: inline-block; margin-bottom: 2%; vertical-align: middle;" [(ngModel)]="nplato.precio">
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="modal-footer">
-
-          <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-left: 0; margin-right:auto; color:white;"
-            (click)="agregarPlato.hide()">
-            Cerrar
-          </button>
-
-          <button (click)="((formagregar.valid && agregarPlato.hide()) && !(formagregar.valid && agregarPlato.show())) || !((formagregar.valid && agregarPlato.hide()) && (formagregar.valid && agregarPlato.show()))" type="submit" class="btn btn-danger"><i class="material-icons" style="vertical-align: middle; position:relative; margin-left: auto; margin-right:0; text-align: center">add</i>
-            Agregar plato
-          </button>
-
-        </div>
-
+              </div><!-- Final modal confirmacion eliminar -->
+            </tr>
+          </tbody>
+        </table>
       </div>
-    </form>
-  </div>
-</div>
+    </div>
+
+    <!-- Modal agregar -->
+    <div bsModal #agregarPlato="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1"
+      (onHidden)="uploaded=false;">
+      <div class="modal-dialog modal-lg">
+        <form name="agregar" (ngSubmit)="formagregar.valid && addPlato();" #formagregar="ngForm" novalidate>
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 id="dialog-sizes-name1" class="modal-title pull-left">Agregar al menú</h4>
+              <button type="button" class="close pull-right" (click)="agregarPlato.hide();" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row align-items-start">
+                <div class="col">
+                  <div class="foto">
+                    <img style="margin-top: 25%; margin-bottom: 25%;" src="{{imagenURL | async}}" *ngIf="uploaded">
+                    <img style="margin-top: 25%; margin-bottom: 25%;" src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85"
+                      *ngIf="!uploaded">
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" id="file" (change)="upload($event)" accept=".png" lang="es">
+                      <div>{{ porcentajeUpload | async }}</div>
+                      <label class="custom-file-label" for="file">Subir imagen</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="descripcion">
+
+                    <div class="form-group">
+                      <label for="nombre">Nombre</label>
+                      <input type="text" class="form-control" id="nombre" name="nombre" #nombre="ngModel" [ngClass]="{ 'is-invalid': formagregar.submitted && nombre.invalid }" placeholder="Ingrese el nombre del plato"
+                        [(ngModel)]="nplato.nombre" required>
+                        <div *ngIf="formagregar.submitted" class="invalid-feedback">
+                            <div *ngIf="nombre.errors != null && nombre.errors.required">Ingrese el nombre del plato</div>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                      <label for="descripcion">Descripción</label>
+                      <textarea rows="4" class="form-control" id="descripcion" placeholder="Ingrese la descripción del plato"
+                        name="descripcion" [(ngModel)]="nplato.descripcion" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="inputGroupSelect02">Tipo</label>
+                      <select class="custom-select" id="inputGroupSelect02" name="tipo" [(ngModel)]="nplato.tipo"
+                        (required)="true">
+                        <option></option>
+                        <option value="Entrada" [selected]="true">Entrada</option>
+                        <option value="Principal" [selected]="false">Principal</option>
+                        <option value="Postre" [selected]="false">Postre</option>
+                      </select>
+                    </div>
+
+                    <button type="button" id="botonpers" class="btn btn-danger" (click)="togglePersonalizableNPlato($event); hazConsoleLog(nplato)" [style.background-color]="(nplato.personalizable == null)? '#fc7b7b' : (nplato.personalizable)? '#92f49e' : '#fc7b7b' ">
+                      Personalizable
+                    </button>
+                    <accordion *ngIf="nplato.personalizable">
+                      <accordion-group [isDisabled]="isFirstDisabled">
+                        <button type="button" class="btn btn-link btn-block clearfix" accordion-heading>
+                          <img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/extras.png?alt=media&token=9f4303be-99a0-493d-a672-8312d977771a" style="display: inline-block; width: 5%; border-radius: 100%">
+                          <div style="display: inline-block; width: 45%; text-align: left; padding-left: 3%">Extras</div>
+                          <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
+                        </button>
+                        <div class="descripcion">
+                          <div class="row">
+                            <div class="col-md">
+                              <bs-sortable
+                                [(ngModel)]="noIncluido"
+                                name="noincluye"
+                                itemClass="sortable-item"
+                                itemActiveClass="sortable-item-active"
+                                placeholderItem="Arrastra aquí para sacar"
+                                placeholderClass="placeholderStyle"
+                                wrapperClass="sortable-wrapper"
+                                
+                              ></bs-sortable>
+                              
+                            </div>
+                            <div class="col-md">
+                              <bs-sortable
+                                [(ngModel)]="incluido"
+                                name="incluye"                                
+                                itemClass="sortable-item"
+                                itemActiveClass="sortable-item-active"
+                                placeholderItem="Arrastra aquí para agregar"
+                                placeholderClass="placeholderStyle"
+                                wrapperClass="sortable-wrapper"
+                                
+                              ></bs-sortable>
+                              
+                            </div>
+                          </div>
+                        </div>
+                      </accordion-group>
+                    </accordion>
+                    <div class="form-group">
+                      <label for="precio">Precio</label>
+                      <input type="number" class="form-control bg-dark text-white" name="precio" placeholder="Ingrese el precio en Bs.S"
+                        style="display: inline-block; margin-bottom: 2%; vertical-align: middle;" [(ngModel)]="nplato.precio">
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+
+              <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-left: 0; margin-right:auto; color:white;"
+                (click)="agregarPlato.hide()">
+                Cerrar
+              </button>
+
+              <button (click)="((formagregar.valid && agregarPlato.hide()) && !(formagregar.valid && agregarPlato.show())) || !((formagregar.valid && agregarPlato.hide()) && (formagregar.valid && agregarPlato.show()))" type="submit" class="btn btn-danger"><i class="material-icons" style="vertical-align: middle; position:relative; margin-left: auto; margin-right:0; text-align: center">add</i>
+                Agregar plato
+              </button>
+
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </div> 
+  </tab><!-- Fin Tab Platos -->
+
+<!-- Tab Extras -->
+<tab heading="Extras">
+    <div class="contenido">
+      <button class="btn btn-warning" (click)="agregarExtra.show()" (click)="limpiarNExtra()" style="display:block; margin-right:0; margin-left:auto" (onHidden)="uploaded=false;"><i
+          class="material-icons" style="vertical-align: middle; position: relative; text-align: center">add</i></button>
+      <div id="tablaitems">
+        <table class="table table-hover">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">#<i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">arrow_drop_down</i></th>
+              <th scope="col">Imagen</th>
+              <th scope="col">Extra<i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">arrow_drop_down</i></th>
+              <th scope="col">Disponible<i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">arrow_drop_down</i></th>
+              <th scope="col">Precio (Bs.S)<i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">arrow_drop_down</i></th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr #forLoop *ngFor='let extra of extras; index as i' [style.background-color]="extra.disponible ? '#7cd3ff' : '#f9b575'">
+              <th scope="row">{{ i+1 }}</th>
+              <th class="colimg"><img src="{{ extra.imagen }}" alt="imagendelextra"></th>
+              <td>{{ extra.nombre }}</td>
+              <td><div class="checkbox"><input type="checkbox" value="" [checked]="extra.disponible" (click)="toggleDisponibilidadExtra($event, extra)"></div></td>
+              <td>{{ extra.precio }}</td>
+              <td><button type="button" class="close" (click)="editaExtra.show(); editarExtra($event, extra);"><i class="material-icons"
+                    style="vertical-align: middle; position: relative; text-align: center">edit</i></button></td>
+
+              <!-- Modal editar -->
+
+              <div bsModal #editaExtra="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1"
+                id="modalEditar" (onHidden)="reiniciarExtras(); uploaded = false;">
+                <div *ngIf="eextra != null && eextra.id == extra.id">
+                  <form class="modal-dialog modal-lg" (ngSubmit)="actualizarExtra()">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Editar Extra</h4>
+                        <button type="button" class="close pull-right" (click)="editaExtra.hide()" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="row align-items-start">
+                          <div class="col">
+                            <div class="foto">
+
+                              <img style="margin-top: 25%; margin-bottom: 25%;" src="{{imagenURL | async}}" *ngIf="uploaded">
+                              <img style="margin-top: 25%; margin-bottom: 25%;" src="{{extra.imagen}}" *ngIf="!uploaded">
+                              <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="file" (change)="upload($event)" accept=".png">
+                                <div>{{ porcentajeUpload | async }}</div>
+                                <label class="custom-file-label" for="file">Subir imagen</label>
+                              </div>
+
+                            </div>
+                          </div>
+                          <div class="col">
+                            <div class="descripcion">
+                              <div class="form-group">
+                                <label for="inputNombre">Nombre</label>
+                                <input type="text" class="form-control" id="inputNombre" placeholder="Nombre" value="{{extra.nombre}}"
+                                  [(ngModel)]="eextra.nombre" name="nombre">
+                              </div>
+                              
+                              <div class="form-group">
+                                <label for="inputPrecio">Precio (Bs.S)</label>
+                                <input type="text" class="form-control bg-dark text-white" id="inputPrecio" style="display: inline-block; vertical-align: middle;"
+                                  placeholder="Ingrese el precio en Bs.S" value="{{extra.precio}}" [(ngModel)]="eextra.precio"
+                                  name="precio">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-right: auto; color:white;"
+                          (click)="editaExtra.hide()">
+                          Cerrar
+                        </button>
+                        <button type="button" class="btn btn-danger" (click)="confirmacionEdicion.show()"><i class="material-icons"
+                            style="vertical-align: middle; position: relative; text-align: center">add</i>
+                          Actualizar
+                        </button>
+
+                        <!-- Modal confirmar edicion -->
+                        <div bsModal #confirmacionEdicion="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+                          aria-labelledby="dialog-sizes-name1">
+                          <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h4 id="dialog-sizes-name1" class="modal-title pull-left">Confirmación</h4>
+                                <button type="button" class="close pull-right" (click)="confirmacionEdicion.hide()"
+                                  aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <div class="row align-items-start">
+                                  <div class="col">
+                                    <div class="descripcion">
+                                      <h5 style="display:inline-block; margin-right: 2%;">¿Desea realizar los cambios?</h5>
+                                    </div>
+                                    <div id="alerta">
+                                      <i class="material-icons md-48">alert</i>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-right: auto; color:white;"
+                                  (click)="confirmacionEdicion.hide();">
+                                  Cancelar
+                                </button>
+                                <button type="submit" class="btn btn-danger" (click)="confirmacionEdicion.hide(); editaExtra.hide()"><i
+                                    class="material-icons" style="vertical-align: middle; margin-right: 2%; margin-left: auto;">check</i>
+                                  Confirmar
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div> <!-- Fin Modal confirmar edicion -->
+
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div> <!-- Fin Modal editar -->
+
+              <td><button type="button" class="close" (click)="eliminarExtra.show()" aria-label="Close"><i class="material-icons"
+                    style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
+              <!-- Modal eliminar extra -->
+              <div bsModal #eliminarExtra="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+                <div class="modal-dialog" style="width:70%;">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 id="dialog-sizes-name1" class="modal-title pull-left">Eliminar Extra</h4>
+                      <button type="button" class="close pull-right" (click)="eliminarExtra.hide()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="row align-items-start">
+                        <div class="col">
+                          <div class="descripcion">
+                            <h5 style="display:inline-block; margin-right: 2%;">¿Desea eliminar el extra:
+                              {{extra.nombre}}?</h5>
+                          </div>
+                          <div id="alerta">
+                            <i class="material-icons md-48">alert</i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-right: auto; color:white;"
+                        (click)="eliminarExtra.hide()">
+                        Cancelar
+                      </button>
+                      <button type="button" class="btn btn-danger" (click)="confirmacion.show(); eliminarExtra.hide();"><i
+                          class="material-icons" style="vertical-align: middle; margin-right: 2%; margin-left: auto;">check</i>
+                        Confirmar
+                      </button>
+
+                    </div>
+                  </div>
+                </div>
+              </div> <!-- Final modal eliminar extra -->
 
 
+              <!-- Modal confirmacion eliminar -->
+              <div bsModal #confirmacion="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+                <div class="modal-dialog modal-sm">
+
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 id="dialog-sizes-name1" class="modal-title pull-left">Confirmación</h4>
+                      <button type="button" class="close pull-right" (click)="confirmacion.hide()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="row align-items-start">
+                        <div class="col">
+                          <div class="descripcion">
+                            <h5 style="display:inline-block; margin-right: 2%;">¿Desea realizar los cambios?</h5>
+                          </div>
+                          <div id="alerta">
+                            <i class="material-icons md-48">alert</i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="modal-footer">
+
+                      <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-right: auto; color:white;"
+                        (click)="confirmacion.hide();">
+                        Cancelar
+                      </button>
+                      <button type="submit" class="btn btn-danger" (click)="confirmacion.hide(); eliminarExtra.hide(); borrarExtra($event, extra)"><i
+                          class="material-icons" style="vertical-align: middle; margin-right: 2%; margin-left: auto;">check</i>
+                        Confirmar
+                      </button>
+
+                    </div>
+                  </div>
+
+                </div>
+              </div><!-- Final modal confirmacion eliminar -->
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Modal agregar -->
+    <div bsModal #agregarExtra="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1"
+      (onHidden)="uploaded=false;">
+      <div class="modal-dialog modal-lg">
+        <form name="agregar" (ngSubmit)="formagregarExtra.valid && addExtra();" #formagregarExtra="ngForm" novalidate>
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 id="dialog-sizes-name1" class="modal-title pull-left">Agregar al menú</h4>
+              <button type="button" class="close pull-right" (click)="agregarExtra.hide();" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row align-items-start">
+                <div class="col">
+                  <div class="foto">
+                    <img style="margin-top: 25%; margin-bottom: 25%;" src="{{imagenURL | async}}" *ngIf="uploaded">
+                    <img style="margin-top: 25%; margin-bottom: 25%;" src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85"
+                      *ngIf="!uploaded">
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" id="file" (change)="upload($event)" accept=".png" lang="es">
+                      <div>{{ porcentajeUpload | async }}</div>
+                      <label class="custom-file-label" for="file">Subir imagen</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="descripcion">
+
+                    <div class="form-group">
+                      <label for="nombre">Nombre</label>
+                      <input type="text" class="form-control" id="nombre" name="nombre" #nombre="ngModel" [ngClass]="{ 'is-invalid': formagregarExtra.submitted && nombre.invalid }" placeholder="Ingrese el nombre del extra"
+                        [(ngModel)]="nextra.nombre" required>
+                        <div *ngIf="formagregarExtra.submitted" class="invalid-feedback">
+                            <div *ngIf="nombre.errors != null && nombre.errors.required">Ingrese el nombre del extra</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="precio">Precio</label>
+                      <input type="number" class="form-control bg-dark text-white" name="precio" placeholder="Ingrese el precio en Bs.S"
+                        style="display: inline-block; margin-bottom: 2%; vertical-align: middle;" [(ngModel)]="nextra.precio">
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+
+              <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-left: 0; margin-right:auto; color:white;"
+                (click)="agregarExtra.hide()">
+                Cerrar
+              </button>
+
+              <button (click)="((formagregarExtra.valid && agregarExtra.hide()) && !(formagregarExtra.valid && agregarExtra.show())) || !((formagregarExtra.valid && agregarExtra.hide()) && (formagregarExtra.valid && agregarExtra.show()))" type="submit" class="btn btn-danger"><i class="material-icons" style="vertical-align: middle; position:relative; margin-left: auto; margin-right:0; text-align: center">add</i>
+                Agregar extra
+              </button>
+
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </div> 
+  </tab><!-- Fin Tab Extras -->
 
 
+</tabset>
 <app-piedepagina></app-piedepagina>
