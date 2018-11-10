@@ -12,5 +12,5 @@ export interface Plato {
     cantidad?: number;
     imagen?: string;
     tipo?: string;
-    extras?: Reference<Extra>[];
+    extras?: string[];
 }

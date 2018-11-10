@@ -1,4 +1,4 @@
-export interface Extra{
+export interface Extra {
     id?: string;
     disponible?: boolean;
     nombre?: string;

@@ -32,7 +32,7 @@ import { MenuadminComponent } from './menuadmin/menuadmin.component';
 import { PendientesComponent } from './pendientes/pendientes.component';
 
 import { FireService } from './services/fire.service';
-
+import { Reference } from '@angular/fire/firestore';
 
 
 const routes: Routes = [
@@ -85,7 +85,7 @@ const routes: Routes = [
     FormsModule,
     SortableModule.forRoot(),
     TooltipModule.forRoot(),
-    
+
   ],
   providers: [
     FireService

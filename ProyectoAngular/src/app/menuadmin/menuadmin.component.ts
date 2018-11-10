@@ -7,6 +7,7 @@ import { Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Extra } from '../models/extra';
+import { Reference } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-menuadmin',
@@ -23,8 +24,7 @@ export class MenuadminComponent implements OnInit {
   platos = [];
   extras = [];
 
-  public nplato = {} as Plato; // 
-  nuevo plato
+  public nplato = {} as Plato; // nuevo plato
   public eplato: Plato; // plato de edicion
   modalAgregar: BsModalRef; // modal confirmar
   uploaded: boolean;
@@ -39,6 +39,7 @@ export class MenuadminComponent implements OnInit {
   public incluido = []; // json bs-sortable de extras incluidos
   public noIncluido = []; // json bs-sortable de extras no incluidos
 
+  public nplatoextras: Observable<any>[];
 
   constructor(public platoService: FireService, private afStorage: AngularFireStorage, private modalService: BsModalService) {
     this.uploaded = false;
@@ -54,7 +55,6 @@ export class MenuadminComponent implements OnInit {
         this.extras = extras;
         for (let i = 0; i < this.extras.length; i++) {
           this.noIncluido[i] = this.extras[i].nombre;
-          console.log(this.noIncluido[i]);
         }
       });
 
@@ -80,17 +80,47 @@ export class MenuadminComponent implements OnInit {
   }
 
   addPlato() {
-    if (this.imagenURL == undefined) {
+    if ( this.nplato.tipo == null) {
+      this.nplato.tipo = 'Principal';
+    }
+    if (this.imagenURL === undefined) {
       this.nplato.imagen = "https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85";
+      if (this.incluido === []) {
+        this.nplato.personalizable = false;
+      } else if (this.nplato.personalizable) {
+          for (let i = 0; i < this.incluido.length; i++) {
+            for (let j = 0; j < this.extras.length; j++ ) {
+              if (this.extras[j].nombre === this.incluido[i]) {
+                this.nplato.extras[i] = this.extras[j].id;
+                break;
+              }
+            }
+          }
+      }
       this.platoService.agregarPlato(this.nplato);
     } else {
-      this.subscriptionimgURL.unsubscribe();
+      if (this.subscriptionimgURL !== undefined) {
+        this.subscriptionimgURL.unsubscribe();
+      }
       this.subscriptionimgURL = this.imagenURL.subscribe(params => {
         this.nplato.imagen = params;
+        if (this.incluido === []) {
+          this.nplato.personalizable = false;
+        } else if (this.nplato.personalizable) {
+            for (let i = 0; i < this.incluido.length; i++) {
+              for (let j = 0; j < this.extras.length; j++ ) {
+                if (this.extras[j].nombre === this.incluido[i]) {
+                  this.nplato.extras[i] = this.extras[j].id;
+                  break;
+                }
+              }
+            }
+        }
         this.platoService.agregarPlato(this.nplato);
       });
     }
     this.uploaded = false;
+    //this.reiniciarIncluidoNoIncluido();
   }
 
   editarPlato(evento, plato) {
@@ -103,14 +133,31 @@ export class MenuadminComponent implements OnInit {
 
 
   actualizarPlato() {
-    if (this.imagenURL == undefined) {
+    this.eplato.extras = [];
+    if (this.imagenURL === undefined) {
+      for (let i = 0; i < this.incluido.length; i++) {
+        for (let j = 0; j < this.extras.length; j++ ) {
+          if (this.extras[j].nombre === this.incluido[i]) {
+            this.eplato.extras[i] = this.extras[j].id;
+            break;
+          }
+        }
+      }
       this.platoService.actualizarPlato(this.eplato);
       this.eplato = {} as Plato;
-    }
-    else {
+    } else {
       //this.subscriptionimgURL.unsubscribe();
-      this.subscriptionimgURL=this.imagenURL.subscribe(params => {
+      this.subscriptionimgURL = this.imagenURL.subscribe(params => {
         this.eplato.imagen = params;
+        for (let i = 0; i < this.incluido.length; i++) {
+          for (let j = 0; j < this.extras.length; j++ ) {
+            if (this.extras[j].nombre === this.incluido[i]) {
+              this.eplato.extras.push(this.extras[j].id);
+              break;
+            }
+          }
+        }
+        console.log(this.eplato.extras);
         this.platoService.actualizarPlato(this.eplato);
         this.eplato = {} as Plato;
       });
@@ -137,6 +184,14 @@ export class MenuadminComponent implements OnInit {
     }
   }
 
+  togglePersonalizableEPlato(evento) {
+    if (this.eplato.personalizable != null) {
+      this.eplato.personalizable = !this.eplato.personalizable;
+    } else {
+      this.eplato.personalizable = true;
+    }
+  }
+
   limpiarNPlato() {
     this.nplato.cantidad = null;
     this.nplato.descripcion = null;
@@ -147,6 +202,20 @@ export class MenuadminComponent implements OnInit {
     this.nplato.personalizable = null;
     this.nplato.precio = null;
     this.nplato.tipo = null;
+    this.nplato.extras = [];
+  }
+
+  limpiarEPlato() {
+    this.eplato.cantidad = null;
+    this.eplato.descripcion = null;
+    this.eplato.disponibilidad = null;
+    this.eplato.id = null;
+    this.eplato.imagen = null;
+    this.eplato.nombre = null;
+    this.eplato.personalizable = null;
+    this.eplato.precio = null;
+    this.eplato.tipo = null;
+    this.eplato.extras = [];
   }
 
   reiniciarPlatos() {
@@ -165,7 +234,7 @@ export class MenuadminComponent implements OnInit {
   // }
 
   addExtra() {
-    if (this.imagenURL == undefined) {
+    if (this.imagenURL === undefined) {
       this.nextra.imagen = "https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85";
       this.platoService.agregarExtra(this.nextra);
     } else {
@@ -187,7 +256,7 @@ export class MenuadminComponent implements OnInit {
   }
 
   actualizarExtra() {
-    if (this.imagenURL == undefined) {
+    if (this.imagenURL === undefined) {
       this.platoService.actualizarExtra(this.eextra);
       this.eextra = {} as Extra;
     } else {
@@ -231,6 +300,42 @@ export class MenuadminComponent implements OnInit {
 
   hazConsoleLog(x) {
     console.log(x);
+  }
+
+  reiniciarIncluidoNoIncluido() {
+    this.noIncluido = [];
+    for (let i = 0; i < this.extras.length; i++) {
+      this.noIncluido.push(this.extras[i].nombre);
+      //console.log(this.noIncluido[i]);
+    }
+    this.incluido = [];
+  }
+
+  inicializarIncluidoNoIncluidoEdit() {
+    this.incluido = [];
+    if (this.eplato.personalizable && this.eplato.extras !== []) {
+      for (let i = 0; i < this.eplato.extras.length; i++) {
+        for (let j = 0; j < this.extras.length; j++ ) {
+          if (this.extras[j].id === this.eplato.extras[i]) {
+            this.incluido.push(this.extras[j].nombre);
+            break;
+          }
+        }
+      }
+    }
+    this.noIncluido = [];
+    for (let i = 0; i < this.extras.length; i++) {
+      let agregarANoIncluido = true;
+      for (let j = 0; j < this.incluido.length; j++) {
+        if (this.extras[i].nombre === this.incluido[j]) {
+          agregarANoIncluido = false;
+          break;
+        }
+      }
+      if (agregarANoIncluido) {
+        this.noIncluido.push(this.extras[i].nombre);
+      }
+    }
   }
 
 }

@@ -1,9 +1,9 @@
 <app-encabezadoadmin></app-encabezadoadmin>
-<tabset>
+<tabset [justified]="true">
   <!-- Tab Platos -->
   <tab heading="Platos">
     <div class="contenido">
-      <button class="btn btn-warning" (click)="agregarPlato.show()" (click)="limpiarNPlato()" style="display:block; margin-right:0; margin-left:auto"><i
+      <button class="btn btn-warning" (click)="agregarPlato.show()" (click)="reiniciarIncluidoNoIncluido()" style="display:block; margin-right:0; margin-left:auto"><i
           class="material-icons" style="vertical-align: middle; position: relative; text-align: center">add</i></button>
       <div id="tablaitems">
         <table class="table table-hover">
@@ -22,13 +22,15 @@
           </thead>
           <tbody>
             <tr #forLoop *ngFor='let plato of platos; index as i' [style.background-color]="plato.disponibilidad ? '#7cd3ff' : '#f9b575'">
-              
+
               <th scope="row">{{ i+1 }}</th>
               <th class="colimg"><img src="{{ plato.imagen }}" alt="imagendelplato"></th>
               <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">local_dining</i></td>
               <td>{{ plato.nombre }}</td>
               <td>{{ plato.personalizable }}</td>
-              <td><div class="checkbox"><input type="checkbox" value="" [checked]="plato.disponibilidad" (click)="toggleDisponibilidadPlato($event, plato)"></div></td>
+              <td>
+                <div class="checkbox"><input type="checkbox" value="" [checked]="plato.disponibilidad" (click)="toggleDisponibilidadPlato($event, plato)"></div>
+              </td>
               <td>{{ plato.precio }}</td>
               <td><button type="button" class="close" (click)="editaPlato.show(); editarPlato($event, plato);"><i class="material-icons"
                     style="vertical-align: middle; position: relative; text-align: center">edit</i></button></td>
@@ -36,9 +38,10 @@
               <!-- Modal editar -->
 
               <div bsModal #editaPlato="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1"
-                id="modalEditar" (onHidden)="reiniciarPlatos(); uploaded = false;">
+                id="modalEditar" (onHidden)="reiniciarPlatos(); limpiarEPlato(); uploaded = false;" (onShown)="inicializarIncluidoNoIncluidoEdit()">
                 <div *ngIf="eplato != null && eplato.id == plato.id">
-                  <form class="modal-dialog modal-lg" (ngSubmit)="actualizarPlato()">
+                  <form class="modal-dialog modal-lg" name="formeditar" (ngSubmit)="formeditar.valid && actualizarPlato()"
+                    #formeditar="ngForm" novalidate>
                     <div class="modal-content">
                       <div class="modal-header">
                         <h4 id="dialog-sizes-name1" class="modal-title pull-left">Editar Plato</h4>
@@ -66,42 +69,69 @@
                               <div class="form-group">
                                 <label for="inputNombre">Nombre</label>
                                 <input type="text" class="form-control" id="inputNombre" placeholder="Nombre" value="{{plato.nombre}}"
-                                  [(ngModel)]="eplato.nombre" name="nombre">
+                                  [(ngModel)]="eplato.nombre" name="nombree" #nombree="ngModel" [ngClass]="{ 'is-invalid': formeditar.submitted && nombree.invalid }"
+                                  required>
+                                <div *ngIf="formeditar.submitted" class="invalid-feedback">
+                                  <div *ngIf="nombree.errors != null && nombree.errors.required">El plato debe tener un
+                                    nombre</div>
+                                </div>
                               </div>
                               <div class="form-group">
                                 <label for="inputDescripcion">Descripción</label>
                                 <textarea type="text" rows="4" class="form-control" id="inputDescripcion" value="{{plato.descripcion}}"
-                                  [(ngModel)]="eplato.descripcion" name="descripcion"></textarea>
+                                  [(ngModel)]="eplato.descripcion" name="descripcione" #descripcione="ngModel"
+                                  [ngClass]="{ 'is-invalid': formeditar.submitted && descripcione.invalid }" required></textarea>
+                                <div *ngIf="formeditar.submitted" class="invalid-feedback">
+                                  <div *ngIf="descripcione.errors != null && descripcione.errors.required">El plato
+                                    debe tener una descripción</div>
+                                </div>
                               </div>
 
                               <div class="form-group">
                                 <label for="inputGroupSelect03">Tipo</label>
-                                <select class="custom-select" id="inputGroupSelect03" name="tipo" [(ngModel)]="eplato.tipo">
+                                <select class="custom-select" id="inputGroupSelect03" name="selectipoe" [(ngModel)]="selectipoe.tipo"
+                                  name="selectipoe" #selectipoe="ngModel" [ngClass]="{ 'is-invalid': formeditar.submitted && descripcione.invalid }"
+                                  required>
                                   <option value="Entrada" [selected]="eplato.tipo == 'Entrada'">Entrada</option>
                                   <option value="Principal" [selected]="eplato.tipo == 'Principal'">Principal</option>
                                   <option value="Postre" [selected]="eplato.tipo == 'Postre'">Postre</option>
                                 </select>
+                                <div *ngIf="formeditar.submitted" class="invalid-feedback">
+                                  <div *ngIf="selectipoe.errors != null && selectipoe.errors.required">El plato debe
+                                    tener un tipo</div>
+                                </div>
                               </div>
 
-                              <button type="button" id="botonpers" class="btn btn-danger" (click)="isFirstDisabled = !isFirstDisabled">
+                              <button type="button" id="botonpers" class="btn btn-danger" (click)="togglePersonalizableEPlato($event);"
+                                [style.background-color]="(eplato.personalizable == null)? '#fc7b7b' : (eplato.personalizable)? '#92f49e' : '#fc7b7b' ">
                                 Personalizable
                               </button>
-                              <accordion>
+                              <accordion *ngIf="eplato.personalizable">
                                 <accordion-group [isDisabled]="isFirstDisabled">
                                   <button type="button" class="btn btn-link btn-block clearfix" accordion-heading>
+                                    <img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/extras.png?alt=media&token=9f4303be-99a0-493d-a672-8312d977771a"
+                                      style="display: inline-block; width: 5%; border-radius: 100%">
                                     <div style="display: inline-block; width: 45%; text-align: left; padding-left: 3%">Agregar</div>
                                     <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
                                   </button>
                                   <div class="descripcion">
-                                    <h5>Extras:</h5>
-                                    <label><input type="checkbox">Pan integral </label>
-                                    <label><input type="checkbox">Pan c/ parmesano y orégano </label>
-                                    <label><input type="checkbox">Queso Brie </label>
-                                    <label><input type="checkbox">Queso de Cabra </label>
-                                    <label><input type="checkbox">Jalapeño </label>
-                                    <label><input type="checkbox">Salsa BBQ </label>
-                                    <label><input type="checkbox">Tocineta </label>
-                                    <label><input type="checkbox">Cebolla caramelizada </label>
+                                    <div class="row">
+                                      <div class="col-md" style="border: 2px solid black; border-radius: 5px; text-align: center;">
+                                        <p style="border-bottom: 2px solid black">No incluidos</p>
+                                        <bs-sortable [(ngModel)]="noIncluido" name="noincluye" itemClass="sortable-item"
+                                          itemActiveClass="sortable-item-active" placeholderItem="No hay más extras para agregar"
+                                          placeholderClass="placeholderStyle" wrapperClass="sortable-wrapper">
+                                        </bs-sortable>
+
+                                      </div>
+                                      <div class="col-md" style="border: 2px solid black; border-radius: 5px; text-align: center;">
+                                        <p style="border-bottom: 2px solid black">Incluidos</p>
+                                        <bs-sortable [(ngModel)]="incluido" name="incluye" itemClass="sortable-item"
+                                          itemActiveClass="sortable-item-active" placeholderItem="Arrastra aquí para agregar"
+                                          placeholderClass="placeholderStyle" wrapperClass="sortable-wrapper"></bs-sortable>
+
+                                      </div>
+                                    </div>
                                   </div>
                                 </accordion-group>
                               </accordion>
@@ -109,7 +139,10 @@
                                 <label for="inputPrecio">Precio (Bs.S)</label>
                                 <input type="text" class="form-control bg-dark text-white" id="inputPrecio" style="display: inline-block; vertical-align: middle;"
                                   placeholder="Ingrese el precio en Bs.S" value="{{plato.precio}}" [(ngModel)]="eplato.precio"
-                                  name="precio">
+                                  name="precioe" #precioe="ngModel" [ngClass]="{ 'is-invalid': formeditar.submitted && precioe.invalid }"
+                                  required>
+                                <div *ngIf="precioe.errors != null && precioe.errors.required">El plato debe tener un
+                                  precio</div>
                               </div>
                             </div>
                           </div>
@@ -155,7 +188,7 @@
                                   (click)="confirmacionEdicion.hide();">
                                   Cancelar
                                 </button>
-                                <button type="submit" class="btn btn-danger" (click)="confirmacionEdicion.hide(); editaPlato.hide()"><i
+                                <button type="submit" class="btn btn-danger" (click)=" confirmacionEdicion.hide(); ((formeditar.valid && editaPlato.hide()) && !(formeditar.valid && editaPlato.show())) || !((formeditar.valid && editaPlato.hide()) && (formeditar.valid && editaPlato.show()))"><i
                                     class="material-icons" style="vertical-align: middle; margin-right: 2%; margin-left: auto;">check</i>
                                   Confirmar
                                 </button>
@@ -260,7 +293,7 @@
 
     <!-- Modal agregar -->
     <div bsModal #agregarPlato="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1"
-      (onHidden)="uploaded=false;">
+      (onHidden)="uploaded=false;limpiarNPlato()">
       <div class="modal-dialog modal-lg">
         <form name="agregar" (ngSubmit)="formagregar.valid && addPlato();" #formagregar="ngForm" novalidate>
           <div class="modal-content">
@@ -278,7 +311,8 @@
                     <img style="margin-top: 25%; margin-bottom: 25%;" src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85"
                       *ngIf="!uploaded">
                     <div class="custom-file">
-                      <input type="file" class="custom-file-input" id="file" (change)="upload($event)" accept=".png" lang="es">
+                      <input type="file" class="custom-file-input" id="file" (change)="upload($event)" accept=".png"
+                        lang="es">
                       <div>{{ porcentajeUpload | async }}</div>
                       <label class="custom-file-label" for="file">Subir imagen</label>
                     </div>
@@ -289,67 +323,67 @@
 
                     <div class="form-group">
                       <label for="nombre">Nombre</label>
-                      <input type="text" class="form-control" id="nombre" name="nombre" #nombre="ngModel" [ngClass]="{ 'is-invalid': formagregar.submitted && nombre.invalid }" placeholder="Ingrese el nombre del plato"
-                        [(ngModel)]="nplato.nombre" required>
-                        <div *ngIf="formagregar.submitted" class="invalid-feedback">
-                            <div *ngIf="nombre.errors != null && nombre.errors.required">Ingrese el nombre del plato</div>
-                        </div>
+                      <input type="text" class="form-control" id="nombrep" name="nombrep" #nombrep="ngModel" [ngClass]="{ 'is-invalid': formagregar.submitted && nombrep.invalid }"
+                        placeholder="Ingrese el nombre del plato" [(ngModel)]="nplato.nombre" required>
+                      <div *ngIf="formagregar.submitted" class="invalid-feedback">
+                        <div *ngIf="nombrep.errors != null && nombrep.errors.required">Ingrese el nombre del plato</div>
+                      </div>
 
                     </div>
                     <div class="form-group">
                       <label for="descripcion">Descripción</label>
                       <textarea rows="4" class="form-control" id="descripcion" placeholder="Ingrese la descripción del plato"
-                        name="descripcion" [(ngModel)]="nplato.descripcion" required></textarea>
+                        [ngClass]="{ 'is-invalid': formagregar.submitted && descripcion.invalid }" name="descripcion"
+                        #descripcion="ngModel" [(ngModel)]="nplato.descripcion" required></textarea>
+                      <div *ngIf="formagregar.submitted" class="invalid-feedback">
+                        <div *ngIf="descripcion.errors != null && descripcion.errors.required">Ingrese la descripción
+                          del plato</div>
+                      </div>
                     </div>
 
                     <div class="form-group">
                       <label for="inputGroupSelect02">Tipo</label>
-                      <select class="custom-select" id="inputGroupSelect02" name="tipo" [(ngModel)]="nplato.tipo"
-                        (required)="true">
+                      <select class="custom-select" id="inputGroupSelect02" name="selectipo" [(ngModel)]="nplato.tipo"
+                        #selectipo="ngModel" [ngClass]="{ 'is-invalid': formagregar.submitted && selectipo.invalid }"
+                        required>
                         <option></option>
-                        <option value="Entrada" [selected]="true">Entrada</option>
-                        <option value="Principal" [selected]="false">Principal</option>
-                        <option value="Postre" [selected]="false">Postre</option>
+                        <option value="Entrada">Entrada</option>
+                        <option value="Principal">Principal</option>
+                        <option value="Postre">Postre</option>
                       </select>
+                      <div *ngIf="formagregar.submitted" class="invalid-feedback">
+                        <div *ngIf="selectipo.errors != null && selectipo.errors.required">Ingrese el tipo del plato</div>
+                      </div>
                     </div>
 
-                    <button type="button" id="botonpers" class="btn btn-danger" (click)="togglePersonalizableNPlato($event); hazConsoleLog(nplato)" [style.background-color]="(nplato.personalizable == null)? '#fc7b7b' : (nplato.personalizable)? '#92f49e' : '#fc7b7b' ">
+                    <button type="button" id="botonpers" class="btn btn-danger" (click)="togglePersonalizableNPlato($event);"
+                      [style.background-color]="(nplato.personalizable == null)? '#fc7b7b' : (nplato.personalizable)? '#92f49e' : '#fc7b7b' ">
                       Personalizable
                     </button>
                     <accordion *ngIf="nplato.personalizable">
                       <accordion-group [isDisabled]="isFirstDisabled">
                         <button type="button" class="btn btn-link btn-block clearfix" accordion-heading>
-                          <img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/extras.png?alt=media&token=9f4303be-99a0-493d-a672-8312d977771a" style="display: inline-block; width: 5%; border-radius: 100%">
+                          <img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/extras.png?alt=media&token=9f4303be-99a0-493d-a672-8312d977771a"
+                            style="display: inline-block; width: 5%; border-radius: 100%">
                           <div style="display: inline-block; width: 45%; text-align: left; padding-left: 3%">Extras</div>
                           <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
                         </button>
                         <div class="descripcion">
                           <div class="row">
-                            <div class="col-md">
-                              <bs-sortable
-                                [(ngModel)]="noIncluido"
-                                name="noincluye"
-                                itemClass="sortable-item"
-                                itemActiveClass="sortable-item-active"
-                                placeholderItem="Arrastra aquí para sacar"
-                                placeholderClass="placeholderStyle"
-                                wrapperClass="sortable-wrapper"
-                                
-                              ></bs-sortable>
-                              
+                            <div class="col-md" style="border: 2px solid black; border-radius: 5px; text-align: center;">
+                              <p style="border-bottom: 2px solid black">No incluidos</p>
+                              <bs-sortable [(ngModel)]="noIncluido" name="noincluye" itemClass="sortable-item"
+                                itemActiveClass="sortable-item-active" placeholderItem="No hay más extras para agregar"
+                                placeholderClass="placeholderStyle" wrapperClass="sortable-wrapper">
+                              </bs-sortable>
+
                             </div>
-                            <div class="col-md">
-                              <bs-sortable
-                                [(ngModel)]="incluido"
-                                name="incluye"                                
-                                itemClass="sortable-item"
-                                itemActiveClass="sortable-item-active"
-                                placeholderItem="Arrastra aquí para agregar"
-                                placeholderClass="placeholderStyle"
-                                wrapperClass="sortable-wrapper"
-                                
-                              ></bs-sortable>
-                              
+                            <div class="col-md" style="border: 2px solid black; border-radius: 5px; text-align: center;">
+                              <p style="border-bottom: 2px solid black">Incluidos</p>
+                              <bs-sortable [(ngModel)]="incluido" name="incluye" itemClass="sortable-item"
+                                itemActiveClass="sortable-item-active" placeholderItem="Arrastra aquí para agregar"
+                                placeholderClass="placeholderStyle" wrapperClass="sortable-wrapper"></bs-sortable>
+
                             </div>
                           </div>
                         </div>
@@ -358,7 +392,12 @@
                     <div class="form-group">
                       <label for="precio">Precio</label>
                       <input type="number" class="form-control bg-dark text-white" name="precio" placeholder="Ingrese el precio en Bs.S"
-                        style="display: inline-block; margin-bottom: 2%; vertical-align: middle;" [(ngModel)]="nplato.precio">
+                        style="display: inline-block; margin-bottom: 2%; vertical-align: middle;" [(ngModel)]="nplato.precio"
+                        #precio="ngModel" [ngClass]="{ 'is-invalid': formagregar.submitted && precio.invalid }"
+                        required>
+                      <div *ngIf="formagregar.submitted" class="invalid-feedback">
+                        <div *ngIf="precio.errors != null && precio.errors.required">Ingrese el precio del plato</div>
+                      </div>
                     </div>
 
                   </div>
@@ -373,7 +412,8 @@
                 Cerrar
               </button>
 
-              <button (click)="((formagregar.valid && agregarPlato.hide()) && !(formagregar.valid && agregarPlato.show())) || !((formagregar.valid && agregarPlato.hide()) && (formagregar.valid && agregarPlato.show()))" type="submit" class="btn btn-danger"><i class="material-icons" style="vertical-align: middle; position:relative; margin-left: auto; margin-right:0; text-align: center">add</i>
+              <button (click)="((formagregar.valid && agregarPlato.hide()) && !(formagregar.valid && agregarPlato.show())) || !((formagregar.valid && agregarPlato.hide()) && (formagregar.valid && agregarPlato.show()))"
+                type="submit" class="btn btn-danger"><i class="material-icons" style="vertical-align: middle; position:relative; margin-left: auto; margin-right:0; text-align: center">add</i>
                 Agregar plato
               </button>
 
@@ -382,14 +422,14 @@
           </div>
         </form>
       </div>
-    </div> 
+    </div>
   </tab><!-- Fin Tab Platos -->
 
-<!-- Tab Extras -->
-<tab heading="Extras">
+  <!-- Tab Extras -->
+  <tab heading="Extras">
     <div class="contenido">
-      <button class="btn btn-warning" (click)="agregarExtra.show()" (click)="limpiarNExtra()" style="display:block; margin-right:0; margin-left:auto" (onHidden)="uploaded=false;"><i
-          class="material-icons" style="vertical-align: middle; position: relative; text-align: center">add</i></button>
+      <button class="btn btn-warning" (click)="agregarExtra.show()" (click)="limpiarNExtra()" style="display:block; margin-right:0; margin-left:auto"
+        (onHidden)="uploaded=false;"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">add</i></button>
       <div id="tablaitems">
         <table class="table table-hover">
           <thead class="thead-dark">
@@ -408,7 +448,9 @@
               <th scope="row">{{ i+1 }}</th>
               <th class="colimg"><img src="{{ extra.imagen }}" alt="imagendelextra"></th>
               <td>{{ extra.nombre }}</td>
-              <td><div class="checkbox"><input type="checkbox" value="" [checked]="extra.disponible" (click)="toggleDisponibilidadExtra($event, extra)"></div></td>
+              <td>
+                <div class="checkbox"><input type="checkbox" value="" [checked]="extra.disponible" (click)="toggleDisponibilidadExtra($event, extra)"></div>
+              </td>
               <td>{{ extra.precio }}</td>
               <td><button type="button" class="close" (click)="editaExtra.show(); editarExtra($event, extra);"><i class="material-icons"
                     style="vertical-align: middle; position: relative; text-align: center">edit</i></button></td>
@@ -448,7 +490,7 @@
                                 <input type="text" class="form-control" id="inputNombre" placeholder="Nombre" value="{{extra.nombre}}"
                                   [(ngModel)]="eextra.nombre" name="nombre">
                               </div>
-                              
+
                               <div class="form-group">
                                 <label for="inputPrecio">Precio (Bs.S)</label>
                                 <input type="text" class="form-control bg-dark text-white" id="inputPrecio" style="display: inline-block; vertical-align: middle;"
@@ -619,10 +661,11 @@
                 <div class="col">
                   <div class="foto">
                     <img style="margin-top: 25%; margin-bottom: 25%;" src="{{imagenURL | async}}" *ngIf="uploaded">
-                    <img style="margin-top: 25%; margin-bottom: 25%;" src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85"
+                    <img style="margin-top: 25%; margin-bottom: 25%;" src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/extras.png?alt=media&token=9f4303be-99a0-493d-a672-8312d977771a"
                       *ngIf="!uploaded">
                     <div class="custom-file">
-                      <input type="file" class="custom-file-input" id="file" (change)="upload($event)" accept=".png" lang="es">
+                      <input type="file" class="custom-file-input" id="file" (change)="upload($event)" accept=".png"
+                        lang="es">
                       <div>{{ porcentajeUpload | async }}</div>
                       <label class="custom-file-label" for="file">Subir imagen</label>
                     </div>
@@ -633,17 +676,22 @@
 
                     <div class="form-group">
                       <label for="nombre">Nombre</label>
-                      <input type="text" class="form-control" id="nombre" name="nombre" #nombre="ngModel" [ngClass]="{ 'is-invalid': formagregarExtra.submitted && nombre.invalid }" placeholder="Ingrese el nombre del extra"
-                        [(ngModel)]="nextra.nombre" required>
-                        <div *ngIf="formagregarExtra.submitted" class="invalid-feedback">
-                            <div *ngIf="nombre.errors != null && nombre.errors.required">Ingrese el nombre del extra</div>
-                        </div>
+                      <input type="text" class="form-control" id="nombre" name="nombreEx" #nombreEx="ngModel" [ngClass]="{ 'is-invalid': formagregarExtra.submitted && nombreEx.invalid }"
+                        placeholder="Ingrese el nombre del extra" [(ngModel)]="nextra.nombre" required>
+                      <div *ngIf="formagregarExtra.submitted" class="invalid-feedback">
+                        <div *ngIf="nombreEx.errors != null && nombreEx.errors.required">Ingrese el nombre del extra</div>
+                      </div>
                     </div>
 
                     <div class="form-group">
                       <label for="precio">Precio</label>
-                      <input type="number" class="form-control bg-dark text-white" name="precio" placeholder="Ingrese el precio en Bs.S"
+                      <input type="number" class="form-control bg-dark text-white" name="precioEx" placeholder="Ingrese el precio en Bs.S"
+                        #precioEx="ngModel" [ngClass]="{ 'is-invalid': formagregarExtra.submitted && precioEx.invalid }"
                         style="display: inline-block; margin-bottom: 2%; vertical-align: middle;" [(ngModel)]="nextra.precio">
+                      <div *ngIf="formagregarExtra.submitted" class="invalid-feedback">
+                        <div *ngIf="precioEx.errors != null && precioEx.errors.required">Ingrese el nombre del extra</div>
+                      </div>
+
                     </div>
 
                   </div>
@@ -651,25 +699,25 @@
               </div>
             </div>
 
-            <div class="modal-footer">
-
-              <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-left: 0; margin-right:auto; color:white;"
-                (click)="agregarExtra.hide()">
-                Cerrar
-              </button>
-
-              <button (click)="((formagregarExtra.valid && agregarExtra.hide()) && !(formagregarExtra.valid && agregarExtra.show())) || !((formagregarExtra.valid && agregarExtra.hide()) && (formagregarExtra.valid && agregarExtra.show()))" type="submit" class="btn btn-danger"><i class="material-icons" style="vertical-align: middle; position:relative; margin-left: auto; margin-right:0; text-align: center">add</i>
-                Agregar extra
-              </button>
-
-            </div>
-
           </div>
         </form>
       </div>
-    </div> 
+    </div>
+    
+
+    <div class="modal-footer">
+
+      <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-left: 0; margin-right:auto; color:white;"
+        (click)="agregarExtra.hide()">
+        Cerrar
+      </button>
+
+      <button (click)="((formagregarExtra.valid && agregarExtra.hide()) && !(formagregarExtra.valid && agregarExtra.show())) || !((formagregarExtra.valid && agregarExtra.hide()) && (formagregarExtra.valid && agregarExtra.show()))"
+        type="submit" class="btn btn-danger"><i class="material-icons" style="vertical-align: middle; position:relative; margin-left: auto; margin-right:0; text-align: center">add</i>
+        Agregar extra
+      </button>
+
+    </div>
+
+    
   </tab><!-- Fin Tab Extras -->
-
-
-</tabset>
-<app-piedepagina></app-piedepagina>
