@@ -6,16 +6,35 @@
       <button class="btn btn-warning" (click)="agregarPlato.show()" (click)="reiniciarIncluidoNoIncluido()" style="display:block; margin-right:0; margin-left:auto"><i
           class="material-icons" style="vertical-align: middle; position: relative; text-align: center">add</i></button>
       <div id="tablaitems">
-        <table class="table table-hover">
+        <table class="table table-hover" id="tablaPlatos">
           <thead class="thead-dark">
             <tr>
-              <th scope="col">#<i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">arrow_drop_down</i></th>
+              <th scope="col">#</th>
               <th scope="col">Imagen</th>
-              <th scope="col">Tipo<i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">arrow_drop_down</i></th>
-              <th scope="col">Plato<i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">arrow_drop_down</i></th>
-              <th scope="col">Extras<i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">arrow_drop_down</i></th>
-              <th scope="col">Disponible<i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">arrow_drop_down</i></th>
-              <th scope="col">Precio (Bs.S)<i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">arrow_drop_down</i></th>
+              <th scope="col">
+                Tipo
+                <i name="flecha-tipo-abajo" *ngIf="(sentidoscatplato[0] == 'desc') || ( (sentidoscatplato[0] == 'asc') && !ordenandocatplato[0])" class="material-icons" style="vertical-align: middle; position: relative; text-align: center" (click)="ordenarPorPlato('tipo', 0);">arrow_drop_down</i>
+                <i name="flecha-tipo-arriba" *ngIf="(sentidoscatplato[0] == 'asc') && (ordenandocatplato[0])" class="material-icons" style="vertical-align: middle; position: relative; text-align: center" (click)="ordenarPorPlato('tipo', 0)">arrow_drop_up</i>
+              </th>
+              
+              
+              
+              <th scope="col">Plato
+                <i name="flecha-plato-abajo" *ngIf="(sentidoscatplato[1] == 'desc') || ( (sentidoscatplato[1] == 'asc') && !ordenandocatplato[1])" class="material-icons" style="vertical-align: middle; position: relative; text-align: center" (click)="ordenarPorPlato('nombre', 1);">arrow_drop_down</i>
+                <i name="flecha-plato-arriba" *ngIf="(sentidoscatplato[1] == 'asc') && (ordenandocatplato[1])" class="material-icons" style="vertical-align: middle; position: relative; text-align: center" (click)="ordenarPorPlato('nombre', 1)">arrow_drop_up</i>
+              </th>
+              <th scope="col">Extras
+                <i name="flecha-extras-abajo" *ngIf="(sentidoscatplato[2] == 'desc') || ( (sentidoscatplato[2] == 'asc') && !ordenandocatplato[2])" class="material-icons" style="vertical-align: middle; position: relative; text-align: center" (click)="ordenarPorPlato('personalizable', 2);">arrow_drop_down</i>
+                <i name="flecha-extras-arriba" *ngIf="(sentidoscatplato[2] == 'asc') && (ordenandocatplato[2])" class="material-icons" style="vertical-align: middle; position: relative; text-align: center" (click)="ordenarPorPlato('personalizable', 2)">arrow_drop_up</i>
+              </th>
+              <th scope="col">Disponible
+                <i name="flecha-disp-abajo" *ngIf="(sentidoscatplato[3] == 'desc') || ( (sentidoscatplato[3] == 'asc') && !ordenandocatplato[3])" class="material-icons" style="vertical-align: middle; position: relative; text-align: center" (click)="ordenarPorPlato('disponibilidad', 3);">arrow_drop_down</i>
+                <i name="flecha-disp-arriba" *ngIf="(sentidoscatplato[3] == 'asc') && (ordenandocatplato[3])" class="material-icons" style="vertical-align: middle; position: relative; text-align: center" (click)="ordenarPorPlato('disponibilidad', 3)">arrow_drop_up</i>
+              </th>
+              <th scope="col">Precio (Bs.S)
+                  <i name="flecha-prec-abajo" *ngIf="(sentidoscatplato[4] == 'desc') || ( (sentidoscatplato[4] == 'asc') && !ordenandocatplato[4])" class="material-icons" style="vertical-align: middle; position: relative; text-align: center" (click)="ordenarPorPlato('precio', 4);">arrow_drop_down</i>
+                  <i name="flecha-prec-arriba" *ngIf="(sentidoscatplato[4] == 'asc') && (ordenandocatplato[4])" class="material-icons" style="vertical-align: middle; position: relative; text-align: center" (click)="ordenarPorPlato('precio', 4)">arrow_drop_up</i>
+              </th>
               <th scope="col"></th>
               <th scope="col"></th>
             </tr>
@@ -137,7 +156,7 @@
                               </accordion>
                               <div class="form-group">
                                 <label for="inputPrecio">Precio (Bs.S)</label>
-                                <input type="text" class="form-control bg-dark text-white" id="inputPrecio" style="display: inline-block; vertical-align: middle;"
+                                <input type="number" class="form-control bg-dark text-white" id="inputPrecio" style="display: inline-block; vertical-align: middle;"
                                   placeholder="Ingrese el precio en Bs.S" value="{{plato.precio}}" [(ngModel)]="eplato.precio"
                                   name="precioe" #precioe="ngModel" [ngClass]="{ 'is-invalid': formeditar.submitted && precioe.invalid }"
                                   required>
@@ -431,14 +450,23 @@
       <button class="btn btn-warning" (click)="agregarExtra.show()" (click)="limpiarNExtra()" style="display:block; margin-right:0; margin-left:auto"
         (onHidden)="uploaded=false;"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">add</i></button>
       <div id="tablaitems">
-        <table class="table table-hover">
+        <table class="table table-hover" id="tablaExtras">
           <thead class="thead-dark">
             <tr>
               <th scope="col">#<i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">arrow_drop_down</i></th>
               <th scope="col">Imagen</th>
-              <th scope="col">Extra<i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">arrow_drop_down</i></th>
-              <th scope="col">Disponible<i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">arrow_drop_down</i></th>
-              <th scope="col">Precio (Bs.S)<i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">arrow_drop_down</i></th>
+              <th scope="col">Extra
+                <i *ngIf="(sentidoscatextra[0] == 'desc') || ( (sentidoscatextra[0] == 'asc') && !ordenandocatextra[0])" class="material-icons" style="vertical-align: middle; position: relative; text-align: center" (click)="ordenarExtras('nombre', 0);">arrow_drop_down</i>
+                <i *ngIf="(sentidoscatextra[0] == 'asc') && (ordenandocatextra[0])" class="material-icons" style="vertical-align: middle; position: relative; text-align: center" (click)="ordenarExtras('nombre', 0)">arrow_drop_up</i>
+              </th>
+              <th scope="col">Disponible
+                <i *ngIf="(sentidoscatextra[1] == 'desc') || ( (sentidoscatextra[1] == 'asc') && !ordenandocatextra[1])" class="material-icons" style="vertical-align: middle; position: relative; text-align: center" (click)="ordenarExtras('disponible', 1);">arrow_drop_down</i>
+                <i *ngIf="(sentidoscatextra[1] == 'asc') && (ordenandocatextra[1])" class="material-icons" style="vertical-align: middle; position: relative; text-align: center" (click)="ordenarExtras('disponible', 1)">arrow_drop_up</i>
+              </th>
+              <th scope="col">Precio (Bs.S)
+                <i *ngIf="(sentidoscatextra[2] == 'desc') || ( (sentidoscatextra[2] == 'asc') && !ordenandocatextra[2])" class="material-icons" style="vertical-align: middle; position: relative; text-align: center" (click)="ordenarExtras('precio', 2);">arrow_drop_down</i>
+                <i *ngIf="(sentidoscatextra[2] == 'asc') && (ordenandocatextra[2])" class="material-icons" style="vertical-align: middle; position: relative; text-align: center" (click)="ordenarExtras('precio', 2)">arrow_drop_up</i>
+              </th>
               <th scope="col"></th>
               <th scope="col"></th>
             </tr>
@@ -455,12 +483,12 @@
               <td><button type="button" class="close" (click)="editaExtra.show(); editarExtra($event, extra);"><i class="material-icons"
                     style="vertical-align: middle; position: relative; text-align: center">edit</i></button></td>
 
-              <!-- Modal editar -->
+              <!-- Modal editar extra -->
 
               <div bsModal #editaExtra="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1"
                 id="modalEditar" (onHidden)="reiniciarExtras(); uploaded = false;">
                 <div *ngIf="eextra != null && eextra.id == extra.id">
-                  <form class="modal-dialog modal-lg" (ngSubmit)="actualizarExtra()">
+                  <form class="modal-dialog modal-lg" name="formeditextra" (ngSubmit)="formeditextra.valid && actualizarExtra()" #formeditextra="ngForm" novalidate>
                     <div class="modal-content">
                       <div class="modal-header">
                         <h4 id="dialog-sizes-name1" class="modal-title pull-left">Editar Extra</h4>
@@ -488,19 +516,26 @@
                               <div class="form-group">
                                 <label for="inputNombre">Nombre</label>
                                 <input type="text" class="form-control" id="inputNombre" placeholder="Nombre" value="{{extra.nombre}}"
-                                  [(ngModel)]="eextra.nombre" name="nombre">
+                                  [(ngModel)]="eextra.nombre" name="nombreeEx" #nombreeEx="ngModel" 
+                                  [ngClass]= "{ 'is-invalid': formeditextra.submitted && nombreeEx.invalid }" required>
+                                  <div *ngIf="formeditextra.submitted" class="invalid-feedback">
+                                      <div *ngIf="nombreeEx.errors != null && nombreeEx.errors.required">El extra debe tener un nombre</div>
                               </div>
 
                               <div class="form-group">
                                 <label for="inputPrecio">Precio (Bs.S)</label>
-                                <input type="text" class="form-control bg-dark text-white" id="inputPrecio" style="display: inline-block; vertical-align: middle;"
+                                <input type="number" class="form-control bg-dark text-white" id="inputPrecio" style="display: inline-block; vertical-align: middle;"
                                   placeholder="Ingrese el precio en Bs.S" value="{{extra.precio}}" [(ngModel)]="eextra.precio"
-                                  name="precio">
+                                  name="precioeEx" #precioeEx="ngModel" [ngClass]="{ 'is-invalid': formeditextra.submitted && precioeEx.invalid }" required>
+                                  <div *ngIf="formeditextra.submitted" class="invalid-feedback">
+                                      <div *ngIf="precioeEx.errors != null && precioeEx.errors.required">El extra debe tener un precio</div>
+                                  </div>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
+                    </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-right: auto; color:white;"
                           (click)="editaExtra.hide()">
@@ -511,7 +546,7 @@
                           Actualizar
                         </button>
 
-                        <!-- Modal confirmar edicion -->
+                        <!-- Modal confirmar edicion extra -->
                         <div bsModal #confirmacionEdicion="bs-modal" class="modal fade" tabindex="-1" role="dialog"
                           aria-labelledby="dialog-sizes-name1">
                           <div class="modal-dialog modal-sm">
@@ -541,20 +576,21 @@
                                   (click)="confirmacionEdicion.hide();">
                                   Cancelar
                                 </button>
-                                <button type="submit" class="btn btn-danger" (click)="confirmacionEdicion.hide(); editaExtra.hide()"><i
+                                <button type="submit" class="btn btn-danger" (click)="confirmacionEdicion.hide();((formeditextra.valid && editaExtra.hide()) && !(formeditextra.valid && editaExtra.show())) || !((formeditextra.valid && editaExtra.hide()) && (formeditextra.valid && editaExtra.show()))"><i
                                     class="material-icons" style="vertical-align: middle; margin-right: 2%; margin-left: auto;">check</i>
                                   Confirmar
                                 </button>
                               </div>
                             </div>
                           </div>
-                        </div> <!-- Fin Modal confirmar edicion -->
+                        </div> <!-- Fin Modal confirmar edicion extra -->
 
                       </div>
-                    </div>
-                  </form>
+                    
+                  </div>
+                  </form> 
                 </div>
-              </div> <!-- Fin Modal editar -->
+              </div> <!-- Fin Modal editar extra -->
 
               <td><button type="button" class="close" (click)="eliminarExtra.show()" aria-label="Close"><i class="material-icons"
                     style="vertical-align: middle; position: relative; text-align: center">close</i></button></td>
@@ -687,8 +723,8 @@
                       <label for="precio">Precio</label>
                       <input type="number" class="form-control bg-dark text-white" name="precioEx" placeholder="Ingrese el precio en Bs.S"
                         #precioEx="ngModel" [ngClass]="{ 'is-invalid': formagregarExtra.submitted && precioEx.invalid }"
-                        style="display: inline-block; margin-bottom: 2%; vertical-align: middle;" [(ngModel)]="nextra.precio">
-                      <div *ngIf="formagregarExtra.submitted" class="invalid-feedback">
+                        style="display: inline-block; margin-bottom: 2%; vertical-align: middle;" [(ngModel)]="nextra.precio" required>
+                      <div *ngIf="formagregarExtra.submitted" class="invalid-feedback"></div>
                         <div *ngIf="precioEx.errors != null && precioEx.errors.required">Ingrese el nombre del extra</div>
                       </div>
 
@@ -699,25 +735,30 @@
               </div>
             </div>
 
-          </div>
-        </form>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-left: 0; margin-right:auto; color:white;"
+                  (click)="agregarExtra.hide()">
+                  Cerrar
+                </button>
+          
+                <button (click)="((formagregarExtra.valid && agregarExtra.hide()) && !(formagregarExtra.valid && agregarExtra.show())) || !((formagregarExtra.valid && agregarExtra.hide()) && (formagregarExtra.valid && agregarExtra.show()))"
+                  type="submit" class="btn btn-danger"><i class="material-icons" style="vertical-align: middle; position:relative; margin-left: auto; margin-right:0; text-align: center">add</i>
+                  Agregar extra
+                </button>
+          
+            </div>
+        </form> <!--Aqui?-->
       </div>
     </div>
     
 
-    <div class="modal-footer">
-
-      <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-left: 0; margin-right:auto; color:white;"
-        (click)="agregarExtra.hide()">
-        Cerrar
-      </button>
-
-      <button (click)="((formagregarExtra.valid && agregarExtra.hide()) && !(formagregarExtra.valid && agregarExtra.show())) || !((formagregarExtra.valid && agregarExtra.hide()) && (formagregarExtra.valid && agregarExtra.show()))"
-        type="submit" class="btn btn-danger"><i class="material-icons" style="vertical-align: middle; position:relative; margin-left: auto; margin-right:0; text-align: center">add</i>
-        Agregar extra
-      </button>
-
-    </div>
+    
 
     
   </tab><!-- Fin Tab Extras -->
+
+
+<i class="fa fa-chevron-up" *ngIf="sortDirection === 'asc'" ></i>
+<i class="fa fa-chevron-down" *ngIf="sortDirection === 'desc'"></i>
+<ng-content></ng-content>

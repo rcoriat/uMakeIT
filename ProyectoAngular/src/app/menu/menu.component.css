@@ -54,8 +54,6 @@ a:hover{
 
 .descripcion{
     padding: 4%;
-    border: 3px solid #000000;
-    border-radius: 10px 10px 10px 10px;
     width: 100%;
 
 }
@@ -63,7 +61,7 @@ a:hover{
 .precio{
     padding: 2%;
     width: 100%;
-    border-radius: 10px 10px 10px 10px;
+    border-radius: 3px 3px 3px 3px;
     background: darkslategray;
 }
 

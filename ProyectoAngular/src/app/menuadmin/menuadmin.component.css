@@ -45,3 +45,11 @@ accordion-group:hover{
   margin:0 auto;
   width:40%;
 }
+
+#tablaPlatos i:hover, #tablaExtras i:hover{
+  cursor: pointer;
+}
+
+#tablaPlatos, #tablaExtras{
+  user-select: none; 
+}

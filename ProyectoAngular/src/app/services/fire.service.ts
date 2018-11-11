@@ -11,7 +11,7 @@ import { Extra } from '../models/extra';
 })
 export class FireService {
 
-  platosCollection: AngularFirestoreCollection<Plato>;
+  public platosCollection: AngularFirestoreCollection<Plato>;
   platos: Observable<Plato[]>;
   platoDoc: AngularFirestoreDocument<Plato>;
   extrasCollection: AngularFirestoreCollection<Extra>;
@@ -75,6 +75,45 @@ export class FireService {
     this.extraDoc.update(extra);
   }
 
+  ordenarPorCategoria(collection: string, categoria: string, sentido: string) {
+    if (collection === 'platos') {
+      if (sentido === 'asc') {
+        return this.db.collection('platos', ref => ref.orderBy(categoria, 'asc')).snapshotChanges().pipe(map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data() as Plato;
+            data.id = a.payload.doc.id;
+            return data;
+          });
+        }));
+      } else {
+        return this.db.collection(collection, ref => ref.orderBy(categoria, 'desc')).snapshotChanges().pipe(map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data() as Plato;
+            data.id = a.payload.doc.id;
+            return data;
+          });
+        }));
+      }
+    } else if (collection === 'extras') {
+        if (sentido === 'asc') {
+          return this.db.collection('extras', ref => ref.orderBy(categoria, 'asc')).snapshotChanges().pipe(map(actions => {
+            return actions.map(a => {
+              const data = a.payload.doc.data() as Plato;
+              data.id = a.payload.doc.id;
+              return data;
+            });
+          }));
+        } else {
+          return this.db.collection('extras', ref => ref.orderBy(categoria, 'desc')).snapshotChanges().pipe(map(actions => {
+            return actions.map(a => {
+              const data = a.payload.doc.data() as Plato;
+              data.id = a.payload.doc.id;
+              return data;
+            });
+          }));
+        }
+    }
+  }
 
 
 }

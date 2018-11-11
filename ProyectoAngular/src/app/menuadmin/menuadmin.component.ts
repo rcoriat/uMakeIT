@@ -1,13 +1,14 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
-import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { Component, OnInit, TemplateRef, AfterViewInit } from '@angular/core';
 import { FireService } from '../services/fire.service';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Plato } from '../models/plato';
 import { Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
-import { BsModalService } from 'ngx-bootstrap/modal';
 import { Extra } from '../models/extra';
 import { Reference } from '@angular/fire/firestore';
+import { ActivatedRoute } from '@angular/router';
+import { Navigation } from 'selenium-webdriver';
+
 
 @Component({
   selector: 'app-menuadmin',
@@ -21,12 +22,11 @@ export class MenuadminComponent implements OnInit {
   porcentajeUpload: Observable<number>;
   public imagenURL: Observable<any>;
 
-  platos = [];
+  platos: Plato[];
   extras = [];
 
   public nplato = {} as Plato; // nuevo plato
   public eplato: Plato; // plato de edicion
-  modalAgregar: BsModalRef; // modal confirmar
   uploaded: boolean;
 
   public subscriptionplatos: Subscription;
@@ -36,30 +36,59 @@ export class MenuadminComponent implements OnInit {
   public nextra = {} as Extra; // nuevo extra
   public eextra: Extra; // extra de edicion
 
-  public incluido = []; // json bs-sortable de extras incluidos
-  public noIncluido = []; // json bs-sortable de extras no incluidos
+  public incluido = []; 
+  public noIncluido = []; 
 
   public nplatoextras: Observable<any>[];
 
-  constructor(public platoService: FireService, private afStorage: AngularFireStorage, private modalService: BsModalService) {
+  sentidoscatplato = [];
+  ordenandocatplato = [];
+
+  sentidoscatextra = [];
+  ordenandocatextra = []
+
+  // tslint:disable-next-line:max-line-length
+  constructor(public platoService: FireService, private afStorage: AngularFireStorage) {
     this.uploaded = false;
+
   }
 
   ngOnInit() {
-      this.subscriptionplatos = this.platoService.getPlatos().subscribe(platos => {
-        this.platos = platos;
-        console.log(this.platos);
-      });
-      // this.subscriptionimgURL = this.imagenURL.subscribe();
-      this.subscriptionextras = this.platoService.getExtras().subscribe(extras => {
-        this.extras = extras;
-        for (let i = 0; i < this.extras.length; i++) {
-          this.noIncluido[i] = this.extras[i].nombre;
-        }
-      });
+    this.subscriptionplatos = this.platoService.getPlatos().subscribe(platos => {
+      this.platos = platos;
+      console.log(this.platos);
+    });
+    // this.subscriptionimgURL = this.imagenURL.subscribe();
+    this.subscriptionextras = this.platoService.getExtras().subscribe(extras => {
+      this.extras = extras;
+      for (let i = 0; i < this.extras.length; i++) {
+        this.noIncluido[i] = this.extras[i].nombre;
+      }
+    });
 
+    
+    /*this.ascdesctipo = 'desc';
+    this.ascdescnombre = 'asc';
+    this.ascdescpers = 'asc';
+    this.ascdescdisp = 'asc';
+    this.ascdescprecio = 'asc';*/
+
+    
+    for (let i = 0; i < 5; i++) {
+      this.ordenandocatplato.push(false);
+      this.sentidoscatplato.push('desc');
+      if (i >= 3) {
+        continue;
+      }
+      this.ordenandocatextra.push(false);
+      this.sentidoscatextra.push('desc');
+    }
+    console.log(this.ordenandocatplato);
+    console.log(this.sentidoscatplato);
   }
 
+    
+  
 
   upload(event) {
     const file = event.target.files[0];
@@ -82,6 +111,9 @@ export class MenuadminComponent implements OnInit {
   addPlato() {
     if ( this.nplato.tipo == null) {
       this.nplato.tipo = 'Principal';
+    }
+    if (this.nplato.personalizable == null) {
+      this.nplato.personalizable = false;
     }
     if (this.imagenURL === undefined) {
       this.nplato.imagen = "https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85";
@@ -336,6 +368,44 @@ export class MenuadminComponent implements OnInit {
         this.noIncluido.push(this.extras[i].nombre);
       }
     }
+  }
+
+  ordenarPorPlato(categoria: string, indicecat: number) {
+   this.platoService.ordenarPorCategoria('platos', categoria, this.sentidoscatplato[indicecat]).subscribe(platos => {
+    
+    this.platos = platos;
+    if (this.sentidoscatplato[indicecat] === 'asc') {
+      this.sentidoscatplato[indicecat] = 'desc';
+    } else {
+      this.sentidoscatplato[indicecat] = 'asc';
+    }
+    console.log(this.sentidoscatplato);
+      for (let i = 0; i < 5; i++) {
+        this.ordenandocatplato[i] = false;
+        if (i === indicecat) {
+          this.ordenandocatplato[i] = true;
+        }
+      }
+      console.log(this.ordenandocatplato);
+    });
+
+  }
+
+  ordenarExtras(categoria: string, indicecat: number) {
+    this.platoService.ordenarPorCategoria('extras', categoria, this.sentidoscatextra[indicecat]).subscribe(extras => {
+      this.extras = extras;
+      if(this.sentidoscatextra[indicecat] === 'asc') {
+        this.sentidoscatextra[indicecat] = 'desc';
+      } else {
+        this.sentidoscatextra[indicecat] = 'asc';
+      }
+      for (let i = 0; i < 3; i++) {
+        this.ordenandocatextra[i] = false;
+        if (i === indicecat) {
+          this.ordenandocatextra[i] = true;
+        }
+      }
+    });
   }
 
 }
