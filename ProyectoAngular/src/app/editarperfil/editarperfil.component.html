@@ -3,33 +3,48 @@
 <div id="fondo">
 
     <div id="contenedor-perfil">
-      <form>
+      <form (ngSubmit)="formperfil.valid && actualizarUsuario()" name="formperfil" #formperfil="ngForm" novalidate>
         <h3>Editar Perfil</h3>
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="inputNombre">Nombre</label>
-            <input type="text" class="form-control" id="inputNombre" placeholder="John" required> 
+            <input type="text" class="form-control" id="inputNombre" name="nombreU" [(ngModel)]="eusuario.nombre" #nombreU="ngModel" [ngClass]="{ 'is-invalid': formperfil.submitted && nombreU.invalid }" required> 
+            <div *ngIf="formperfil.submitted" class="invalid-feedback">
+              <div *ngIf="nombreU.errors != null && nombreU.errors.required">El usuario debe tener un nombre</div>
+            </div>
           </div>
 
           <div class="form-group col-md-6">
             <label for="inputApellido">Apellido</label>
-            <input type="text" class="form-control" id="inputApellido" placeholder="Appleseed" required>
+            <input type="text" class="form-control" id="inputApellido" name="apellidoU" [(ngModel)]="eusuario.apellido"  #apellidoU="ngModel" [ngClass]="{ 'is-invalid': formperfil.submitted && apellidoU.invalid }" required>
+            <div *ngIf="formperfil.submitted" class="invalid-feedback">
+              <div *ngIf="apellidoU.errors != null && apellidoU.errors.required">El usuario debe tener un apellido</div>
+            </div>
           </div>
           <div class="form-group col-md-4">
               <label for="inputSexo">Sexo</label>
-              <select class="form-control" id="inputSexo" required>
-                <option>Femenino</option>
-                <option selected>Masculino</option>
-                <option>Otro</option>
+              <select class="form-control" id="inputSexo" name="sexoU" [(ngModel)]="eusuario.sexo" #sexoU="ngModel" [ngClass]="{ 'is-invalid': formperfil.submitted && sexoU.invalid }" required>
+                <option value="Femenino">Femenino</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Otro">Otro</option>
               </select>
+              <div *ngIf="formperfil.submitted" class="invalid-feedback">
+                <div *ngIf="sexoU.errors != null && sexoU.errors.required">El usuario debe tener un sexo</div>
+              </div>
             </div>
             <div class="form-group col-md-2">
               <label for="inputEdad">Edad</label>
-              <input type="text" class="form-control" id="inputEdad" placeholder="21" required>
+              <input type="text" class="form-control" id="inputEdad" name="edadU" [(ngModel)]="eusuario.edad" #edadU="ngModel" [ngClass]="{ 'is-invalid': formperfil.submitted && edadU.invalid }" required>
+              <div *ngIf="formperfil.submitted" class="invalid-feedback">
+                <div *ngIf="edadU.errors != null && edadU.errors.required">El usuario debe tener una edad</div>
+              </div>
             </div> 
             <div class="form-group col-md-6">
-              <label for="inputUsuario">Usuario</label>
-              <input type="text" class="form-control" id="inputUsuario" placeholder="macintosh120" required>
+              <label for="inputUsuario">Correo</label>
+              <input type="text" class="form-control" id="inputUsuario" name="correoU" [(ngModel)]="eusuario.correo" #correoU="ngModel" [ngClass]="{ 'is-invalid': formperfil.submitted && correoU.invalid }" required>
+              <div *ngIf="formperfil.submitted" class="invalid-feedback">
+                <div *ngIf="correoU.errors != null && correoU.errors.required">El usuario debe tener un correo</div>
+              </div>
             </div>  
         </div>
          
@@ -37,25 +52,35 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="inputContra">Nueva contraseña</label>
-              <input type="password" class="form-control" id="inputContra" placeholder="*******" required>
+              <input type="text" class="form-control" id="inputContra"  name="contraU" #contraU="ngModel" [ngClass]="{ 'is-invalid': formperfil.submitted && contraU.invalid }" required>
+              <div *ngIf="formperfil.submitted" class="invalid-feedback">
+                <div *ngIf="contraU.errors != null && contraU.errors.required">El usuario debe tener una contraseña</div>
+              </div>
             </div>
             <div class="form-group col-md-6">
               <label for="inputContra">Confirmar</label>
-              <input type="password" class="form-control" id="inputConfirm" placeholder="*******" required>
+              <input type="text" class="form-control" id="inputConfirm" name="confcontraU" #confcontraU="ngModel" [ngClass]="{ 'is-invalid': formperfil.submitted && contraU.invalid }"  required> -->
+              <div *ngIf="formperfil.submitted" class="invalid-feedback">
+                <div *ngIf="confcontraU.errors != null && confcontraU.errors.required">El usuario debe tener una contraseña</div>
+                <div *ngIf="confcontraU != contraU">Las contraseñas no coinciden</div>
+              </div>
             </div>
           </div>
         <div class="form-group">
           <div class="form-group">
             <label for="inputDireccion">Dirección</label>
-            <textarea class="form-control" id="inputDireccion" rows="3" placeholder="La segunda estrella a la izquierda, y hacia la derecha." required></textarea>
+            <textarea class="form-control" id="inputDireccion" rows="3" name="direccionU" [(ngModel)]="eusuario.direccion" #direccionU="ngModel" [ngClass]="{ 'is-invalid': formperfil.submitted && direccionU.invalid }" required></textarea>
+            <div *ngIf="formperfil.submitted" class="invalid-feedback">
+              <div *ngIf="direccionU.errors != null && direccionU.errors.required">El usuario debe tener una direccion</div>
+            </div>
           </div>
         </div>
         <div style="text-align: center;">
-          <button type="submit" class="btn btn-danger" style="display: inline-block; margin-right: 0;">Actualizar</button>
+          <button type="submit" class="btn btn-danger" style="display: inline-block; margin-right: 0;" (click)="(formperfil.valid)">Actualizar</button>
         </div>
       </form>
     </div>
-    <a [routerLink]="['/menu']"><button type="submit" class="btn btn-dark" style="display: block; margin: 0 auto;">Regresar</button></a>
+    <a [routerLink]="['/menu']"><button type="button" class="btn btn-dark" style="display: block; margin: 0 auto;">Regresar</button></a>
     
   </div>
 

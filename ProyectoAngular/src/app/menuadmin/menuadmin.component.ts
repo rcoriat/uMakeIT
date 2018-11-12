@@ -261,10 +261,6 @@ export class MenuadminComponent implements OnInit, AfterViewInit {
     this.uploaded = false;
   }
 
-  // openModal(agregarPlato: TemplateRef<any>) {
-  //   this.modalAgregar = this.modalService.show(agregarPlato);
-  // }
-
   addExtra() {
     if (this.imagenURL === undefined) {
       this.nextra.imagen = "https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85";

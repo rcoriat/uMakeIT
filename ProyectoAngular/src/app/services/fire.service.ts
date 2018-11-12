@@ -20,7 +20,7 @@ export class FireService {
   extrasCollection: AngularFirestoreCollection<Extra>;
   extras: Observable<Extra[]>;
   extraDoc: AngularFirestoreDocument<Extra>;
-  usuariosCollection: AngularFirestoreCollection<Usuario>;
+  public usuariosCollection: AngularFirestoreCollection<Usuario>;
   usuarios: Observable<Usuario[]>;
   usuarioDoc: AngularFirestoreDocument<Usuario>;
   platosCarritosCollection: AngularFirestoreCollection<Plato>;
@@ -58,6 +58,7 @@ export class FireService {
       return actions.map(a => {
         const data = a.payload.doc.data as Usuario;
         data.id = a.payload.doc.id;
+        console.log(data);
         return data;
       });
     }));
