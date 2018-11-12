@@ -39,7 +39,6 @@ export class EditarperfilComponent implements OnInit {
 
   actualizarUsuario(){
     this.perfilService.actualizarUsuario(this.eusuario);
-    this.eusuario = {} as Usuario;
 
   }
 

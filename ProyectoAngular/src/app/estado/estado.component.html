@@ -3,18 +3,19 @@
   <div id="contenedor">
     <h3>Estado de Pedido</h3>
     <div style="text-align: center; margin-top: 5%">
-      <h4>Ingrese el número de pedido que desea revisar:</h4>
+      <h5>Ingrese el número de pedido que desea revisar:</h5>
       <div style="display: flex; flex-direction: row; margin-top: 5%">
+      <form (ngSubmit)="buscarPedido()">
         <div style="width: 70%;">
-          <input type="text" class="form-control" style="display: inline-block; width: 75%;" id="inputIDPedido"
-            required>
+          <input type="number" class="form-control" style="display: inline-block; width: 75%;" id="inputIDPedido" name="pedido" [(ngModel)]="numpedido" required>
         </div>
         <div style="width: 30%; padding-right: 5%;">
-          <button type="submit" class="btn btn-danger" (click)="busqueda.show()" style="display: inline-block;"><i
+          <button type="submit" class="btn btn-danger"  style="display: inline-block;" (click)="busqueda.show();"><i
               class="material-icons" style="vertical-align: middle; margin-right: 2%; margin-left: auto;">search</i>
             Revisar
           </button>
         </div>
+      </form>
       </div>
     </div>
   </div>
@@ -26,7 +27,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Pedido #4623 Ubicado</h4>
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Pedido #{{resultado.numorden}} Ubicado</h4>
         <button type="button" class="close pull-right" (click)="busqueda.hide()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -36,10 +37,15 @@
           <div class="col">
             <div class="descripcion">
               <h5 style="display:inline-block; margin-right: 2%;">Estado:</h5>
-              <h5 style="font-weight:light; display:inline-block;">Ve bajando</h5>
+              <h5 style="font-weight:light; display:inline-block;">{{resultado.estado}}</h5>
             </div>
             <div id="imagenEstado">
-              <img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/estado%2Fdelivery2.jpg?alt=media&token=7a9dde60-8fc1-4a52-8961-bbc64646ec1e" alt="estado pedido">
+              <img *ngIf="resultado.estado == 'Pendiente'" src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/estado%2Fpendiente.png?alt=media&token=3b482497-f024-402d-9099-aeef93ce5037" alt="estado pedido">
+              <img *ngIf="resultado.estado == 'Recibido'" src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/estado%2Fverificar.png?alt=media&token=cd813ded-5510-408b-9544-64187c1d0762" alt="estado pedido">
+              <img *ngIf="resultado.estado == 'En preparación'" src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/estado%2Fpreparacion.png?alt=media&token=e862dcba-507b-4bf3-91e2-9c78d30b94b2" alt="estado pedido">
+              <img *ngIf="resultado.estado == 'Listo para salir'" src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/estado%2Flistoparasalir.png?alt=media&token=b5650f9b-e0bd-4d24-8c5e-74c41b99cc8f" alt="estado pedido">
+              <img *ngIf="resultado.estado == 'En camino'" src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/estado%2Fcamion.png?alt=media&token=2f68b42c-ce64-4f2f-8aba-5168734e60a5" alt="estado pedido">
+              <img *ngIf="resultado.estado == 'Completado'" src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/estado%2Fdelivery2.jpg?alt=media&token=7a9dde60-8fc1-4a52-8961-bbc64646ec1e" alt="estado pedido">
             </div>
           </div>
         </div>
@@ -54,12 +60,5 @@
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
 
 <app-piedepagina></app-piedepagina>
