@@ -16,7 +16,7 @@ import { Navigation } from 'selenium-webdriver';
   styleUrls: ['./menuadmin.component.css']
 })
 
-export class MenuadminComponent implements OnInit {
+export class MenuadminComponent implements OnInit, AfterViewInit {
 
   isFirstDisabled = false;
   porcentajeUpload: Observable<number>;
@@ -54,11 +54,17 @@ export class MenuadminComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.subscriptionplatos !== undefined) {
+      this.subscriptionplatos.unsubscribe();
+    }
     this.subscriptionplatos = this.platoService.getPlatos().subscribe(platos => {
       this.platos = platos;
       console.log(this.platos);
     });
     // this.subscriptionimgURL = this.imagenURL.subscribe();
+    if (this.subscriptionextras !== undefined) {
+      this.subscriptionextras.unsubscribe();
+    }
     this.subscriptionextras = this.platoService.getExtras().subscribe(extras => {
       this.extras = extras;
       for (let i = 0; i < this.extras.length; i++) {
@@ -66,14 +72,6 @@ export class MenuadminComponent implements OnInit {
       }
     });
 
-    
-    /*this.ascdesctipo = 'desc';
-    this.ascdescnombre = 'asc';
-    this.ascdescpers = 'asc';
-    this.ascdescdisp = 'asc';
-    this.ascdescprecio = 'asc';*/
-
-    
     for (let i = 0; i < 5; i++) {
       this.ordenandocatplato.push(false);
       this.sentidoscatplato.push('desc');
@@ -83,12 +81,12 @@ export class MenuadminComponent implements OnInit {
       this.ordenandocatextra.push(false);
       this.sentidoscatextra.push('desc');
     }
-    console.log(this.ordenandocatplato);
-    console.log(this.sentidoscatplato);
   }
 
-    
-  
+  ngAfterViewInit() {
+    //this.ngOnInit();
+    console.log('ngAfterViewInit');
+  }
 
   upload(event) {
     const file = event.target.files[0];
@@ -129,6 +127,7 @@ export class MenuadminComponent implements OnInit {
             }
           }
       }
+      this.nplato.cantidad = 1;
       this.platoService.agregarPlato(this.nplato);
     } else {
       if (this.subscriptionimgURL !== undefined) {
@@ -148,6 +147,7 @@ export class MenuadminComponent implements OnInit {
               }
             }
         }
+        this.nplato.cantidad = 1;
         this.platoService.agregarPlato(this.nplato);
       });
     }

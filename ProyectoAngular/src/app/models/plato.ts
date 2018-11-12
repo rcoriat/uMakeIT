@@ -13,4 +13,7 @@ export interface Plato {
     imagen?: string;
     tipo?: string;
     extras?: string[];
+    cliente?: string; // id del cliente en db (si aplica)
+    idMenu?: string;
+    numorden?: number;
 }

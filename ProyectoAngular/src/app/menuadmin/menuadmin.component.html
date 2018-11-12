@@ -44,7 +44,9 @@
 
               <th scope="row">{{ i+1 }}</th>
               <th class="colimg"><img src="{{ plato.imagen }}" alt="imagendelplato"></th>
-              <td><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">local_dining</i></td>
+              <td *ngIf="plato.tipo == 'Entrada'"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">local_dining</i></td>
+              <td *ngIf="plato.tipo == 'Principal'"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">fastfood</i></td>
+              <td *ngIf="plato.tipo == 'Postre'"><i class="material-icons" style="vertical-align: middle; position: relative; text-align: center">cake</i></td>
               <td>{{ plato.nombre }}</td>
               <td>{{ plato.personalizable }}</td>
               <td>

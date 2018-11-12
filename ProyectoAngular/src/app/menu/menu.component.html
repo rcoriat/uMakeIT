@@ -62,12 +62,20 @@
                   </div>
                 </div>
               </div>
-              <br>
-              <h5 *ngIf="platoselect.personalizable">Precio Base</h5>
-              <h5 *ngIf="!platoselect.personalizable">Precio</h5>
+                <div class="form-group" style="vertical-align: middle;">
+                  <h5>Cantidad</h5>
+                  <input type="number" class="form-control bg-dark text-white"  value="{{platoselect.cantidad}}" min="1" max="99" style="width:20%; display: inline-block; margin-bottom: 2%;" disabled>
+                  <button type="button" class="btn btn-danger" (click)="menosCantidad()">
+                    <i class="material-icons md-18" style="vertical-align: middle; margin-right: 2%; margin-left: auto;">remove</i>
+                  </button>
+                  <button type="button" class="btn btn-danger" style="margin-right:1%; height: 100%" (click)="masCantidad()">
+                  <i class="material-icons md-18" style="vertical-align: middle; margin-right: 2%; margin-left: auto;">add</i>
+                  </button>
+                </div>
+              <h5>Subtotal</h5>
               <div class="precio bg-dark text-white" style="margin-top: 3%; margin-bottom: 0; height: 100%; text-align: center;">
                 <h5 style="display: inline-block; margin-bottom: 0; vertical-align: middle;">Bs.S &nbsp;
-                  {{platoselect.precio}}</h5>
+                  {{preciocompleto()}}</h5>
               </div>
             </div>
 
@@ -81,11 +89,56 @@
           (click)="verPlato.hide()">
           Cerrar
         </button>
-        <a [routerLink]="['/carrito']"><button type="submit" class="btn btn-danger"><i class="material-icons" style="vertical-align: middle; margin-right: 2%; margin-left: auto;">shopping_cart</i>
-            Agregar al carrito
-          </button></a>
+        <button *ngIf="platoselect.disponibilidad" type="submit" class="btn btn-danger" (click)="verPlato.hide(); agregarAlCarrito(); confirmacion.show();"><i class="material-icons" style="vertical-align: middle; margin-right: 2%; margin-left: auto;">shopping_cart</i>
+          Agregar al carrito
+        </button>
+        <button *ngIf="!platoselect.disponibilidad" type="button" class="btn btn-warning" disabled>
+            Plato No Disponible
+        </button>
+
       </div>
     </div>
+  </div>
+</div>
+
+
+<div bsModal #confirmacion="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Confirmación</h4>
+        <button type="button" class="close pull-right" (click)="confirmacion.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row align-items-start">
+          <div class="col">
+            <div class="descripcion">
+              <h5 style="display:inline-block; margin-right: 2%;">Se ha agregado &nbsp;{{platoselect.nombre}} ({{platoselect.cantidad}}) al carrito</h5>
+              <label>¿Qué desea hacer?</label>
+            </div>
+            <div id="alerta">
+              <i class="material-icons md-48">alert</i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-warning" style="vertical-align: middle; margin-right: auto; color:white;"
+          (click)="confirmacion.hide();">
+          Volver al menú
+        </button>
+        <a [routerLink]="['/carrito']" routerLinkActive="router-link-active"><button type="submit" class="btn btn-danger" (click)="confirmacion.hide();">
+          <i class="material-icons" style="vertical-align: middle; margin-right: 2%; margin-left: auto;">shopping_cart</i>
+          Ir al carrito
+        </button></a>
+
+      </div>
+    </div>
+
   </div>
 </div>
 
