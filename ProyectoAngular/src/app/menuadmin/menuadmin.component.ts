@@ -3,7 +3,7 @@ import { FireService } from '../services/fire.service';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Plato } from '../models/plato';
 import { Observable, Subscription } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
 import { Extra } from '../models/extra';
 import { Reference } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
@@ -57,7 +57,13 @@ export class MenuadminComponent implements OnInit, AfterViewInit {
     if (this.subscriptionplatos !== undefined) {
       this.subscriptionplatos.unsubscribe();
     }
-    this.subscriptionplatos = this.platoService.getPlatos().subscribe(platos => {
+    this.subscriptionplatos = this.platoService.platosCollection.snapshotChanges().pipe(map(actions => {
+      return actions.map(a => {
+       const data = a.payload.doc.data() as Plato;
+       data.id = a.payload.doc.id;
+       return data;
+      });
+    })).subscribe(platos => {
       this.platos = platos;
       console.log(this.platos);
     });
@@ -65,7 +71,13 @@ export class MenuadminComponent implements OnInit, AfterViewInit {
     if (this.subscriptionextras !== undefined) {
       this.subscriptionextras.unsubscribe();
     }
-    this.subscriptionextras = this.platoService.getExtras().subscribe(extras => {
+    this.subscriptionextras = this.platoService.extrasCollection.snapshotChanges().pipe(map(actions => {
+      return actions.map(a => {
+       const data = a.payload.doc.data() as Extra;
+       data.id = a.payload.doc.id;
+       return data;
+      });
+    })).subscribe(extras => {
       this.extras = extras;
       for (let i = 0; i < this.extras.length; i++) {
         this.noIncluido[i] = this.extras[i].nombre;
