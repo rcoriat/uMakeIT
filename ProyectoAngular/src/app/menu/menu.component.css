@@ -7,7 +7,6 @@
 
 .headerplato{
     width: 100%;
-    background-color: black;
     background-image: url('https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/prueba3.jpg?alt=media&token=4bd8b6ab-f3d9-4dbc-aa5d-de145d14ce27');
     display: block;
     margin: 0 auto;
@@ -15,7 +14,6 @@
 }
 
 .headerplato p{
-    background: rgba(0,0,0,0.4);
     padding: 3%;
     color: white;
     font-size: 2vw;
@@ -30,7 +28,6 @@
     display: inline-block;
     width: 25%;
     margin: 3%;
-    background-color: black;
 }
 
 .plato img{
@@ -39,12 +36,12 @@
 
 .plato img:hover{
     opacity: 0.7;
+    cursor: pointer;
 }
 
 
 a:hover{
     cursor: pointer;
-    background: rgba(0,0,0,0.4);
 
 }
 

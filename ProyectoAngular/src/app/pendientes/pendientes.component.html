@@ -1,336 +1,43 @@
 <app-encabezadoadmin></app-encabezadoadmin>
 <div id="contenido">
-    <h3>Pedidos Pendientes</h3> 
-    <div class="pedido">
-        <h3 style="display: inline-block; width: 50%; text-align: left;">Pedido #20141110638</h3>
-        <h5 style="display: inline-block; width: 50%; text-align: right; vertical-align: top;">14/10/2018</h5>
+    <h3>Cola de Pedidos</h3> 
+    <div class="pedido" *ngFor="let pedido of pedidos">
+        <h3 style="display: inline-block; width: 50%; text-align: left;">Pedido #{{pedido.numorden}}</h3>
+        <h5 style="display: inline-block; width: 50%; text-align: right; vertical-align: top;">{{pedido.fecha.toDateString()}}</h5>
+        <h5 style="display: inline-block; width: 50%; text-align: right; vertical-align: top;">{{traerCliente(pedido.cliente).correo}}</h5>
         <div style="display: inline-block; width: 65%;">
-        <accordion>
-          <accordion-group>
-            <button class="btn btn-link btn-block clearfix" accordion-heading>
-              <div style="display: inline-block; width: 50%; text-align: left">Entrada</div>
-              <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
-            </button>
-            <accordion-group>
-                <button class="btn btn-link btn-block clearfix" accordion-heading>
-                  <img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85" style="display: inline-block; width: 5%; border-radius: 100%">
-                  <div style="display: inline-block; width: 45%; text-align: left; padding-left: 3%">Tequeños</div>
-                  <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
-                </button>
-                <div class="foto">
-                  <img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85">
-                </div>
-                <div class="descripcion">
-                  <h5>Descripción:</h5>
-                  <ul>
-                    <li>Harina de trigo</li>
-                    <li>Queso</li>
-                    <li>Frito</li>
-                    <li>Salsa de tomate</li>
-                    <li>Mermelada</li>
-                  </ul>
-                </div>
-              </accordion-group>
-              <accordion-group>
-                  <button class="btn btn-link btn-block clearfix" accordion-heading>
-                    <img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85" style="display: inline-block; width: 5%; border-radius: 100%">
-                    <div style="display: inline-block; width: 45%; text-align: left; padding-left: 3%">Empanaditas</div>
-                    <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
-                  </button>
-                  <div class="foto">
-                    <img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85">
-                  </div>
-                  <div class="descripcion">
-                    <h5>Descripción:</h5>
-                    <ul>
-                      <li>Fritas</li>
-                      <li>Carne</li>
-                      <li>Salsa de tomate</li>
-                    </ul>
-                  </div>
-                </accordion-group>
-          </accordion-group>
-          <accordion-group>
+          <accordion>
+            <accordion-group style="text-align: center;">
               <button class="btn btn-link btn-block clearfix" accordion-heading>
-                <div style="display: inline-block; width: 50%; text-align: left">Plato Principal</div>
+                <div style="display: inline-block; width: 50%; text-align: left">Platos</div>
                 <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
               </button>
-              <accordion-group>
-                  <button class="btn btn-link btn-block clearfix" accordion-heading>
-                    <img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85" style="display: inline-block; width: 5%; border-radius: 100%">
-                    <div style="display: inline-block; width: 45%; text-align: left; padding-left: 3%">Hamburguesa</div>
-                    <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
-                  </button>
-                  <div class="foto">
-                    <img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85">
-                  </div>
-                  <div class="descripcion">
-                    <h5>Descripción:</h5>
-                    <ul>
-                      <li>Pan integral</li>
-                      <li>200gr de carne</li>
-                      <li>Queso</li>
-                      <li>Salsa de tomate</li>
-                      <li>Salsa de barbecue</li>
-                    </ul>
-                  </div>
-                </accordion-group>
-            </accordion-group>
-            <accordion-group>
-                <button class="btn btn-link btn-block clearfix" accordion-heading>
-                  <div style="display: inline-block; width: 50%; text-align: left">Postre</div>
-                  <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
-                </button>
-                <accordion-group>
-                    <button class="btn btn-link btn-block clearfix" accordion-heading>
-                      <img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85" style="display: inline-block; width: 5%; border-radius: 100%">
-                      <div style="display: inline-block; width: 45%; text-align: left; padding-left: 3%">Torta de Tres Leches</div>
-                      <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
-                    </button>
-                    <div class="foto">
-                      <img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85">
-                    </div>
-                    <div class="descripcion">
-                      <h5>Descripción:</h5>
-                      <ul>
-                        <li>Leche</li>
-                      </ul>
-                    </div>
-                  </accordion-group>
-              </accordion-group>
-        </accordion>
+              <ul *ngFor="let plato of pedido.platos" style="display: inline-block; width: 50%; margin-bottom:2%; padding: 2px" class="list-group">
+                <li class="list-group-item"><img src="{{plato.imagen}}" style="width: 60%; margin:0 auto;"></li>
+                <li class="list-group-item active">{{plato.nombre}} ({{plato.cantidad}})</li>
+                <li class="list-group-item">Bs.S {{plato.precio}}</li>
+                <ul *ngFor="let extra of plato.extras" style="font-size:1vw;">
+                    <li class="list-group-item">+ {{traerExtra(extra).nombre}}</li> 
+                </ul> 
+              </ul> 
+      
+            </accordion-group>  
+          </accordion>
         </div>
-        <div style="display: inline-block; width: 35%; position: relative;">
-            <div class="select">
-              <select>
-                <option>En preparacion</option>
-                <option>Enviado</option>
-                <option selected>Entregado</option>
+        <div style="display: inline-block; width: 35%; position: relative; bottom: 0;">
+            <div class="select" style="text-align-last: center;" style="text-align: center;">
+              <select tooltip="Haz click para cambiar de estado">
+                <option value="Pendiente" [selected]="pedido.estado == 0">Pendiente</option>
+                <option value="Recibido" [selected]="pedido.estado == 1">Recibido</option>
+                <option value="En preparacion" [selected]="pedido.estado == 2">En preparacion</option>
+                <option value="Listo para salir" [selected]="pedido.estado == 3">Listo para salir</option>
+                <option value="En camino" [selected]="pedido.estado == 4">En camino</option>
+                <option value="Entregado" [selected]="pedido.estado == 5">Entregado</option>
               </select>
-              <button type="submit" class="btn btn-danger">Actualizar</button>
+              <button type="submit" class="btn btn-danger" (click)="actualizarPedido(pedido);">Actualizar</button>
             </div>
         </div>
-      </div>
-      <div class="pedido">
-        <h3 style="display: inline-block; width: 50%; text-align: left;">Pedido #20141110638</h3>
-        <h5 style="display: inline-block; width: 50%; text-align: right; vertical-align: top;">14/10/2018</h5>
-        <div style="display: inline-block; width: 65%;">
-        <accordion>
-          <accordion-group>
-            <button class="btn btn-link btn-block clearfix" accordion-heading>
-              <div style="display: inline-block; width: 50%; text-align: left">Entrada</div>
-              <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
-            </button>
-            <accordion-group>
-                <button class="btn btn-link btn-block clearfix" accordion-heading>
-                  <img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85" style="display: inline-block; width: 5%; border-radius: 100%">
-                  <div style="display: inline-block; width: 45%; text-align: left; padding-left: 3%">Tequeños</div>
-                  <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
-                </button>
-                <div class="foto">
-                  <img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85">
-                </div>
-                <div class="descripcion">
-                  <h5>Descripción:</h5>
-                  <ul>
-                    <li>Harina de trigo</li>
-                    <li>Queso</li>
-                    <li>Frito</li>
-                    <li>Salsa de tomate</li>
-                    <li>Mermelada</li>
-                  </ul>
-                </div>
-              </accordion-group>
-              <accordion-group>
-                  <button class="btn btn-link btn-block clearfix" accordion-heading>
-                    <img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85" style="display: inline-block; width: 5%; border-radius: 100%">
-                    <div style="display: inline-block; width: 45%; text-align: left; padding-left: 3%">Empanaditas</div>
-                    <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
-                  </button>
-                  <div class="foto">
-                    <img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85">
-                  </div>
-                  <div class="descripcion">
-                    <h5>Descripción:</h5>
-                    <ul>
-                      <li>Fritas</li>
-                      <li>Carne</li>
-                      <li>Salsa de tomate</li>
-                    </ul>
-                  </div>
-                </accordion-group>
-          </accordion-group>
-          <accordion-group>
-              <button class="btn btn-link btn-block clearfix" accordion-heading>
-                <div style="display: inline-block; width: 50%; text-align: left">Plato Principal</div>
-                <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
-              </button>
-              <accordion-group>
-                  <button class="btn btn-link btn-block clearfix" accordion-heading>
-                    <img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85" style="display: inline-block; width: 5%; border-radius: 100%">
-                    <div style="display: inline-block; width: 45%; text-align: left; padding-left: 3%">Hamburguesa</div>
-                    <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
-                  </button>
-                  <div class="foto">
-                    <img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85">
-                  </div>
-                  <div class="descripcion">
-                    <h5>Descripción:</h5>
-                    <ul>
-                      <li>Pan integral</li>
-                      <li>200gr de carne</li>
-                      <li>Queso</li>
-                      <li>Salsa de tomate</li>
-                      <li>Salsa de barbecue</li>
-                    </ul>
-                  </div>
-                </accordion-group>
-            </accordion-group>
-            <accordion-group>
-                <button class="btn btn-link btn-block clearfix" accordion-heading>
-                  <div style="display: inline-block; width: 50%; text-align: left">Postre</div>
-                  <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
-                </button>
-                <accordion-group>
-                    <button class="btn btn-link btn-block clearfix" accordion-heading>
-                      <img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85" style="display: inline-block; width: 5%; border-radius: 100%">
-                      <div style="display: inline-block; width: 45%; text-align: left; padding-left: 3%">Torta de Tres Leches</div>
-                      <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
-                    </button>
-                    <div class="foto">
-                      <img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85">
-                    </div>
-                    <div class="descripcion">
-                      <h5>Descripción:</h5>
-                      <ul>
-                        <li>Leche descremada</li>
-                      </ul>
-                    </div>
-                  </accordion-group>
-              </accordion-group>
-        </accordion>
-        </div>
-        <div style="display: inline-block; width: 35%; position: relative;">
-            <div class="select">
-              <select>
-                <option>En preparacion</option>
-                <option>Enviado</option>
-                <option>Entregado</option>
-              </select>
-              <button type="submit" class="btn btn-danger">Actualizar</button>
-            </div>
-        </div>
-      </div>
-      <div class="pedido">
-        <h3 style="display: inline-block; width: 50%; text-align: left;">Pedido #20141110638</h3>
-        <h5 style="display: inline-block; width: 50%; text-align: right; vertical-align: top;">14/10/2018</h5>
-        <div style="display: inline-block; width: 65%;">
-        <accordion>
-          <accordion-group>
-            <button class="btn btn-link btn-block clearfix" accordion-heading>
-              <div style="display: inline-block; width: 50%; text-align: left">Entrada</div>
-              <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
-            </button>
-            <accordion-group>
-                <button class="btn btn-link btn-block clearfix" accordion-heading>
-                  <img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85" style="display: inline-block; width: 5%; border-radius: 100%">
-                  <div style="display: inline-block; width: 45%; text-align: left; padding-left: 3%">Tequeños</div>
-                  <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
-                </button>
-                <div class="foto">
-                  <img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85">
-                </div>
-                <div class="descripcion">
-                  <h5>Descripción:</h5>
-                  <ul>
-                    <li>Harina de trigo</li>
-                    <li>Queso</li>
-                    <li>Frito</li>
-                    <li>Salsa de tomate</li>
-                    <li>Mermelada</li>
-                  </ul>
-                </div>
-              </accordion-group>
-              <accordion-group>
-                  <button class="btn btn-link btn-block clearfix" accordion-heading>
-                    <img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85" style="display: inline-block; width: 5%; border-radius: 100%">
-                    <div style="display: inline-block; width: 45%; text-align: left; padding-left: 3%">Empanaditas</div>
-                    <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
-                  </button>
-                  <div class="foto">
-                    <img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85">
-                  </div>
-                  <div class="descripcion">
-                    <h5>Descripción:</h5>
-                    <ul>
-                      <li>Fritas</li>
-                      <li>Carne</li>
-                      <li>Salsa de tomate</li>
-                    </ul>
-                  </div>
-                </accordion-group>
-          </accordion-group>
-          <accordion-group>
-              <button class="btn btn-link btn-block clearfix" accordion-heading>
-                <div style="display: inline-block; width: 50%; text-align: left">Plato Principal</div>
-                <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
-              </button>
-              <accordion-group>
-                  <button class="btn btn-link btn-block clearfix" accordion-heading>
-                    <img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85" style="display: inline-block; width: 5%; border-radius: 100%">
-                    <div style="display: inline-block; width: 45%; text-align: left; padding-left: 3%">Hamburguesa</div>
-                    <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
-                  </button>
-                  <div class="foto">
-                    <img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85">
-                  </div>
-                  <div class="descripcion">
-                    <h5>Descripción:</h5>
-                    <ul>
-                      <li>Pan integral</li>
-                      <li>200gr de carne</li>
-                      <li>Queso</li>
-                      <li>Salsa de tomate</li>
-                      <li>Salsa de barbecue</li>
-                    </ul>
-                  </div>
-                </accordion-group>
-            </accordion-group>
-            <accordion-group>
-                <button class="btn btn-link btn-block clearfix" accordion-heading>
-                  <div style="display: inline-block; width: 50%; text-align: left">Postre</div>
-                  <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
-                </button>
-                <accordion-group>
-                    <button class="btn btn-link btn-block clearfix" accordion-heading>
-                      <img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85" style="display: inline-block; width: 5%; border-radius: 100%">
-                      <div style="display: inline-block; width: 45%; text-align: left; padding-left: 3%">Torta de Tres Leches</div>
-                      <i class="material-icons" style="display: inline-block; width: 50%; text-align: right; vertical-align: middle;">arrow_drop_down</i>
-                    </button>
-                    <div class="foto">
-                      <img src="https://firebasestorage.googleapis.com/v0/b/umakeitbd.appspot.com/o/plato2.png?alt=media&token=3b1e37ab-b454-47ad-af29-e030aa44ae85">
-                    </div>
-                    <div class="descripcion">
-                      <h5>Descripción:</h5>
-                      <ul>
-                        <li>Leche descremada</li>
-                      </ul>
-                    </div>
-                  </accordion-group>
-              </accordion-group>
-        </accordion>
-        </div>
-        <div style="display: inline-block; width: 35%; position: relative;">
-            <div class="select">
-              <select>
-                <option>En preparacion</option>
-                <option selected>Enviado</option>
-                <option>Entregado</option>
-              </select>
-              <button type="submit" class="btn btn-danger">Actualizar</button>
-            </div>
-        </div>
-      </div>
-      <a [routerLink]="['/admin']"><button type="submit" class="btn btn-dark">Regresar</button></a>
+    </div>
+    <a [routerLink]="['/admin']"><button type="submit" class="btn btn-dark">Regresar</button></a>
 </div>
 <app-piedepagina></app-piedepagina>

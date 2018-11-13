@@ -230,6 +230,11 @@ export class FireService {
     this.pedidosDoc.delete();
   }
 
+  actualizarPedido(pedido: Pedido) {
+    this.pedidosDoc = this.db.doc(`pedidos/${pedido.id}`);
+    this.pedidosDoc.update(pedido);
+  }
+
 
   ordenarPorCategoria(collection: string, categoria: string, sentido: string) {
     if (collection === 'platos') {

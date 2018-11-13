@@ -1,10 +1,13 @@
+import { Plato } from './plato';
+
 export interface Pedido {
     id?: string;
-    estado?: string;
+    estado?: number;
     fecha?: Date;
     numorden?: number;
-    platos?: string[];
+    platos?: Plato[];
     subtotal?: number;
     ivatotal?: number;
     preciototal?: number;
+    cliente?: string;
 }

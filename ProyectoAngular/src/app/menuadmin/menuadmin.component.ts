@@ -45,7 +45,7 @@ export class MenuadminComponent implements OnInit, AfterViewInit {
   ordenandocatplato = [];
 
   sentidoscatextra = [];
-  ordenandocatextra = []
+  ordenandocatextra = [];
 
   // tslint:disable-next-line:max-line-length
   constructor(public platoService: FireService, private afStorage: AngularFireStorage) {

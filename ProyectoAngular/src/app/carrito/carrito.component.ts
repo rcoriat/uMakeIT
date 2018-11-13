@@ -126,11 +126,6 @@ export class CarritoComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck() {
-    /*if (this.armarPedido) {
-      this.crearPedido();
-      //this.armarPedido = false;
-      console.log(this.armarPedido);
-    }*/
     if (this.nuevoPedido !== undefined && this.nuevoPedido.numorden != null && this.armarPedido) {
       // tslint:disable-next-line:max-line-length
       this.subscriptionPlatosPedidos = this.platoService.db.collection('platospedidos', ref => ref.where('numorden', '==' , this.nuevoPedido.numorden)).snapshotChanges().pipe(map(actions => {
@@ -142,7 +137,8 @@ export class CarritoComponent implements OnInit, DoCheck {
       })).subscribe(platosPedido => {
         this.nuevoPedido.platos = [];
         for (let i = 0; i < platosPedido.length; i++) {
-          this.nuevoPedido.platos[i] = platosPedido[i].id;
+          //this.nuevoPedido.platos[i] = platosPedido[i].id;
+          this.nuevoPedido.platos[i] = platosPedido[i];
         }
       });
       if (!this.armarPedido) {
@@ -214,47 +210,11 @@ export class CarritoComponent implements OnInit, DoCheck {
   }
 
   crearPedido() {
-      //this.nuevoPedido = {};
-      this.nuevoPedido.estado = 'Pendiente';
+      this.nuevoPedido.estado = 0; // 0 = 'Pendiente'
       this.nuevoPedido.fecha = new Date();
       this.nuevoPedido.subtotal = this.subtotalCarrito();
       this.nuevoPedido.ivatotal = this.iva();
-      this.nuevoPedido.preciototal = this.precioTotalCarrito();/*
-      this.platoService.db.collection('contadorpedidos').snapshotChanges().pipe(map(actions => {
-        return actions.map(a => {
-          const data = a.payload.doc.data() as Contador;
-          data.id = a.payload.doc.id;
-          console.log(data);
-          return data;
-        });
-      })).subscribe(params => {
-        params[0].valor++;
-        this.nuevoPedido.numorden = +(params[0].valor);
-        console.log(this.nuevoPedido.numorden);
-        console.log(params[0].valor);
-        this.platoService.actualizarContadorPedidos(params[0]);
-        for (const plato of this.platos) {
-          plato.numorden = this.nuevoPedido.numorden;
-          this.platoService.agregarPlatoPedido(plato);
-          console.log(plato);
-        }
-      // tslint:disable-next-line:max-line-length
-        this.platoService.db.collection('platospedidos', ref => ref.where('numorden', '==' , this.nuevoPedido.numorden)).snapshotChanges().pipe(map(actions => {
-          return actions.map(a => {
-            const data = a.payload.doc.data() as Plato;
-            data.id = a.payload.doc.id;
-            return data;
-          });
-        })).subscribe(platosPedido => {
-          this.nuevoPedido.platos = [];
-          for (let i = 0; i < platosPedido.length; i++) {
-            this.nuevoPedido.platos[i] = platosPedido[i].id;
-          }
-          this.platoService.agregarPedido(this.nuevoPedido);
-          console.log(this.nuevoPedido);
-          this.vaciarCarrito();
-        });
-      });*/
+      this.nuevoPedido.preciototal = this.precioTotalCarrito();
       this.contador.valor++;
       console.log(this.contador.valor);
       this.platoService.actualizarContadorPedidos(this.contador);
@@ -265,6 +225,7 @@ export class CarritoComponent implements OnInit, DoCheck {
         this.platoService.agregarPlatoPedido(this.platosPedido[i]);
       }
       this.nuevoPedido.platos = this.platosPedido;
+      this.nuevoPedido.cliente = this.usuario.id;
       this.platoService.agregarPedido(this.nuevoPedido);
       console.log(this.nuevoPedido);
       this.vaciarCarrito();

@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { SortableModule } from 'ngx-bootstrap/sortable';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
-import { CarouselModule, BsDropdownModule, ModalModule, AccordionModule, PaginationModule } from 'ngx-bootstrap';
+import { CarouselModule, BsDropdownModule, ModalModule, AccordionModule, PaginationModule, CollapseModule } from 'ngx-bootstrap';
 
 import { TabsModule } from 'ngx-bootstrap/tabs';
 
@@ -33,6 +33,8 @@ import { PendientesComponent } from './pendientes/pendientes.component';
 
 import { FireService } from './services/fire.service';
 import { Reference } from '@angular/fire/firestore';
+
+
 
 
 const routes: Routes = [
@@ -82,9 +84,11 @@ const routes: Routes = [
     AngularFireAuthModule,
     AngularFireStorageModule,
     TabsModule.forRoot(),
+    CollapseModule.forRoot(),
     FormsModule,
     SortableModule.forRoot(),
     TooltipModule.forRoot(),
+    
 
   ],
   providers: [
