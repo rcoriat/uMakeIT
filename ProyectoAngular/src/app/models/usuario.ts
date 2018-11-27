@@ -1,6 +1,11 @@
+export interface Roles {
+    admin?: boolean;
+    cliente?: boolean;
+}
+
 export interface Usuario {
     id?: string;
-    admin?: boolean;
+    roles?: Roles;
     apellido?: string;
     pass?: string;
     correo?: string;
@@ -8,4 +13,5 @@ export interface Usuario {
     edad?: number;
     nombre?: string;
     sexo?: string;
+    admin?: boolean;
 }

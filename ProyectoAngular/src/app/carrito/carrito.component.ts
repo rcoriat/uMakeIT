@@ -1,5 +1,6 @@
 import { Component, OnInit, OnChanges, DoCheck } from '@angular/core';
 import { FireService } from '../services/fire.service';
+import { UserService } from '../services/user.service';
 import { Plato } from '../models/plato';
 import { map } from 'rxjs/operators';
 import { Usuario } from '../models/usuario';
@@ -24,13 +25,15 @@ export class CarritoComponent implements OnInit, DoCheck {
   contador = {} as Contador;
   platosPedido = [];
   subscriptionPlatosPedidos: Subscription;
+  emailUsr = '';
 
-  constructor(public platoService: FireService) { }
+  constructor(public platoService: FireService, public usrService: UserService) { }
 
   ngOnInit() {
+    this.emailUsr = this.usrService.getUsuario().email;
     this.armarPedido = true;
     // tslint:disable-next-line:max-line-length
-    this.platoService.db.collection('usuarios', ref => ref.where('correo', '==' , 'cguillen@unimet.edu.ve')).snapshotChanges().pipe(map(actions => {
+    this.platoService.db.collection('usuarios', ref => ref.where('correo', '==' , this.emailUsr)).snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
         const data = a.payload.doc.data() as Usuario;
         data.id = a.payload.doc.id;

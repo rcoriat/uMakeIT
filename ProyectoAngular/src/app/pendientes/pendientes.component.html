@@ -3,7 +3,7 @@
     <h3>Cola de Pedidos</h3> 
     <div class="pedido" *ngFor="let pedido of pedidos">
         <h3 style="display: inline-block; width: 50%; text-align: left;">Pedido #{{pedido.numorden}}</h3>
-        <h5 style="display: inline-block; width: 50%; text-align: right; vertical-align: top;">{{pedido.fecha.toDateString()}}</h5>
+        <h5 style="display: inline-block; width: 50%; text-align: right; vertical-align: top;">{{pedido.fecha.toLocaleString()}}</h5>
         <h5 style="display: inline-block; width: 50%; text-align: right; vertical-align: top;">{{traerCliente(pedido.cliente).correo}}</h5>
         <div style="display: inline-block; width: 65%;">
           <accordion>
@@ -26,13 +26,13 @@
         </div>
         <div style="display: inline-block; width: 35%; position: relative; bottom: 0;">
             <div class="select" style="text-align-last: center;" style="text-align: center;">
-              <select tooltip="Haz click para cambiar de estado">
-                <option value="Pendiente" [selected]="pedido.estado == 0">Pendiente</option>
-                <option value="Recibido" [selected]="pedido.estado == 1">Recibido</option>
-                <option value="En preparacion" [selected]="pedido.estado == 2">En preparacion</option>
-                <option value="Listo para salir" [selected]="pedido.estado == 3">Listo para salir</option>
-                <option value="En camino" [selected]="pedido.estado == 4">En camino</option>
-                <option value="Entregado" [selected]="pedido.estado == 5">Entregado</option>
+              <select tooltip="Haz click para cambiar de estado" [(ngModel)]="pedido.estado" name="selectedo" #selectedo="ngModel">
+                <option value=0 [selected]="pedido.estado == 0">Pendiente</option>
+                <option value=1 [selected]="pedido.estado == 1">Recibido</option>
+                <option value=2 [selected]="pedido.estado == 2">En preparacion</option>
+                <option value=3 [selected]="pedido.estado == 3">Listo para salir</option>
+                <option value=4 [selected]="pedido.estado == 4">En camino</option>
+                <option value=5 [selected]="pedido.estado == 5">Entregado</option>
               </select>
               <button type="submit" class="btn btn-danger" (click)="actualizarPedido(pedido);">Actualizar</button>
             </div>

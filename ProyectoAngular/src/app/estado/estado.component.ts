@@ -37,7 +37,7 @@ export class EstadoComponent implements OnInit {
     if (pedido.estado === 0) {
       return 'Pendiente';
     } else if (pedido.estado === 1) {
-      return 'Recibido';
+      return 'Verificado';
     } else if (pedido.estado === 2) {
       return 'En preparacion';
     } else if (pedido.estado === 3) {

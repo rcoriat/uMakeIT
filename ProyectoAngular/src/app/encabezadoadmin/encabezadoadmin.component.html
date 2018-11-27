@@ -4,7 +4,7 @@
   </div>
   <div id="hder">
     <div class="btn-group" dropdown>
-        <button id="botonname" type="button" class="btn btn-danger" [routerLink]="['/editar-perfil']">Administrador</button>
+        <button id="botonname" type="button" class="btn btn-danger" [routerLink]="['/editar-perfil']">{{usuario.nombre}} {{usuario.apellido}}</button>
         <button id="button-split" type="button" dropdownToggle class="btn btn-danger dropdown-toggle dropdown-toggle-split" aria-controls="dropdown-split">
 
         </button>
@@ -12,8 +12,7 @@
           <li role="menuitem"><a class="dropdown-item" [routerLink]="['/admin']">Agregar al menu</a></li>
           <li role="menuitem"><a class="dropdown-item" [routerLink]="['/pendientes']">Pedidos pendientes</a></li>
           <li class="divider dropdown-divider"></li>
-          <li role="menuitem"><a class="dropdown-item" [routerLink]="['/inicio']">Cerrar Sesión</a>
-          </li>
+          <li role="menuitem" (click)="cerrarSesion()" class="dropdown-item">Cerrar sesión</li>
         </ul>
       </div>
   </div>

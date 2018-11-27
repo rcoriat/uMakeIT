@@ -5,6 +5,7 @@
     <div id="contenedor-perfil">
       <form (ngSubmit)="formperfil.valid && actualizarUsuario()" name="formperfil" #formperfil="ngForm" novalidate>
         <h3>Editar Perfil</h3>
+        
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="inputNombre">Nombre</label>
@@ -21,6 +22,7 @@
               <div *ngIf="apellidoU.errors != null && apellidoU.errors.required">El usuario debe tener un apellido</div>
             </div>
           </div>
+
           <div class="form-group col-md-4">
               <label for="inputSexo">Sexo</label>
               <select class="form-control" id="inputSexo" name="sexoU" [(ngModel)]="eusuario.sexo" #sexoU="ngModel" [ngClass]="{ 'is-invalid': formperfil.submitted && sexoU.invalid }" required>
@@ -32,6 +34,7 @@
                 <div *ngIf="sexoU.errors != null && sexoU.errors.required">El usuario debe tener un sexo</div>
               </div>
             </div>
+
             <div class="form-group col-md-2">
               <label for="inputEdad">Edad</label>
               <input type="text" class="form-control" id="inputEdad" name="edadU" [(ngModel)]="eusuario.edad" #edadU="ngModel" [ngClass]="{ 'is-invalid': formperfil.submitted && edadU.invalid }" required>
@@ -39,6 +42,7 @@
                 <div *ngIf="edadU.errors != null && edadU.errors.required">El usuario debe tener una edad</div>
               </div>
             </div> 
+
             <div class="form-group col-md-6">
               <label for="inputUsuario">Correo</label>
               <input type="text" class="form-control" id="inputUsuario" name="correoU" [(ngModel)]="eusuario.correo" #correoU="ngModel" [ngClass]="{ 'is-invalid': formperfil.submitted && correoU.invalid }" required>
@@ -46,35 +50,50 @@
                 <div *ngIf="correoU.errors != null && correoU.errors.required">El usuario debe tener un correo</div>
               </div>
             </div>  
-        </div>
-         
+            
+          </div>
+
+            <div class="form-group">
+              <div class="form-group">
+                <label for="inputDireccion">Dirección</label>
+                <textarea class="form-control" id="inputDireccion" rows="3" name="direccionU" [(ngModel)]="eusuario.direccion" #direccionU="ngModel" [ngClass]="{ 'is-invalid': formperfil.submitted && direccionU.invalid }" required></textarea>
+                <div *ngIf="formperfil.submitted" class="invalid-feedback">
+                  <div *ngIf="direccionU.errors != null && direccionU.errors.required">El usuario debe tener una direccion</div>
+                </div>
+              </div>
+            </div>
           
+
+          <div class="form-group">
+            <div class="form-group">
+              <label for="inputContraActual">Contraseña actual</label>
+              <input type="password" class="form-control" id="inputContraActual" name="contraActual" #contraActual="ngModel" [ngClass]="{ 'is-invalid': formperfil.submitted && contraActual.invalid }" [(ngModel)]="pwActual" required>
+              <div *ngIf="formperfil.submitted" class="invalid-feedback">
+                <div *ngIf="contraActual.touched && contraActual.errors != null && contraActual.errors.required">Debe ingresar la contraseña actual</div>
+              </div>
+            </div>
+          </div>
+
+          
+         <!--cierra form-row--> 
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="inputContra">Nueva contraseña</label>
-              <input type="password" class="form-control" id="inputContra" name="contraU" #contraU="ngModel" [ngClass]="{ 'is-invalid': formperfil.submitted && contraU.invalid }" [(ngModel)]="eusuario.pass" required>
+              <label for="inputContra" class="control-label">Nueva contraseña</label>
+              <input tooltip="Ingrese una nueva contraseña con mínimo 6 caracteres" type="password" class="form-control" id="inputContra" name="contraU" #contraU="ngModel" [ngClass]="{ 'is-invalid': formperfil.submitted && contraU.invalid }" [(ngModel)]="password" required>
               <div *ngIf="formperfil.submitted" class="invalid-feedback">
-                <div *ngIf="contraU.errors != null && contraU.errors.required">El usuario debe tener una contraseña</div>
+                <div *ngIf="contraU.touched && contraU.errors != null && contraU.errors.required">El usuario debe tener una contraseña</div>
               </div>
             </div>
             <div class="form-group col-md-6">
-              <label for="inputContra">Confirmar</label>
-              <input type="password" class="form-control" id="inputConfirm" name="confirmar" ngModel #confirmar="ngModel" compare="contraU" [ngClass]="{ 'is-invalid': formperfil.submitted && confirmar.invalid }"  required>
+              <label for="inputContra" class="control-label">Confirmar</label>
+              <input type="password" appConfirmEqualValidator="contraU" class="form-control" id="inputConfirm" name="confirmar" #confirmar="ngModel" compare="contraU" [ngClass]="{ 'is-invalid': formperfil.submitted && confirmar.invalid }" [(ngModel)]="confirmpw" required>
               <div *ngIf="confirmar.invalid && (confirmar.dirty || confirmar.touched)" class="invalid-feedback">
-                <div *ngIf="contraU.errors != null && contraU.errors.required">Debe confirmar la nueva contraseña</div>
-                <div *ngIf="confirmar.errors['compare']">Las contraseñas no coinciden</div>
+                <div *ngIf="confirmar.errors != null && confirmar.errors.required">Debe confirmar la nueva contraseña</div>
+                <div *ngIf="confirmar.errors != null && confirmar.errors.notEqual">Las contraseñas no coinciden</div>
               </div>
             </div>
           </div>
-        <div class="form-group">
-          <div class="form-group">
-            <label for="inputDireccion">Dirección</label>
-            <textarea class="form-control" id="inputDireccion" rows="3" name="direccionU" [(ngModel)]="eusuario.direccion" #direccionU="ngModel" [ngClass]="{ 'is-invalid': formperfil.submitted && direccionU.invalid }" required></textarea>
-            <div *ngIf="formperfil.submitted" class="invalid-feedback">
-              <div *ngIf="direccionU.errors != null && direccionU.errors.required">El usuario debe tener una direccion</div>
-            </div>
-          </div>
-        </div>
+      
         <div style="text-align: center;">
           <button type="submit" class="btn btn-danger" style="display: inline-block; margin-right: 0;">Actualizar</button>
         </div>

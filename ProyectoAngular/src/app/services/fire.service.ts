@@ -7,6 +7,7 @@ import { Extra } from '../models/extra';
 import { Usuario } from '../models/usuario';
 import { Contador } from '../models/contador';
 import { Pedido } from '../models/pedido';
+import * as firebase from 'firebase';
 
 
 @Injectable({
@@ -275,6 +276,5 @@ export class FireService {
         }
     }
   }
-
 
 }

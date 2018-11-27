@@ -4,6 +4,7 @@
   <accordion class="pedido" *ngFor="let pedido of historial">
     <h3 style="display: inline-block; width: 50%; text-align: left;">Pedido #{{pedido.numorden}}</h3>
     <h5 style="display: inline-block; width: 50%; text-align: right; vertical-align: top;">{{pedido.fecha.toDateString()}}</h5>
+    <h5 style="display: inline-block; width: 50%; text-align: right; vertical-align: top;">Estado: {{estadoPedido(pedido)}}</h5>
     <accordion>
       <accordion-group style="text-align: center;">
         <button class="btn btn-link btn-block clearfix" accordion-heading>

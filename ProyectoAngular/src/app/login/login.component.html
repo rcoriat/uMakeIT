@@ -5,21 +5,23 @@
   <div id="contenedorlog">
     <label class="selectores">Iniciar Sesión</label>
     <a [routerLink]="['/registro']"><label class="selectores" style="border-bottom: 4px solid #000000; border-left: 4px solid #000000; border-radius: 0 0 0 5px;">Registrarse</label></a>
-    <form>
+    <form name="formlog" #formlog="ngForm" (ngSubmit)="iniciarSesion()">
         <div class="form-group">
           <label for="exampleInputEmail1">Correo</label>
-          <input type="email" class="form-control" id="inputEmail1" placeholder="Ingrese su correo">
+          <input type="email" name="correoU" #correoU="ngModel" class="form-control" id="inputEmail1" placeholder="Ingrese su correo" [(ngModel)]="email">
         </div>
         <div class="form-group">
-          <label for="inputContra">Contraseña</label>
-          <input type="password" class="form-control" id="inputContra" placeholder="Ingrese su contraseña"  style="margin-bottom: 2%;">
+          <label for="inputContra" >Contraseña</label>
+          <input type="password" name="pwU" #pwU="ngModel" class="form-control" id="inputContra" placeholder="Ingrese su contraseña" [(ngModel)]="pw" style="margin-bottom: 2%;">
           <a [routerLink]="['/olvido']"><label>¿Olvidó su contraseña?</label></a>
         </div>
         <div style="text-align: right">
-          <a [routerLink]="['/menu']"><button type="submit" class="btn btn-danger" style="display: inline-block;">Ingresar</button></a>
+          <button type="submit" class="btn btn-danger" style="display: inline-block;">Iniciar Sesion</button>
         </div>
     </form>
   </div>
   <a [routerLink]="['/inicio']"><button type="submit" class="btn btn-dark" style="display: block; margin: 0 auto;">Regresar</button></a>
 
 </div>
+
+<div *ngIf="usrService.uid | async as uid"></div>

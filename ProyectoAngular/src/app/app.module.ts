@@ -30,28 +30,31 @@ import { EstadoComponent } from './estado/estado.component';
 import { EncabezadoadminComponent } from './encabezadoadmin/encabezadoadmin.component';
 import { MenuadminComponent } from './menuadmin/menuadmin.component';
 import { PendientesComponent } from './pendientes/pendientes.component';
+import { ConfirmEqualValidatorDirective } from './compartido/confirm-equal-validator.directive';
 
 import { FireService } from './services/fire.service';
 import { Reference } from '@angular/fire/firestore';
+import { AuthGuard } from './guards/auth.guard';
+import { AdminGuard } from './guards/admin.guard';
 
 
 
 
 const routes: Routes = [
-  { path: '', redirectTo:'inicio', pathMatch:'full'},
+  { path: '', redirectTo: 'inicio', pathMatch: 'full'},
   { path: 'inicio', component: InicioComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registro', component: RegistroComponent },
   { path: 'olvido', component: OlvidoComponent },
-  { path: 'menu', component: MenuComponent },
-  { path: 'contacto', component: ContactaradminComponent },
-  { path: 'editar-perfil', component: EditarperfilComponent },
-  { path: 'carrito', component: CarritoComponent },
-  { path: 'historial', component: HistorialComponent },
-  { path: 'estado', component: EstadoComponent },
-  { path: 'admin', component: MenuadminComponent },
-  { path: 'pendientes', component: PendientesComponent },
-]
+  { path: 'menu', component: MenuComponent, canActivate: [AuthGuard] },
+  { path: 'contacto', component: ContactaradminComponent, canActivate: [AuthGuard]  },
+  { path: 'editar-perfil', component: EditarperfilComponent, canActivate: [AuthGuard]  },
+  { path: 'carrito', component: CarritoComponent, canActivate: [AuthGuard]  },
+  { path: 'historial', component: HistorialComponent, canActivate: [AuthGuard]  },
+  { path: 'estado', component: EstadoComponent, canActivate: [AuthGuard]  },
+  { path: 'admin', component: MenuadminComponent, canActivate: [AdminGuard] },
+  { path: 'pendientes', component: PendientesComponent, canActivate: [AdminGuard] },
+];
 
 @NgModule({
   declarations: [
@@ -71,6 +74,7 @@ const routes: Routes = [
     EncabezadoadminComponent,
     MenuadminComponent,
     PendientesComponent,
+    ConfirmEqualValidatorDirective
   ],
   imports: [
     BrowserModule,
@@ -88,7 +92,6 @@ const routes: Routes = [
     FormsModule,
     SortableModule.forRoot(),
     TooltipModule.forRoot(),
-    
 
   ],
   providers: [

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FireService } from '../services/fire.service';
+import { UserService } from '../services/user.service';
 import { Usuario } from '../models/usuario';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-
 
 
 @Component({
@@ -17,12 +17,17 @@ export class EditarperfilComponent implements OnInit {
   eusuario: Usuario;
 
   public subscriptionusuarios: Subscription;
+  password = '';
+  confirmpw = '';
+  emailUsr = '';
+  pwActual = '';
 
-  constructor(public perfilService: FireService) { }
+  constructor(public perfilService: FireService, public usrService: UserService) { }
 
   ngOnInit() {
+    this.emailUsr = this.usrService.getUsuario().email;
     // tslint:disable-next-line:max-line-length
-    this.perfilService.db.collection('usuarios', ref => ref.where('correo', '==' , 'cguillen@unimet.edu.ve')).snapshotChanges().pipe(map(actions => {
+    this.perfilService.db.collection('usuarios', ref => ref.where('correo', '==' , this.emailUsr)).snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
         const data = a.payload.doc.data() as Usuario;
         data.id = a.payload.doc.id;
@@ -30,22 +35,13 @@ export class EditarperfilComponent implements OnInit {
       });
     })).subscribe(usuarios => {
       this.eusuario = usuarios[0];
-      this.eusuario.pass = '';
     });
   }
 
-  // editarUsuario(event, usuario: Usuario){
-  //   this.eusuario = usuario;
-  // }
-
   actualizarUsuario() {
-    console.log(this.eusuario);
+    this.usrService.login(this.emailUsr, this.pwActual);
+    this.usrService.cambiarPW(this.password);
     this.perfilService.actualizarUsuario(this.eusuario);
-
   }
-
-
-
-
 
 }

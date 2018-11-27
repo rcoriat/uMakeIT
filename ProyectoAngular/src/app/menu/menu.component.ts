@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit, ElementRef, TemplateRef } from '@angu
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { FireService } from '../services/fire.service';
+import { UserService } from '../services/user.service';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
@@ -10,7 +11,6 @@ import { Reference } from '@angular/fire/firestore';
 import { Plato } from '../models/plato';
 import { Extra } from '../models/extra';
 import { Usuario } from '../models/usuario';
-
 
 
 
@@ -37,12 +37,14 @@ export class MenuComponent implements OnInit, AfterViewInit {
   public subscriptionplatos: Subscription;
 
   public usuario: Usuario;
+  emailUsr = '';
 
   // tslint:disable-next-line:max-line-length
-  constructor(private elementRef: ElementRef, private modalPlato: BsModalService, public platoService: FireService, private afStorage: AngularFireStorage, ) { }
+  constructor(private elementRef: ElementRef, private modalPlato: BsModalService, public platoService: FireService, private afStorage: AngularFireStorage, public usrService: UserService, ) { }
   
 
   ngOnInit() {
+    this.emailUsr = this.usrService.getUsuario().email;
 
     // tslint:disable-next-line:max-line-length
     this.subscriptionextras = this.platoService.db.collection('extras', ref => ref.where('disponible', '==' , true)).snapshotChanges().pipe(map(actions => {
@@ -106,8 +108,9 @@ export class MenuComponent implements OnInit, AfterViewInit {
       console.log(this.postres);
     });
 
+
     // tslint:disable-next-line:max-line-length
-    this.platoService.db.collection('usuarios', ref => ref.where('correo', '==' , 'cguillen@unimet.edu.ve')).snapshotChanges().pipe(map(actions => {
+    this.platoService.db.collection('usuarios', ref => ref.where('correo', '==' , this.emailUsr)).snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
         const data = a.payload.doc.data() as Usuario;
         data.id = a.payload.doc.id;

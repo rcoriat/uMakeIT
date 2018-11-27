@@ -5,18 +5,18 @@
   <div id="contenedorlog">
     <label class="selectores">Olvidé mi contraseña</label>
     <a [routerLink]="['/registro']"><label class="selectores" style="border-bottom: 4px solid #000000; border-left: 4px solid #000000; border-radius: 0 0 0 5px;">Registrarse</label></a>
-    <form>
+    <form (ngSubmit)="sendResetEmail()">
         <div class="form-group">
           <h5 style="margin: 2% auto 8% auto;">Ingrese el correo asociado a su cuenta y le enviaremos su contraseña.</h5>
           <label for="exampleInputEmail1">Correo</label>
-          <input type="email" class="form-control" id="inputEmail" placeholder="Ingrese su correo" required>
+          <input type="email" class="form-control" id="inputEmail" placeholder="Ingrese su correo" name="email" [(ngModel)]="email" required>
         </div>
         <div style="text-align: right">
-          <a [routerLink]="['/inicio']"><button type="submit" class="btn btn-danger" (click)="openModal(contraenviada)" style="display: inline-block;">Enviar contraseña a mi correo</button></a>
+          <button type="submit" class="btn btn-danger" (click)="openModal(contraenviada)" style="display: inline-block;">Enviar contraseña a mi correo</button>
         </div>
     </form>
   </div>
-  <a [routerLink]="['/inicio']"><button type="submit" class="btn btn-dark" style="display: block; margin: 0 auto;">Regresar</button></a>
+  <a [routerLink]="['/inicio']"><button type="button" class="btn btn-dark" style="display: block; margin: 0 auto;">Regresar</button></a>
    <!-- Modal de que se envió la contraseña al usuario. Se crea en el olvido.components.ts -->
   <ng-template #contraenviada >
     <div class="modal-header">
@@ -26,7 +26,7 @@
       </button>
     </div>
     <div class="modal-body">
-      Revise el buzon de entrada de su correo:<h6 style="text-align: center; margin-top: 2%;">cguillen@unimet.edu.ve</h6>Si no lo encuentra, por favor revise el buzon de mensajes no deseados o spam.
+      Revise el buzón de entrada de su correo:<h6 style="text-align: center; margin-top: 2%;">{{email}}</h6>Si no lo encuentra, por favor revise el buzón de mensajes no deseados o spam.
     </div>
   </ng-template>
 

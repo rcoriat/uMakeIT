@@ -34,7 +34,7 @@
 
 #botonname{
     min-width: 85%;
-    font-size: 2vw;
+    font-size: 1.5vw;
 }
 
 #botonname:focus{
@@ -63,4 +63,8 @@
 
 .dropdown-item:hover{
     background: rgba(247, 84, 84, 0.5) ;
+}
+
+li:hover{
+    cursor:pointer;
 }

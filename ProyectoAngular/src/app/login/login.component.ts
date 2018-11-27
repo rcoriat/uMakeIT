@@ -1,4 +1,6 @@
 import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
+import { UserService } from '../services/user.service';
+import { setOffsetToUTC } from 'ngx-bootstrap/chronos/units/offset';
 
 @Component({
   selector: 'app-login',
@@ -7,13 +9,23 @@ import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
 })
 export class LoginComponent implements OnInit, AfterViewInit {
 
-  constructor(private elementRef: ElementRef) { }
+  email = '';
+  pw = '';
+
+  constructor(private elementRef: ElementRef, public usrService: UserService) { }
 
   ngOnInit() {
+
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = 'whitesmoke';
+  }
+
+  iniciarSesion() {
+    console.log(this.email);
+    console.log(this.pw);
+    this.usrService.login(this.email, this.pw);
   }
 
 }

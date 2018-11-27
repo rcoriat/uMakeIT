@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FireService } from '../services/fire.service';
+import { UserService } from '../services/user.service';
 import { Usuario } from '../models/usuario';
 import { Pedido } from '../models/pedido';
 import { Subscription} from 'rxjs';
@@ -7,6 +8,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { Timestamp } from 'rxjs/internal/operators/timestamp';
 import { Plato } from '../models/plato';
 import { Extra } from '../models/extra';
+
 
 
 @Component({
@@ -19,12 +21,14 @@ export class HistorialComponent implements OnInit {
   usuario: Usuario;
   historial: Pedido[];
   extras = [];
+  emailUsr = '';
 
-  constructor(public historialService: FireService) { }
+  constructor(public historialService: FireService, public usrService: UserService) { }
 
   ngOnInit() {
+    this.emailUsr = this.usrService.getUsuario().email;
     // tslint:disable-next-line:max-line-length
-    this.historialService.db.collection('usuarios', ref => ref.where('correo', '==' , 'cguillen@unimet.edu.ve')).snapshotChanges().pipe(map(actions => {
+    this.historialService.db.collection('usuarios', ref => ref.where('correo', '==' , this.emailUsr)).snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
         const data = a.payload.doc.data() as Usuario;
         data.id = a.payload.doc.id;
@@ -94,6 +98,22 @@ export class HistorialComponent implements OnInit {
     for (const p of pedido.platos) {
       p.numorden = null;
       this.historialService.agregarPlatoCarrito(p);
+    }
+  }
+
+  estadoPedido(pedido: Pedido) {
+    if (pedido.estado === 0) {
+      return 'Pendiente';
+    } else if (pedido.estado === 1) {
+      return 'Verificado';
+    } else if (pedido.estado === 2) {
+      return 'En preparacion';
+    } else if (pedido.estado === 3) {
+      return 'Listo para salir';
+    } else if (pedido.estado === 4) {
+      return 'En camino';
+    } else {
+      return 'Entregado';
     }
   }
 

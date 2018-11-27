@@ -35,6 +35,7 @@ export class PendientesComponent implements OnInit {
         let fechatemp = new Date();
         fechatemp.setTime(+fechatempstr * 1000);
         this.pedidos[i].fecha = fechatemp;
+        /*
         // tslint:disable-next-line:max-line-length
         this.pedidosService.db.collection('usuarios', ref => ref.where('id', '==' , this.pedidos[i].cliente)).snapshotChanges().pipe(map(actions => {
           return actions.map(a => {
@@ -44,7 +45,7 @@ export class PendientesComponent implements OnInit {
           });
         })).subscribe(usuarios => {
           this.clientes = usuarios;
-      });
+      });*/
       this.sortPedidos();
       console.log(this.pedidos);
       }
@@ -58,6 +59,18 @@ export class PendientesComponent implements OnInit {
     })).subscribe(extras => {
       this.extras = extras;
     });
+
+    // tslint:disable-next-line:max-line-length
+    this.pedidosService.db.collection('usuarios').snapshotChanges().pipe(map(actions => {
+      return actions.map(a => {
+        const data = a.payload.doc.data() as Usuario;
+        data.id = a.payload.doc.id;
+        return data;
+      });
+    })).subscribe(usuarios => {
+      this.clientes = usuarios;
+  });
+    
   }
 
   traerExtra(id: string) {
@@ -95,6 +108,7 @@ export class PendientesComponent implements OnInit {
   }
 
   actualizarPedido(pedido: Pedido) {
+    pedido.estado = Number(pedido.estado.valueOf());
     console.log(pedido.estado);
     this.pedidosService.actualizarPedido(pedido);
   }
@@ -103,7 +117,7 @@ export class PendientesComponent implements OnInit {
     if (pedido.estado === 0) {
       return 'Pendiente';
     } else if (pedido.estado === 1) {
-      return 'Recibido';
+      return 'Verificado';
     } else if (pedido.estado === 2) {
       return 'En preparacion';
     } else if (pedido.estado === 3) {
